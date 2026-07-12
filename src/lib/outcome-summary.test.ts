@@ -30,6 +30,17 @@ const expectedComponentCounts: Record<string, number[]> = {
   "a4-7": [2, 2],
 };
 
+const detailedIssueLabels = [
+  "IMMIG: Civilian-refugee admissions",
+  "HEALTH: Repeal of the Affordable Care Act",
+  "UNEMPLOY: $600-per-week supplemental unemployment benefit",
+  "COVID: Public face-mask requirement",
+  "FOREIGN: Ban on Chinese-owned apps",
+  "POLICE: Reallocation of police funding to social services",
+  "BLACKWHITE[A-D]: Perceived racial fairness across institutions",
+  "SEXISM1_2[A,B]: Attitudes about sexism and sexual-harassment allegations",
+];
+
 describe("splitNumberedItems", () => {
   it("extracts paragraph-separated and inline numbered components", () => {
     expect(splitNumberedItems("1. Supporters\n\n2. Candidates\n\n3. Smartness")).toEqual(["Supporters", "Candidates", "Smartness"]);
@@ -73,6 +84,31 @@ describe("curated record summaries", () => {
       "Feeling-thermometer difference: people running for office for the preferred party vs. the other party",
       "Perceived-smartness difference: preferred-party supporters vs. other-party supporters",
     ]);
+  });
+
+  it("keeps corrected Polarization content and curated summary labels", () => {
+    const affective = outcomeTables.find((table) => table.id === "a1-1")!;
+    const issue = outcomeTables.find((table) => table.id === "a1-2")!;
+    const chronologicalAffective = affective.rows.find((row) => row.paper.startsWith("Chronological Feed"))!;
+    const deactivationAffective = affective.rows.find((row) => row.paper.startsWith("Deactivation"))!;
+    const untrustworthyAffective = affective.rows.find((row) => row.paper.startsWith("Untrustworthy"))!;
+    const chronologicalIssue = issue.rows.find((row) => row.paper.startsWith("Chronological Feed"))!;
+    const adIssue = issue.rows.find((row) => row.paper.startsWith("Ad Experimental"))!;
+    const deactivationIssue = issue.rows.find((row) => row.paper.startsWith("Deactivation"))!;
+    const likemindedIssue = issue.rows.find((row) => row.paper.startsWith("Likeminded"))!;
+    const resharesIssue = issue.rows.find((row) => row.paper.startsWith("Reshares"))!;
+
+    expect(chronologicalAffective.pages).toContain("S-57, S-58, S-59, S-60 (pooled treatment effects, across specifications, Instagram)");
+    expect(chronologicalAffective.pages).not.toContain("pooled treatment effects, pooled, across specifications, Instagram");
+    expect(deactivationAffective.waves).toBe("Wave 4 (main analyses)\n\nWave 5 (post-endline analyses)");
+    expect(untrustworthyAffective.method).toContain("2. Omit Question (3) because it was only asked in Wave 4");
+    expect(untrustworthyAffective.method).toContain("3. Main outcome combines the W4 and W5 for Questions (1) and (2)");
+    expect(deriveRowSummary(issue, chronologicalIssue).methods.every((method) => !method.label.toLocaleLowerCase().includes("factor analysis"))).toBe(true);
+    expect(chronologicalIssue.method).toContain("factor analysis showed");
+    expect(deriveRowSummary(issue, adIssue).components.map((component) => component.label)).toEqual(detailedIssueLabels);
+    expect(deriveRowSummary(issue, deactivationIssue).components.map((component) => component.label)).toEqual(detailedIssueLabels);
+    expect(likemindedIssue.waves).toBe("Wave 4");
+    expect(splitNumberedItems(resharesIssue.method)).toHaveLength(3);
   });
 
   it("derives display data without mutating persisted records", () => {

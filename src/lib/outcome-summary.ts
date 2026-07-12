@@ -136,10 +136,13 @@ export function parseSourceEntries(value: string): SourceEntry[] {
 export function deriveRowSummary(table: OutcomeTable, row: OutcomeRow): RowSummary {
   const curated = getCuratedRecordSummary(table, row);
   if (!curated) throw new Error(`Missing curated summary for ${table.id} / ${row.paper}`);
+  const excludedMethodTagTerms = curated.excludedMethodTagTerms ?? [];
 
   return {
     components: curated.components,
-    methods: deriveMethodTags(row.method),
+    methods: deriveMethodTags(row.method).filter((method) => (
+      !excludedMethodTagTerms.some((term) => method.label.toLocaleLowerCase().includes(term.toLocaleLowerCase()))
+    )),
     sources: parseSourceEntries(row.pages),
   };
 }

@@ -48,12 +48,9 @@ function ComponentSummary({ table, row }: { table: OutcomeTable; row: OutcomeRow
   if (!components.length) return <span className="text-[#52606d]" aria-label="Not specified in source">—</span>;
 
   return (
-    <div className="flex items-start gap-2.5">
-      <span className="inline-flex min-w-6 justify-center rounded-full bg-[#dce8ff] px-2 py-1 text-xs font-bold text-[#2159b3]">{components.length}</span>
-      <ol className="min-w-0 list-decimal space-y-1 pl-5 text-[#35435b] marker:font-bold marker:text-[#2159b3]">
-        {components.map((component) => <li key={`${component.sourceField}-${component.sourceItem}`}>{component.label}</li>)}
-      </ol>
-    </div>
+    <ol className="min-w-0 list-decimal space-y-1 pl-5 text-[#35435b] marker:font-bold marker:text-[#2159b3]">
+      {components.map((component) => <li key={`${component.sourceField}-${component.sourceItem}`}>{component.label}</li>)}
+    </ol>
   );
 }
 
@@ -93,7 +90,7 @@ function MobileSummaryCard({ table, row, index, onOpen }: { table: OutcomeTable;
       <dl className="mt-5 grid gap-5">
         <div>
           <dt className="text-[0.68rem] font-bold tracking-[0.13em] text-[#b94f35] uppercase">Waves</dt>
-          <dd className="mt-1.5 text-sm leading-6 text-[#35435b]">{row.waves.trim() || "—"}</dd>
+          <dd className="mt-1.5 whitespace-pre-line text-sm leading-6 text-[#35435b]">{row.waves.trim() || "—"}</dd>
         </div>
         <div>
           <dt className="text-[0.68rem] font-bold tracking-[0.13em] text-[#b94f35] uppercase">Components / Key Variables</dt>
@@ -137,7 +134,7 @@ function SummaryTable({ table, onOpen }: { table: OutcomeTable; onOpen: (row: Ou
             {table.rows.map((row, index) => (
               <tr key={`${table.id}-${row.paper}-${index}`} tabIndex={0} onClick={() => onOpen(row)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onOpen(row); } }} aria-label={`View details for ${row.paper}`} className="cursor-pointer align-top even:bg-[#f7f4ed]/70 hover:bg-[#eaf5f3] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#147d79]">
                 <th scope="row" className="border-r border-t border-[#14213d]/10 px-4 py-4 font-bold leading-5 text-[#14213d]">{row.paper}</th>
-                <td className="border-r border-t border-[#14213d]/10 px-4 py-4 leading-5 text-[#35435b]">{row.waves.trim() || "—"}</td>
+                <td className="whitespace-pre-line border-r border-t border-[#14213d]/10 px-4 py-4 leading-5 text-[#35435b]">{row.waves.trim() || "—"}</td>
                 <td className="border-r border-t border-[#14213d]/10 px-4 py-4"><ComponentSummary table={table} row={row} /></td>
                 <td className="border-r border-t border-[#14213d]/10 px-4 py-4"><MethodSummary table={table} row={row} /></td>
                 <td className="border-r border-t border-[#14213d]/10 px-4 py-4"><SourceChips table={table} row={row} /></td>

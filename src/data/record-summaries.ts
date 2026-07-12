@@ -10,6 +10,7 @@ export interface CuratedComponent {
 
 export interface CuratedRecordSummary {
   components: CuratedComponent[];
+  excludedMethodTagTerms?: string[];
 }
 
 const CF = "Chronological Feed (Guess et al., 2023)";
@@ -54,14 +55,14 @@ const affectivePolarization = [
 ];
 
 const detailedIssueOpinions = [
-  "Civilian-refugee admissions",
-  "Repeal of the Affordable Care Act",
-  "$600-per-week supplemental unemployment benefit",
-  "Public face-mask requirement",
-  "Ban on Chinese-owned apps",
-  "Reallocation of police funding to social services",
-  "Perceived racial fairness across institutions",
-  "Attitudes about sexism and sexual-harassment allegations",
+  "IMMIG: Civilian-refugee admissions",
+  "HEALTH: Repeal of the Affordable Care Act",
+  "UNEMPLOY: $600-per-week supplemental unemployment benefit",
+  "COVID: Public face-mask requirement",
+  "FOREIGN: Ban on Chinese-owned apps",
+  "POLICE: Reallocation of police funding to social services",
+  "BLACKWHITE[A-D]: Perceived racial fairness across institutions",
+  "SEXISM1_2[A,B]: Attitudes about sexism and sexual-harassment allegations",
 ];
 
 const politicalParticipation = [
@@ -159,7 +160,10 @@ export const curatedRecordSummaries: Record<string, CuratedRecordSummary> = {
   [recordSummaryKey("a1-1", UN)]: fromQuestions(...affectivePolarization),
 
   // A1.2 - Issue polarization
-  [recordSummaryKey("a1-2", CF)]: fromQuestions("Issue opinions: immigration, healthcare, unemployment, COVID-19 restrictions, racial discrimination, and gender discrimination"),
+  [recordSummaryKey("a1-2", CF)]: {
+    ...fromQuestions("Issue opinions: immigration, healthcare, unemployment, COVID-19 restrictions, racial discrimination, and gender discrimination"),
+    excludedMethodTagTerms: ["factor analysis"],
+  },
   [recordSummaryKey("a1-2", AD)]: fromQuestions(...detailedIssueOpinions),
   [recordSummaryKey("a1-2", DE)]: fromQuestions(...detailedIssueOpinions),
   [recordSummaryKey("a1-2", LM)]: fromQuestions("Issue opinions: immigration, healthcare, unemployment, COVID-19, foreign policy, and police funding"),

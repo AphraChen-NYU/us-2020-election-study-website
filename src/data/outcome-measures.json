@@ -10,7 +10,7 @@
         "questionsUsed": "1. Difference in feeling thermometer scores between people who support the party the respondent prefers (0–100) and people who support the other party (0–100) (FT PEOPLEGROUPSC W3; FT PEOPLEGROUPSD W3; FT PEOPC W4; FT PEOPD W4; FT PEOPC W5; FT PEOPD W5)\n\n2. Difference in feeling thermometer scores between people running for office on behalf of the party the respondent prefers (0–100) and people running for office from the other party (0–100) (FT PEOPLEGROUPSE W3; FT PEOPLEGROUPSF W3; FT PEOPE W4; FT PEOPF W4; FT PEOPE W5; FT PEOPF W5)\n\n3. Difference in perceptions of how smart people are who support the party the respondent prefers and people who support the other party (1–5 where 5 indicates “extremely smart” for both) (DEMSMART W4; REPSMART W4)",
         "waves": "Pooled across waves 3-5",
         "method": "1. Principal components analysis with varimax rotation\n\n2. Exclude respondents who do not lean towards any party",
-        "pages": "S-9 (variable description) S-17, S-19, (complier treatment effects with FB) S-53, S-54, S-55, S-56 (pooled treatment effects, across specifications, Facebook) S-57, S-58, S-59, S-60 (pooled treatment effects, pooled, across specifications, Instagram) S-77, S-78, S-79, S-80, S-81 (wave-by-wave treatment results)"
+        "pages": "S-9 (variable description) S-17, S-19, (complier treatment effects with FB) S-53, S-54, S-55, S-56 (pooled treatment effects, across specifications, Facebook) S-57, S-58, S-59, S-60 (pooled treatment effects, across specifications, Instagram) S-77, S-78, S-79, S-80, S-81 (wave-by-wave treatment results)"
       },
       {
         "paper": "Ad Experimental (Allcott et al., working paper)",
@@ -22,7 +22,7 @@
       {
         "paper": "Deactivation (Allcott et al., 2024)",
         "questionsUsed": "1. Political supporters polarization: Difference in feeling thermometer scores between people who support the party the respondent prefers (0-100) and people who support the other party (0-100) [FT_PEOPD, FT_PEOPC]\n\n2. Political candidates polarization: Difference in feeling thermometer scores between people running for office as the party the respondent prefers (0-100) and people running for office from the other party (0-100) [FT_PEOPF, FT_PEOPE]\n\n3. Party smartness polarization: Difference in perception of how smart people are who support the party the respondent prefers and people who support the other party (1-5, where 5 indicates “extremely smart” for both) [DEMSMART, REPSMART]",
-        "waves": "Wave 4 (main analyses) Wave 5 (post-end line analyses)",
+        "waves": "Wave 4 (main analyses)\n\nWave 5 (post-endline analyses)",
         "method": "1. Each variable was created as the difference between one’s own party and the other party\n\n2. Calculated as the average of standardized values\n\n3. Respondents who lean toward neither party are excluded",
         "pages": "S-12 (variable description) Main Figure 3 (main treatment effects) Main Figure 4 (treatment effects of individual components of Affective Polarization, Facebook) S-31, S-32 (treatment effects across platforms) S-33 (treatment effects of individual components of Affective Polarization, Instagram) S-36 (treatment effects for post-endline survey) S-37, S-38 (treatment effects for individual components of affective polarization, Facebook) S-39, S-40 (treatment effects for individual components of affective polarization, Instagram)"
       },
@@ -44,7 +44,7 @@
         "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
         "questionsUsed": "1. Difference in feeling thermometer scores between people who support the party the respondent prefers and people who support the other party [Wave 4: FT-PEOPD, FT-PEOPE; Wave 5: FT-PEOPC, FT-PEOPD)\n\n2. Difference in feeling thermometer scores between people running for office as the party the respondent prefers and people running for office from the other party (Wave 4: FT-PEOPB, FT-PEOPC; Wave 5: FT-PEOPE, FT-PEOPF)\n\n3. Difference in perceptions of how smart people are who support the party the respondent prefers and people who support the other party (DEMSMART, REPSMART)",
         "waves": "Wave 4-5",
-        "method": "1. Average of three standardized measures\n\n2. Omit (3) because it was only asked in Wave\n\n4. Main outcome combines the W4 and W5 for (1) and (2)",
+        "method": "1. Average of three standardized measures\n\n2. Omit Question (3) because it was only asked in Wave 4\n\n3. Main outcome combines the W4 and W5 for Questions (1) and (2)",
         "pages": "S36 (variable description) Main Figure 3. (main treatment effects) S113, S114, S115 (main treatment effects by platform) S124, S125, S126, S127 (wave-by-wave treatment effects across platforms)"
       }
     ]
@@ -79,7 +79,7 @@
       {
         "paper": "Likeminded (Nyhan et al., 2023)",
         "questionsUsed": "1. Questions on immigration, health care, unemployment, COVID, foreign policy, and policy funding [IMMIG, HEALTH, UNEMPLOY, COVID, POLICE]",
-        "waves": "Wave 4 (?)",
+        "waves": "Wave 4",
         "method": "1. An index of the average of standardized responses resigned (higher values are closer to the congenial-party mean)\n\n2. Exploratory factor analysis with varimax rotation to select items from a list of variables. Those that did not load on the same underlying dimension were analyzed separately",
         "pages": "S10, S84 (variable description) S85, S86 (treatment effects)"
       },
@@ -87,7 +87,7 @@
         "paper": "Reshares (Guess et al., 2023)",
         "questionsUsed": "1. Six issue opinion questions: immigration, healthcare, unemployment, COVID-19 restrictions, perceptions of racial discrimination, and perceptions of gender discrimination [IMMIG W4; HEALTH W4; UNEMPLOY W4; COVID W4; BLACKWHITEA W4; BLACKWHITEB W4; BLACKWHITEC W4; BLACKWHITED W4; SEXISM1 2A W4; SEXISM1 2B W4]",
         "waves": "Wave 4",
-        "method": "1. A composite index. Each question was re-signed so that higher values are closer to the own-party mean\n\n2. Principal components analysis with varimax rotation 3. Items related to policing and foreign policy were excluded because of factor analysis results",
+        "method": "1. A composite index. Each question was re-signed so that higher values are closer to the own-party mean\n\n2. Principal components analysis with varimax rotation\n\n3. Items related to policing and foreign policy were excluded because of factor analysis results",
         "pages": "S-7 (variable description) Main Table 1 (main treatment effects) S-39, S-40, S-41, S-42 (treatment effects across specifications)"
       },
       {
