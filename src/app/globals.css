@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: "Inter Variable", Arial, sans-serif;
+  --font-serif: "Newsreader Variable", Georgia, serif;
+}
+
+:root {
+  color-scheme: light;
+  --navy: #14213d;
+  --navy-deep: #0b162d;
+  --teal: #147d79;
+  --teal-dark: #0e615e;
+  --ivory: #f7f4ed;
+  --paper: #fffdf8;
+  --slate: #52606d;
+  --line: #d7d9d4;
+  --terracotta: #b94f35;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--navy);
+  font-family: "Inter Variable", Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+.font-editorial {
+  font-family: "Newsreader Variable", Georgia, serif;
+}
+
+a,
+button,
+input,
+summary {
+  outline-offset: 4px;
+}
+
+:focus-visible {
+  outline: 3px solid #e07a5f;
+}
+
+::selection {
+  background: #c7e5e1;
+  color: var(--navy-deep);
+}
+
+.matrix-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.075) 1px, transparent 1px);
+  background-size: 46px 46px;
+}
+
+.matrix-pattern-light {
+  background-image:
+    linear-gradient(rgba(20, 125, 121, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 125, 121, 0.075) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
