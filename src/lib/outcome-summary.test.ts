@@ -7,7 +7,7 @@ const expectedComponentCounts: Record<string, number[]> = {
   "a1-1": [3, 3, 3, 3, 3, 3],
   "a1-2": [1, 8, 8, 1, 1, 1],
   "a1-3": [3, 2, 2, 3, 3],
-  "a2-1": [3, 1, 3, 3, 3],
+  "a2-1": [0, 0, 0, 0, 0],
   "a2-2": [6, 6, 6, 1, 6],
   "a2-3": [3, 4],
   "a2-4": [8, 7, 8],
@@ -111,11 +111,97 @@ describe("curated record summaries", () => {
     expect(splitNumberedItems(resharesIssue.method)).toHaveLength(3);
   });
 
+  it("keeps corrected Participation content and spacing", () => {
+    const table = (id: string) => outcomeTables.find((candidate) => candidate.id === id)!;
+    const row = (tableId: string, paper: string) => table(tableId).rows.find((candidate) => candidate.paper.startsWith(paper))!;
+
+    expect(table("a2-1").rows.map((candidate) => candidate.waves)).toEqual([
+      "Participants who completed both Waves 1–2 and at least one of post-treatment surveys",
+      "Participants who completed Waves 1–2 and Wave 4",
+      "Participants who completed both Waves 1–2 and one of post-election surveys",
+      "Participants who completed Waves 1–2 and one of post-treatment surveys",
+      "Participants who completed Waves 1–2 and one of post-treatment surveys",
+    ]);
+    expect(table("a2-1").rows.every((candidate) => deriveRowSummary(table("a2-1"), candidate).components.length === 0)).toBe(true);
+    expect(row("a2-1", "Untrustworthy").method).toContain("Mac and Android systems");
+
+    expect(row("a2-2", "Chronological Feed").questionsUsed).toContain("they know\n\n(POLPART 1 W4");
+    expect(row("a2-2", "Ad Experimental").questionsUsed).toContain("(POLPART_2)\n\n3. Signed");
+    expect(row("a2-2", "Ad Experimental").method).toContain("binary questions\n\n2. Standardized");
+    expect(row("a2-2", "Likeminded").waves).toBe("Wave 4");
+    expect(row("a2-2", "Untrustworthy").questionsUsed).toContain("you know\n\n(survey item POLPART)");
+    expect(table("a2-2").rows.every((candidate) => deriveRowSummary(table("a2-2"), candidate).methods.every((method) => method.label !== "Binary coding"))).toBe(true);
+
+    expect(row("a2-3", "Ad Experimental").questionsUsed).toContain("(CONTRIBUT)\n\nValidated measures:");
+    expect(row("a2-3", "Ad Experimental").method).toContain("coded as $1500\n\nValidated contribution:");
+    expect(deriveRowSummary(table("a2-3"), row("a2-3", "Ad Experimental")).methods.every((method) => !method.label.toLocaleLowerCase().includes("binned contributions"))).toBe(true);
+    expect(row("a2-3", "Deactivation").questionsUsed).toContain("(CONTRIBUT)\n\nValidated measures:\n\n1.");
+    expect(row("a2-3", "Deactivation").method).toContain("More than $1000)\n\nValidated contribution:");
+    expect(deriveRowSummary(table("a2-3"), row("a2-3", "Deactivation")).methods.map((method) => method.label)).toEqual([
+      "Self-reported measure",
+      "Validated against administrative records",
+    ]);
+
+    expect(table("a2-4").rows.map((candidate) => candidate.waves)).toEqual([
+      "Participants who completed the baseline Wave 1 and 2 surveys and at least one of post-treatment surveys",
+      "Participants who completed Waves 1–2 and Wave 4",
+      "Participants who completed Waves 1–2 and one of post-election surveys",
+    ]);
+    expect(row("a2-4", "Chronological Feed").questionsUsed).toContain("commenting/resharing");
+    expect(deriveRowSummary(table("a2-4"), row("a2-4", "Chronological Feed")).methods.map((method) => method.label)).toEqual([
+      "PCA",
+      "Varimax rotation",
+      "Index of on-platform political engagement",
+    ]);
+    expect(row("a2-4", "Ad Experimental").questionsUsed.startsWith("1. Engagement with civic content")).toBe(true);
+    expect(row("a2-4", "Ad Experimental").questionsUsed).toContain("comments/reshares\n\n2. Engagement with Voter Hub");
+    expect(row("a2-4", "Likeminded").method).toContain("views of civic content");
+    expect(deriveRowSummary(table("a2-4"), row("a2-4", "Likeminded")).methods.map((method) => method.label)).toEqual([
+      "Exploratory factor analysis",
+      "Varimax rotation",
+      "The average of standardized measures",
+    ]);
+
+    expect(deriveRowSummary(table("a2-5"), row("a2-5", "Chronological Feed")).components.map((component) => component.label)).toEqual([
+      "Self-reported voting in the 2020 presidential election",
+    ]);
+    expect(row("a2-5", "Ad Experimental").waves).toBe("Wave 4");
+    expect(row("a2-5", "Deactivation").waves).toBe("Wave 4");
+    expect(row("a2-5", "Likeminded").waves).toBe("-");
+    expect(row("a2-5", "Untrustworthy").waves).toBe("Wave 4 and Wave 5 (pooled for self-reported)");
+
+    expect(row("a2-6", "Chronological Feed").waves).toBe("Trump favorability (Waves 3–5)\n\nParty-line presidential voting (Waves 4–5)\n\nParty-line downballot voting (Waves 4–5)");
+    expect(deriveRowSummary(table("a2-6"), row("a2-6", "Chronological Feed")).methods.map((method) => method.label)).toEqual([
+      "Self-reported measures",
+      "binary coding for presidential voting",
+      "sum of votes for downballot voting",
+    ]);
+    expect(row("a2-6", "Ad Experimental").questionsUsed).toContain("more than one office out of Senate");
+    expect(row("a2-6", "Ad Experimental").method).toContain("otherwise (including did not vote)");
+    expect(row("a2-6", "Likeminded").waves).toContain("Waves 4 and 5)\n\nFeeling thermometer ratings");
+    expect(deriveRowSummary(table("a2-6"), row("a2-6", "Reshares")).methods.map((method) => method.label)).toEqual([
+      "Binary coding for party-line presidential voting",
+      "Sum of votes for party-line downballot voting",
+    ]);
+    expect(row("a2-6", "Reshares").pages).toContain("S-9 (variable descriptions for party-line presidential voting and party-line downballot voting)");
+    expect(row("a2-6", "Untrustworthy").waves).toBe("Presidential and down-ballot vote choices (Wave 4 and 5)\n\nFeeling thermometers (Wave 4)");
+  });
+
+  it("uses the requested Trump-favorability summary for both experimental papers", () => {
+    const votePreference = outcomeTables.find((table) => table.id === "a2-6")!;
+    const expected = "Trump favorability: (a) average of standardized values; (b) self-reported approval coded 1–5; (c) absolute difference between thermometer ratings";
+    for (const paper of ["Ad Experimental", "Deactivation"]) {
+      const candidate = votePreference.rows.find((row) => row.paper.startsWith(paper))!;
+      expect(deriveRowSummary(votePreference, candidate).methods.map((method) => method.label)).toContain(expected);
+    }
+  });
+
   it("derives display data without mutating persisted records", () => {
     const snapshot = JSON.stringify(outcomeTables);
     const summaries = outcomeTables.flatMap((table) => table.rows.map((row) => deriveRowSummary(table, row)));
     expect(summaries).toHaveLength(90);
-    expect(summaries.every((summary) => summary.components.length > 0 && summary.sources.length > 0)).toBe(true);
+    expect(summaries.every((summary) => summary.sources.length > 0)).toBe(true);
+    expect(summaries.filter((summary) => summary.components.length === 0)).toHaveLength(5);
     expect(JSON.stringify(outcomeTables)).toBe(snapshot);
   });
 });

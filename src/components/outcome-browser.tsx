@@ -93,7 +93,7 @@ function MobileSummaryCard({ table, row, index, onOpen }: { table: OutcomeTable;
           <dd className="mt-1.5 whitespace-pre-line text-sm leading-6 text-[#35435b]">{row.waves.trim() || "—"}</dd>
         </div>
         <div>
-          <dt className="text-[0.68rem] font-bold tracking-[0.13em] text-[#b94f35] uppercase">Components / Key Variables</dt>
+          <dt className="text-[0.68rem] font-bold tracking-[0.13em] text-[#b94f35] uppercase">Survey Questions Used</dt>
           <dd className="mt-2 text-sm"><ComponentSummary table={table} row={row} /></dd>
         </div>
         <div>
@@ -124,7 +124,7 @@ function SummaryTable({ table, onOpen }: { table: OutcomeTable; onOpen: (row: Ou
             <tr className="bg-[#14213d] text-white">
               <th scope="col" className="w-[17%] px-4 py-4 font-semibold">Paper</th>
               <th scope="col" className="w-[9%] px-4 py-4 font-semibold">Waves</th>
-              <th scope="col" className="w-[28%] px-4 py-4 font-semibold">Components / Key Variables</th>
+              <th scope="col" className="w-[28%] px-4 py-4 font-semibold">Survey Questions Used</th>
               <th scope="col" className="w-[21%] px-4 py-4 font-semibold">Construction Method</th>
               <th scope="col" className="w-[20%] px-4 py-4 font-semibold">Source Pages / Figures</th>
               <th scope="col" className="w-[5%] px-3 py-4 text-center font-semibold">Details</th>

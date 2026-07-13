@@ -1,17 +1,19 @@
 import type { OutcomeRow, OutcomeTable } from "@/data/outcome-measures";
-import { getCuratedRecordSummary, type CuratedComponent } from "@/data/record-summaries";
+import {
+  getCuratedRecordSummary,
+  type CuratedComponent,
+  type CuratedMethodTag,
+  type CuratedMethodTagTone,
+} from "@/data/record-summaries";
 
 export interface SourceEntry {
   reference: string;
   description: string;
 }
 
-export type MethodTagTone = "analysis" | "transformation" | "restriction" | "coding" | "general";
+export type MethodTagTone = CuratedMethodTagTone;
 
-export interface MethodTag {
-  label: string;
-  tone: MethodTagTone;
-}
+export type MethodTag = CuratedMethodTag;
 
 export interface RowSummary {
   components: CuratedComponent[];
@@ -137,10 +139,14 @@ export function deriveRowSummary(table: OutcomeTable, row: OutcomeRow): RowSumma
   const curated = getCuratedRecordSummary(table, row);
   if (!curated) throw new Error(`Missing curated summary for ${table.id} / ${row.paper}`);
   const excludedMethodTagTerms = curated.excludedMethodTagTerms ?? [];
+  const derivedMethods = curated.methods ?? deriveMethodTags(row.method).map((method) => ({
+    ...method,
+    label: curated.methodTagReplacements?.[method.label] ?? method.label,
+  }));
 
   return {
     components: curated.components,
-    methods: deriveMethodTags(row.method).filter((method) => (
+    methods: derivedMethods.filter((method) => (
       !excludedMethodTagTerms.some((term) => method.label.toLocaleLowerCase().includes(term.toLocaleLowerCase()))
     )),
     sources: parseSourceEntries(row.pages),

@@ -8,9 +8,18 @@ export interface CuratedComponent {
   sourceItem: string;
 }
 
+export type CuratedMethodTagTone = "analysis" | "transformation" | "restriction" | "coding" | "general";
+
+export interface CuratedMethodTag {
+  label: string;
+  tone: CuratedMethodTagTone;
+}
+
 export interface CuratedRecordSummary {
   components: CuratedComponent[];
+  methods?: CuratedMethodTag[];
   excludedMethodTagTerms?: string[];
+  methodTagReplacements?: Record<string, string>;
 }
 
 const CF = "Chronological Feed (Guess et al., 2023)";
@@ -29,16 +38,6 @@ function fromQuestions(...labels: string[]): CuratedRecordSummary {
     components: labels.map((label, index) => ({
       label,
       sourceField: "questionsUsed",
-      sourceItem: String(index + 1),
-    })),
-  };
-}
-
-function fromMethod(...labels: string[]): CuratedRecordSummary {
-  return {
-    components: labels.map((label, index) => ({
-      label,
-      sourceField: "method",
       sourceItem: String(index + 1),
     })),
   };
@@ -195,51 +194,51 @@ export const curatedRecordSummaries: Record<string, CuratedRecordSummary> = {
     "Perceived ideological distance between same- and other-party people seen on Facebook",
   ),
 
-  // A2.1 - Platform usage (the PDF's Questions used cells are blank; components are identified in Method)
-  [recordSummaryKey("a2-1", CF)]: fromMethod(
-    "Active time on Facebook/Instagram across all platform surfaces",
-    "Daily proportional change in platform time relative to U.S. monthly active users",
-    "Off-platform website and Android-app use from passive tracking",
-  ),
-  [recordSummaryKey("a2-1", AD)]: fromMethod("Daily platform minutes normalized to participants' baseline-period average"),
-  [recordSummaryKey("a2-1", LM)]: fromMethod(
-    "Active time on Facebook across all platform surfaces",
-    "Standardized platform time relative to U.S. monthly active users",
-    "Off-platform website use from passive tracking",
-  ),
-  [recordSummaryKey("a2-1", RS)]: fromMethod(
-    "Active time on Facebook/Instagram across all platform surfaces",
-    "Daily proportional change in platform time relative to U.S. monthly active users",
-    "Off-platform website and Android-app use from passive tracking",
-  ),
-  [recordSummaryKey("a2-1", UN)]: fromMethod(
-    "Active time on Facebook across all platform surfaces",
-    "Standardized platform time relative to U.S. monthly active users",
-    "Off-platform website use from passive tracking",
-  ),
+  // A2.1 - Platform usage (the PDF's Questions used cells are blank)
+  [recordSummaryKey("a2-1", CF)]: fromQuestions(),
+  [recordSummaryKey("a2-1", AD)]: fromQuestions(),
+  [recordSummaryKey("a2-1", LM)]: fromQuestions(),
+  [recordSummaryKey("a2-1", RS)]: fromQuestions(),
+  [recordSummaryKey("a2-1", UN)]: fromQuestions(),
 
   // A2.2 - General participation
-  [recordSummaryKey("a2-2", CF)]: fromQuestions(...politicalParticipation),
-  [recordSummaryKey("a2-2", AD)]: fromQuestions(...politicalParticipation),
-  [recordSummaryKey("a2-2", DE)]: fromQuestions(...politicalParticipation),
-  [recordSummaryKey("a2-2", LM)]: fromQuestions("Six binary questions covering different forms of political engagement"),
-  [recordSummaryKey("a2-2", UN)]: fromQuestions(...politicalParticipation),
+  [recordSummaryKey("a2-2", CF)]: { ...fromQuestions(...politicalParticipation), excludedMethodTagTerms: ["binary coding"] },
+  [recordSummaryKey("a2-2", AD)]: { ...fromQuestions(...politicalParticipation), excludedMethodTagTerms: ["binary coding"] },
+  [recordSummaryKey("a2-2", DE)]: { ...fromQuestions(...politicalParticipation), excludedMethodTagTerms: ["binary coding"] },
+  [recordSummaryKey("a2-2", LM)]: { ...fromQuestions("Six binary questions covering different forms of political engagement"), excludedMethodTagTerms: ["binary coding"] },
+  [recordSummaryKey("a2-2", UN)]: { ...fromQuestions(...politicalParticipation), excludedMethodTagTerms: ["binary coding"] },
 
   // A2.3 - Political contributions
-  [recordSummaryKey("a2-3", AD)]: mixed([
-    { label: "Self-reported contribution amount in the month before the election", sourceField: "questionsUsed", sourceItem: "Self-reported 1" },
-    { label: "Validated total campaign contributions during the 2020 election period", sourceField: "questionsUsed", sourceItem: "Validated 1" },
-    { label: "Validated campaign contributions during the 30 days before the election", sourceField: "questionsUsed", sourceItem: "Validated 2" },
-  ]),
-  [recordSummaryKey("a2-3", DE)]: mixed([
-    { label: "Self-reported indicator of any political contribution", sourceField: "questionsUsed", sourceItem: "Self-reported 1" },
-    { label: "Self-reported contribution amount in the month before the election", sourceField: "questionsUsed", sourceItem: "Self-reported 2" },
-    { label: "Validated total campaign contributions during the 2020 election period", sourceField: "questionsUsed", sourceItem: "Validated 1" },
-    { label: "Validated campaign contributions during the 30 days before the election", sourceField: "questionsUsed", sourceItem: "Validated 2" },
-  ]),
+  [recordSummaryKey("a2-3", AD)]: {
+    ...mixed([
+      { label: "Self-reported contribution amount in the month before the election", sourceField: "questionsUsed", sourceItem: "Self-reported 1" },
+      { label: "Validated total campaign contributions during the 2020 election period", sourceField: "questionsUsed", sourceItem: "Validated 1" },
+      { label: "Validated campaign contributions during the 30 days before the election", sourceField: "questionsUsed", sourceItem: "Validated 2" },
+    ]),
+    excludedMethodTagTerms: ["binned contributions into"],
+  },
+  [recordSummaryKey("a2-3", DE)]: {
+    ...mixed([
+      { label: "Self-reported indicator of any political contribution", sourceField: "questionsUsed", sourceItem: "Self-reported 1" },
+      { label: "Self-reported contribution amount in the month before the election", sourceField: "questionsUsed", sourceItem: "Self-reported 2" },
+      { label: "Validated total campaign contributions during the 2020 election period", sourceField: "questionsUsed", sourceItem: "Validated 1" },
+      { label: "Validated campaign contributions during the 30 days before the election", sourceField: "questionsUsed", sourceItem: "Validated 2" },
+    ]),
+    methods: [
+      { label: "Self-reported measure", tone: "general" },
+      { label: "Validated against administrative records", tone: "coding" },
+    ],
+  },
 
   // A2.4 - On-platform political engagement
-  [recordSummaryKey("a2-4", CF)]: fromQuestions(...onPlatformEngagementFull),
+  [recordSummaryKey("a2-4", CF)]: {
+    ...fromQuestions(...onPlatformEngagementFull),
+    methods: [
+      { label: "PCA", tone: "analysis" },
+      { label: "Varimax rotation", tone: "transformation" },
+      { label: "Index of on-platform political engagement", tone: "general" },
+    ],
+  },
   [recordSummaryKey("a2-4", AD)]: fromQuestions(
     "Engagement with content classified as civic",
     "Views of or clicks on Voter Hub",
@@ -249,40 +248,70 @@ export const curatedRecordSummaries: Record<string, CuratedRecordSummary> = {
     "Donations to civic causes (Facebook only)",
     "Constituent-badge activation (Facebook only)",
   ),
-  [recordSummaryKey("a2-4", LM)]: fromQuestions(...onPlatformEngagementFull),
+  [recordSummaryKey("a2-4", LM)]: {
+    ...fromQuestions(...onPlatformEngagementFull),
+    methods: [
+      { label: "Exploratory factor analysis", tone: "analysis" },
+      { label: "Varimax rotation", tone: "transformation" },
+      { label: "The average of standardized measures", tone: "transformation" },
+    ],
+  },
 
   // A2.5 - Turnout
-  [recordSummaryKey("a2-5", CF)]: fromQuestions("Self-reported certainty of voting in the 2020 presidential election"),
+  [recordSummaryKey("a2-5", CF)]: fromQuestions("Self-reported voting in the 2020 presidential election"),
   [recordSummaryKey("a2-5", AD)]: fromQuestions("Self-reported 2020 election turnout", "Validated turnout from matched voter-profile data"),
   [recordSummaryKey("a2-5", DE)]: fromQuestions("Self-reported 2020 election turnout", "Validated turnout from matched voter-profile data"),
   [recordSummaryKey("a2-5", LM)]: fromQuestions("Self-reported 2020 general-election turnout", "Validated 2020 turnout from survey-vendor voter records"),
   [recordSummaryKey("a2-5", UN)]: fromQuestions("Self-reported 2020 general-election turnout", "Validated turnout from vendor-matched voter-file data"),
 
   // A2.6 - Vote preference and candidate ranking
-  [recordSummaryKey("a2-6", CF)]: fromQuestions(
-    "Self-reported feeling thermometer for Donald Trump",
-    "Party-line presidential voting based on vote choice and party identification",
-    "Party-line down-ballot voting based on state-office choices and party identification",
-  ),
-  [recordSummaryKey("a2-6", AD)]: fromQuestions(
-    "Self-reported vote for Donald Trump",
-    "Trump favorability from approval and Trump-vs.-Biden thermometer ratings",
-    "Republican voting across Senate, governor, and House races",
-    "Incumbent voting across Senate, governor, and House races",
-    "Straight-ticket voting across multiple offices",
-  ),
-  [recordSummaryKey("a2-6", DE)]: fromQuestions(
-    "Self-reported vote for Donald Trump",
-    "Trump favorability from approval and Trump-vs.-Biden thermometer ratings",
-    "Republican voting across Senate, governor, and House races",
-    "Incumbent voting across Senate, governor, and House races",
-    "Straight-ticket voting across multiple offices",
-  ),
+  [recordSummaryKey("a2-6", CF)]: {
+    ...fromQuestions(
+      "Self-reported feeling thermometer for Donald Trump",
+      "Party-line presidential voting based on vote choice and party identification",
+      "Party-line down-ballot voting based on state-office choices and party identification",
+    ),
+    methods: [
+      { label: "Self-reported measures", tone: "general" },
+      { label: "binary coding for presidential voting", tone: "coding" },
+      { label: "sum of votes for downballot voting", tone: "coding" },
+    ],
+  },
+  [recordSummaryKey("a2-6", AD)]: {
+    ...fromQuestions(
+      "Self-reported vote for Donald Trump",
+      "Trump favorability from approval and Trump-vs.-Biden thermometer ratings",
+      "Republican voting across Senate, governor, and House races",
+      "Incumbent voting across Senate, governor, and House races",
+      "Straight-ticket voting across multiple offices",
+    ),
+    methodTagReplacements: {
+      "Average of standardized measures": "Trump favorability: (a) average of standardized values; (b) self-reported approval coded 1–5; (c) absolute difference between thermometer ratings",
+    },
+  },
+  [recordSummaryKey("a2-6", DE)]: {
+    ...fromQuestions(
+      "Self-reported vote for Donald Trump",
+      "Trump favorability from approval and Trump-vs.-Biden thermometer ratings",
+      "Republican voting across Senate, governor, and House races",
+      "Incumbent voting across Senate, governor, and House races",
+      "Straight-ticket voting across multiple offices",
+    ),
+    methodTagReplacements: {
+      "Average of standardized measures": "Trump favorability: (a) average of standardized values; (b) self-reported approval coded 1–5; (c) absolute difference between thermometer ratings",
+    },
+  },
   [recordSummaryKey("a2-6", LM)]: fromQuestions(...votePreferenceLikeminded),
-  [recordSummaryKey("a2-6", RS)]: fromQuestions(
-    "Party-line presidential voting based on vote choice and party identification",
-    "Party-line down-ballot voting based on state-office choices and party identification",
-  ),
+  [recordSummaryKey("a2-6", RS)]: {
+    ...fromQuestions(
+      "Party-line presidential voting based on vote choice and party identification",
+      "Party-line down-ballot voting based on state-office choices and party identification",
+    ),
+    methods: [
+      { label: "Binary coding for party-line presidential voting", tone: "coding" },
+      { label: "Sum of votes for party-line downballot voting", tone: "coding" },
+    ],
+  },
   [recordSummaryKey("a2-6", UN)]: fromQuestions(...votePreferenceUntrustworthy),
 
   // A3.1 - Election legitimacy

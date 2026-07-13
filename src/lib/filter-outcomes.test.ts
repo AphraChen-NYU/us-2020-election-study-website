@@ -64,4 +64,11 @@ describe("filterOutcomeTablesWithFacets", () => {
     const results = filterOutcomeTablesWithFacets(outcomeTables, { ...emptyVariableFilters, themes: ["knowledge"] }, "polarization");
     expect(results).toEqual([]);
   });
+
+  it("uses curated Participation summary methods in method facets", () => {
+    const method = "Binary coding for party-line presidential voting";
+    const results = filterOutcomeTablesWithFacets(outcomeTables, { ...emptyVariableFilters, methods: [method] }, "participation");
+    expect(results.map((table) => table.id)).toEqual(["a2-6"]);
+    expect(results[0].rows.map((row) => row.paper)).toEqual(["Reshares (Guess et al., 2023)"]);
+  });
 });

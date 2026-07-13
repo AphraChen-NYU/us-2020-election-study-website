@@ -151,36 +151,36 @@
       {
         "paper": "Chronological Feed (Guess et al., 2023)",
         "questionsUsed": "",
-        "waves": "Participa nts who complet ed both Waves 1- 2 and at least one of post-treatment surveys",
+        "waves": "Participants who completed both Waves 1–2 and at least one of post-treatment surveys",
         "method": "1. Time spent on-platform: based on Meta’s internal measures of the amount of time that each person actively engages with the app or website. This metric includes time spent on all surfaces for both platforms.\n\n2. Time spent on-platform: average daily proportional increase in time spent with respect to the average US monthly active users\n\n3. Time spent off-platform on other websites: based on the passive tracing data provided by a subset of respondents. Measured by total web visits on desktop/laptop devices, tablets, and smartphones on Windows, Mac, and Android systems, as well as app usage on Android smartphones and tablets only",
         "pages": "S-120 (variable description) Main Fig. 1 (main treatment effects) S-29 (treatment effects on time spent on-platform) S-29, S-30, S-31 (treatment effects on time spent off-platform on other websites) S-97 (time usage comparisons between full respondents, passive tracking respondents, and MAP, across platforms)"
       },
       {
         "paper": "Ad Experimental (Allcott et al., working paper)",
         "questionsUsed": "",
-        "waves": "Participa nts who complet ed Waves 1-2 and Wave 4",
+        "waves": "Participants who completed Waves 1–2 and Wave 4",
         "method": "1. Daily minutes spent on the platform, normalized by dividing by the average time spent by all participants in the baseline period (Wave 2)",
         "pages": "S-16 (variable description) S-24 (distribution of baseline Facebook and Instagram use) S-36, S-37 (treatment effects across platforms) S-39 (treatment effects across treatments)"
       },
       {
         "paper": "Likeminded (Nyhan et al., 2023)",
         "questionsUsed": "",
-        "waves": "Participa nts who complet ed both Waves 1-2 and one of post-ele ction surveys",
+        "waves": "Participants who completed both Waves 1–2 and one of post-election surveys",
         "method": "1. Time spent on-platform: based on Meta’s internal measures of the amount of time that each person actively engages with the app or website. This metric includes time spent on all surfaces on Facebook.\n\n2. Time spent on-platform: standardized time spent, which was computed by subtracting the average time that US monthly active users spent on the platform and then divided by the standard deviation of the measure.\n\n3. Time spent off-platform on other websites: based on the passive tracking data among a subset of respondents. Measured by total web visits on desktop/laptop devices, tablets and smartphones on Windows, Mac, and Android systems",
         "pages": "S173 (variable description) Main Fig.3, Extended Data Table 3 (main treatment effects) S22 (comparison of Facebook usage between sample and US MAP) S73 (treatment effects)"
       },
       {
         "paper": "Reshares (Guess et al., 2023)",
         "questionsUsed": "",
-        "waves": "Participa nts who complet ed Waves 1-2 and one of post-treatment surveys",
+        "waves": "Participants who completed Waves 1–2 and one of post-treatment surveys",
         "method": "1. Time spent on-platform: based on Meta’s internal measures of the amount of time that each person actively engages with the app or website. This metric includes time spent on all surfaces for both platforms.\n\n2. Time spent on-platform: average daily proportional increase in time spent with respect to the average US monthly active users\n\n3. Time spent off-platform on other websites: based on the passive tracking data provided by a subset of respondents. Measured by total web visits on desktop/laptop devices, tablets, and smartphones on Windows, Mac, and Android systems, as well as app usage on Android smartphones and tablets only",
         "pages": "S-78 (variable description) Main Fig.1 (average daily proportional difference in time spent on-platform) S-18 (average daily proportional difference in time spent on-platform) S-19 (time spent in hours on other social media platforms) S-63 (comparisons among the full sample, passive tracking sample, and US MAP)"
       },
       {
         "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
         "questionsUsed": "",
-        "waves": "Participa nts who complet ed Waves 1-2 and one of post-treatment surveys",
-        "method": "1. Time spent on-platform: based on Meta’s internal measures of the amount of time that each person actively engages with the app or website. This metric includes time spent on all surfaces on Facebook.\n\n2. Time spent on-platform: standardized time spent, which was computed by subtraction the average time that US monthly active users spend on the platform and then divided by the standard deviation of this measure\n\n3. Time spent off-platform on other websites: based on the passive tracking data provided by a subset of respondents. Measured total web visits on desktop/laptop devices, tablets, and smartphones on Windows, Mac nad Android systems",
+        "waves": "Participants who completed Waves 1–2 and one of post-treatment surveys",
+        "method": "1. Time spent on-platform: based on Meta’s internal measures of the amount of time that each person actively engages with the app or website. This metric includes time spent on all surfaces on Facebook.\n\n2. Time spent on-platform: standardized time spent, which was computed by subtraction the average time that US monthly active users spend on the platform and then divided by the standard deviation of this measure\n\n3. Time spent off-platform on other websites: based on the passive tracking data provided by a subset of respondents. Measured total web visits on desktop/laptop devices, tablets, and smartphones on Windows, Mac and Android systems",
         "pages": "S244 (variable description) S49, S51 (comparisons between the study sample and US MAP across platforms) S108, S109 (treatment effects on platform usage across platforms)"
       }
     ]
@@ -193,16 +193,16 @@
     "rows": [
       {
         "paper": "Chronological Feed (Guess et al., 2023)",
-        "questionsUsed": "1. Attend a protest or rally\n\n2. Contributed money to a political candidate or organization\n\n3. Signed an online petition\n\n4. Tried to convince someone how to vote (online or in person)\n\n5. Wrote and posted political messages online\n\n6. Talked about politics with someone they know (POLPART 1 W4; POLPART 2 W4; POLPART 3 W4; POLPART 4 W4; POLPART 5 W4; POLPART 6 W4)",
+        "questionsUsed": "1. Attend a protest or rally\n\n2. Contributed money to a political candidate or organization\n\n3. Signed an online petition\n\n4. Tried to convince someone how to vote (online or in person)\n\n5. Wrote and posted political messages online\n\n6. Talked about politics with someone they know\n\n(POLPART 1 W4; POLPART 2 W4; POLPART 3 W4; POLPART 4 W4; POLPART 5 W4; POLPART 6 W4)",
         "waves": "Wave 4",
         "method": "Sum of self-reported binary questions",
         "pages": "S-10 (variable description) S-161 (variable clarification) Main Fig. 3 (main treatment effects across platforms) S-17, S-19 (complier average treatment effects) S-53, S-54, S-55, S-56 (treatment effects across specifications, Facebook) S-57, S-58, S-59, S-60 (treatment effects across specifications, Instagram)"
       },
       {
         "paper": "Ad Experimental (Allcott et al., working paper)",
-        "questionsUsed": "1. Attended a protest or rally (POLPART_1)\n\n2. Contributed money to a political candidate or organization (POLPART_2) 3. Signed an online petition (POLPART_3)\n\n4. Tried to convince someone how to vote (online or in-person) (POLPART_4)\n\n5. Wrote and posted political messages online (POLPART_5)\n\n6. Talked about politics with someone you know (POLPART_6)",
+        "questionsUsed": "1. Attended a protest or rally (POLPART_1)\n\n2. Contributed money to a political candidate or organization (POLPART_2)\n\n3. Signed an online petition (POLPART_3)\n\n4. Tried to convince someone how to vote (online or in-person) (POLPART_4)\n\n5. Wrote and posted political messages online (POLPART_5)\n\n6. Talked about politics with someone you know (POLPART_6)",
         "waves": "Wave 4",
-        "method": "1. Sum of self-reported binary questions 2. Standardized values of outcomes so that outcomes are in standard deviation units",
+        "method": "1. Sum of self-reported binary questions\n\n2. Standardized values of outcomes so that outcomes are in standard deviation units",
         "pages": "S-13 (variable description) Main Figure 3 ( treatment effects across platforms) S-30, S-31, S-32 (treatment effects across platforms and treatments) S-34, S-35 (treatment effects on individual components across platforms)"
       },
       {
@@ -215,13 +215,13 @@
       {
         "paper": "Likeminded (Nyhan et al., 2023)",
         "questionsUsed": "6 binary questions tapping different aspects of political engagement (POLPART)",
-        "waves": "Wave 4 (?)",
+        "waves": "Wave 4",
         "method": "Sum of self-reported binary questions",
         "pages": "S13 (variable description) Main Extended Data Fig.5 (treatment effects) S78 (treatment effects)"
       },
       {
         "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
-        "questionsUsed": "1. Attended a protest or rally\n\n2. Contributed money to a political candidate or organization\n\n3. Signed an online petition\n\n4. Tried to convince someone how to vote (online or in-person)\n\n5. Wrote and posted political messages online\n\n6. Talked about politics with someone you know (survey item POLPART)",
+        "questionsUsed": "1. Attended a protest or rally\n\n2. Contributed money to a political candidate or organization\n\n3. Signed an online petition\n\n4. Tried to convince someone how to vote (online or in-person)\n\n5. Wrote and posted political messages online\n\n6. Talked about politics with someone you know\n\n(survey item POLPART)",
         "waves": "Wave 4",
         "method": "Sum of self-reported binary questions",
         "pages": "S118 (variable description) S120, S121, S122, S123 (treatment effects across platforms)"
@@ -236,16 +236,16 @@
     "rows": [
       {
         "paper": "Ad Experimental (Allcott et al., working paper)",
-        "questionsUsed": "Self-reported measure:\n\n1. Contribution amount: self-reported amount of money contributed to political candidates or organizations in the month before the election (CONTRIBUT) Validated measures:\n\n1. The total campaign contributions for the entire 2020 election period\n\n2. Campaign contribution during the period that was limited to 30 days prior to the election",
+        "questionsUsed": "Self-reported measure:\n\n1. Contribution amount: self-reported amount of money contributed to political candidates or organizations in the month before the election (CONTRIBUT)\n\nValidated measures:\n\n1. The total campaign contributions for the entire 2020 election period\n\n2. Campaign contribution during the period that was limited to 30 days prior to the election",
         "waves": "Wave 4",
-        "method": "Self-reported contribution:\n\n1. Coded as ($0, $25, $50, $100, $150, $200, $350, $500, $1000, More than $1000 was coded as $1500 Validated contribution:\n\n1. Match survey participants to campaign donation data (DIME and FEC datasets) using identifiable information from NORC\n\n2. Binned contributions into 10 bins: [0], (0, 25], (25, 50], (50, 100], (100, 150], (150, 200], (200, 350], (350, 500], (500, 1000], (1000, Inf]",
+        "method": "Self-reported contribution:\n\n1. Coded as ($0, $25, $50, $100, $150, $200, $350, $500, $1000, More than $1000 was coded as $1500\n\nValidated contribution:\n\n1. Match survey participants to campaign donation data (DIME and FEC datasets) using identifiable information from NORC\n\n2. Binned contributions into 10 bins: [0], (0, 25], (25, 50], (50, 100], (100, 150], (150, 200], (200, 350], (350, 500], (500, 1000], (1000, Inf]",
         "pages": "S-8 (validated contribution variable description) S-16 (self-reported contribution variable description) S-34 (treatment effects, Facebook) S-35 (treatment effects, Instagram)"
       },
       {
         "paper": "Deactivation (Allcott et al., 2024)",
-        "questionsUsed": "Self-reported measures:\n\n1. Whether participants contributed money to a political candidate or organization (POLPART_2)\n\n2. Contribution amount: self-reported amount of money contributed to political candidates or organizations in the month before the election (CONTRIBUT) Validated measures: 1. The total campaign contributions for the entire 2020 election period\n\n2. Campaign contribution during the period that was limited to 30 days prior to the election",
+        "questionsUsed": "Self-reported measures:\n\n1. Whether participants contributed money to a political candidate or organization (POLPART_2)\n\n2. Contribution amount: self-reported amount of money contributed to political candidates or organizations in the month before the election (CONTRIBUT)\n\nValidated measures:\n\n1. The total campaign contributions for the entire 2020 election period\n\n2. Campaign contribution during the period that was limited to 30 days prior to the election",
         "waves": "Wave 4",
-        "method": "Self-reported contribution:\n\n1. POLPART_2: self-reported binary question\n\n2. CONTRIBUT: Coded as ($0, $25, $50, $100, $150, $200, $350, $500, $1000, More than $1000) Validated contribution:\n\n1. Match survey participants to campaign donation data (DIME and FEC datasets) using identifiable information. Endline survey respondents who were not matched were assigned a value of zero\n\n2. Binned contributions into 10 bins: [0], (0, 25], (25, 50], (50, 100], (100, 150], (150, 200], (200, 350], (350, 500], (500, 1000], (1000, Inf]",
+        "method": "Self-reported contribution:\n\n1. POLPART_2: self-reported binary question\n\n2. CONTRIBUT: Coded as ($0, $25, $50, $100, $150, $200, $350, $500, $1000, More than $1000)\n\nValidated contribution:\n\n1. Match survey participants to campaign donation data (DIME and FEC datasets) using identifiable information. Endline survey respondents who were not matched were assigned a value of zero\n\n2. Binned contributions into 10 bins: [0], (0, 25], (25, 50], (50, 100], (100, 150], (150, 200], (200, 350], (350, 500], (500, 1000], (1000, Inf]",
         "pages": "S-9 (validated contribution variable description) S-16 (self-reported contribution variable description) Main Fig.4 (treatment effects on self-reported and validated contributions, Facebook) S-33 (treatment effects on self-reported and validated contributions, Instagram) S-37, S-38, S-39, S-40 (treatment effects on self-reported and validated contributions across platforms)"
       }
     ]
@@ -258,23 +258,23 @@
     "rows": [
       {
         "paper": "Chronological Feed (Guess et al., 2023)",
-        "questionsUsed": "On-platform political engagement:\n\n1. Political content engagement: clicks/reactions/likes, shares/comments on content labeled political by the civic classifier for Facebook and Instagram\n\n2. Political events: indication of interests in going to events, indication of going to events, creation of political events for Facebook\n\n3. Engagement with the Voting Information Center (clicks and views) for Facebook and Instagram\n\n4. Engagement with Town Hall (clicks, follows or contacts) for Facebook\n\n5. Clicking on or sharing a petition for Facebook\n\n6. Donating to civic/political causes on Facebook\n\n7. Enabling the constituent badge on Facebook\n\n8. Engagement with politicians and candidates running for office (i.e., reacting/liking/commentin g/resharing of posts/tags/mentions for Facebook and Instagram; the use of Facebook Messenger to contact a politician)",
-        "waves": "Participa nts who complete d the baseline Wave 1 and 2 surveys and at least one of post-treatment survyes",
+        "questionsUsed": "On-platform political engagement:\n\n1. Political content engagement: clicks/reactions/likes, shares/comments on content labeled political by the civic classifier for Facebook and Instagram\n\n2. Political events: indication of interests in going to events, indication of going to events, creation of political events for Facebook\n\n3. Engagement with the Voting Information Center (clicks and views) for Facebook and Instagram\n\n4. Engagement with Town Hall (clicks, follows or contacts) for Facebook\n\n5. Clicking on or sharing a petition for Facebook\n\n6. Donating to civic/political causes on Facebook\n\n7. Enabling the constituent badge on Facebook\n\n8. Engagement with politicians and candidates running for office (i.e., reacting/liking/commenting/resharing of posts/tags/mentions for Facebook and Instagram; the use of Facebook Messenger to contact a politician)",
+        "waves": "Participants who completed the baseline Wave 1 and 2 surveys and at least one of post-treatment surveys",
         "method": "1. Principal components analysis with varimax rotation\n\n2. Index of on-platform political engagement, which scales several metrics related to respondents’ engagement with political content or civic products on both Facebook and Instagram",
         "pages": "S-10 (variable description) S-120 (variable description clarification) Main Fig.3 (treatment effects across platforms) S-17, S19 (complier average treatment effects, Facebook) S-53, S-54, S-55, S-56 (treatment effects across specifications, Facebook) S-57, S-58, S-59, S-60 (treatment effects across specifications, Instagram) S-100, S-101 (engagement rate with political content)"
       },
       {
         "paper": "Ad Experimental (Allcott et al., working paper)",
-        "questionsUsed": "Engagement:\n\n1. Engagement with civic content (as labeled by the Civic classifier) -clicks/likes/reactions/com ments/reshares 2. Engagement with Voter Hub - views/clicks\n\n3. Engagement with political figures -likes/reactions/comments/ reshares\n\n4. Civic events: indication of interest in going (FB only)\n\n5. Petition clicks (FB only)\n\n6. Donated to civic causes (FB only). Civic donations are donations made to a page where a majority of its posts are classified as civic.\n\n7. Has constituent badge (FB only)",
-        "waves": "Participa nts who complete d Waves 1-2 and Wave 4",
+        "questionsUsed": "1. Engagement with civic content (as labeled by the Civic classifier) -clicks/likes/reactions/comments/reshares\n\n2. Engagement with Voter Hub - views/clicks\n\n3. Engagement with political figures -likes/reactions/comments/reshares\n\n4. Civic events: indication of interest in going (FB only)\n\n5. Petition clicks (FB only)\n\n6. Donated to civic causes (FB only). Civic donations are donations made to a page where a majority of its posts are classified as civic.\n\n7. Has constituent badge (FB only)",
+        "waves": "Participants who completed Waves 1–2 and Wave 4",
         "method": "1. Sum of the measures\n\n2. Standardize the values of the outcomes so that outcomes are in standard deviation units",
         "pages": "S-13 (variable description) Main Figure. 3 (treatment effects across platforms and treatments) S-30, S-31, S-32 (treatment effects across platforms and treatments) S-36, S-37, S-38 (treatment effects on individual components across platforms and treatments) S-39 (treatment effects on civil content engagement)"
       },
       {
         "paper": "Likeminded (Nyhan et al., 2023)",
         "questionsUsed": "On-platform political participation:\n\n1. Civic content engagement (click, like, comment, share, or reaction on a post labelled civic by the civic classifier)\n\n2. Civic events (indication of going to a civic event, indication of going to a civic event, or creation of a civic event)\n\n3. Engagement with Voter Hub (click, view)\n\n4. Engagement with Town Hall (click, follow, contact)\n\n5. Clicking on or sharing a petition\n\n6. Donating to civic causes on the Facebook platform\n\n7. Enabling the constituent badge\n\n8. Engagement with politicians and candidates running for office (i.e., reacting/liking, commenting, resharing of posts, tags, mentions, or contacting a politician using Facebook Messenger)",
-        "waves": "Participa nts who complete d Waves 1-2 and one of post-elec tion surveys",
-        "method": "1. Exploratory factor analysis with varimax rotation to select the items, then analyzed the factor scores of the resulting three-dimensional solution\n\n2. First dimension as the primary analysis, and the second and third dimensions as auxiliary analyses. The second dimension includes: shares, comments, petition shares, reshares of politicians’ content. The third dimension includes: clicks and contacts with Town Hall\n\n3. The final scale was to be constructed as the average of the standard measures included\n\n4. For each measure, took the ratio of the natural log of the frequency of that metric to the frequency of views of civi content (to account for the skewness of these behaviors and for the rates of these behaviors relative to exposure)",
+        "waves": "Participants who completed Waves 1–2 and one of post-election surveys",
+        "method": "1. Exploratory factor analysis with varimax rotation to select the items, then analyzed the factor scores of the resulting three-dimensional solution\n\n2. First dimension as the primary analysis, and the second and third dimensions as auxiliary analyses. The second dimension includes: shares, comments, petition shares, reshares of politicians’ content. The third dimension includes: clicks and contacts with Town Hall\n\n3. The final scale was to be constructed as the average of the standard measures included\n\n4. For each measure, took the ratio of the natural log of the frequency of that metric to the frequency of views of civic content (to account for the skewness of these behaviors and for the rates of these behaviors relative to exposure)",
         "pages": "S14 (variable description) S79 (variable description -second and third dimensions) Main Extended Data fig.5 (treatment effects on the first dimension) S75 (treatment effects on engagement with civic content) S78 (treatment effects on the first dimension) S80, S81 (treatment effects on the second and third dimensions)"
       }
     ]
@@ -295,28 +295,28 @@
       {
         "paper": "Ad Experimental (Allcott et al., working paper)",
         "questionsUsed": "1. Self-reported turnout: whether participants voted in the 2020 election (TURNOUT_POSTELEC)\n\n2. Validated turnout: using matched voter profile data for whether the participant had voted in the 2020 election",
-        "waves": "Wave 4 (self-repo rted turnout)",
+        "waves": "Wave 4",
         "method": "1. Self-reported turnout: binary question. 1 for those responding “I am sure I voted”; 0 for those stating that they did not vote(“I did not vote in the election this November”; “I thought about voting this time, but didn’t”; “I usually vote, but didn’t this time”)\n\n2. Validated turnout: matching survey participants to voter file data by NORC using identifiable information",
         "pages": "S-13 (variable description for self-reported turnout) S-8 (variable description for validated turnout) Main Figure 3 (treatment effects across platforms and treatments, self-reported) S-30, S-31, S-32 (treatment effects across platforms and treatments, self-reported) S-34, S-35 (treatment effects across platforms, validated) S-40 (treatment electoral effects by party, Facebook, validated) S-41, S-42 (treatment electoral effects by party, Facebook, self-reported)"
       },
       {
         "paper": "Deactivation (Allcott et al., 2024)",
         "questionsUsed": "1. Self-reported turnout: whether participants voted in the 2020 election (TURNOUT_POSTELEC)\n\n2. Validated turnout: using matched voter profile data for whether the participant had voted in the 2020 election",
-        "waves": "Wave 4 (self-repo rted turnout)",
+        "waves": "Wave 4",
         "method": "1. Self-reported turnout: binary question. 1 for those responding “I am sure I voted”; 0 for those stating that they did not vote (“I did not vote in the election this November”, “I thought about voting this time, but didn’t”, “I usually vote, but didn’t this time)\n\n2. Validated turnout: matching survey participants to voter file data by NORC using identifiable information",
         "pages": "S-13 (variable description for self-reported turnout) S-9 (variable description for validated turnout) Main Fig.3 (treatment effects across platforms, self-reported) Main Fig.4 (treatment effects, Facebook, validated) S-31, S-32 (treatment effects and ITT effects across platforms, self-reported) S-33 (treatment effects, Instagram, validated) S-37, S-38 (treatment effects, Facebook, validated) S-39, S-40 (treatment effects, Instagram, validated)"
       },
       {
         "paper": "Likeminded (Nyhan et al., 2023)",
         "questionsUsed": "1. Self-reported turnout: whether participants voted in the 2020 general election (TURNOUT)\n\n2. Validated voter turnout from the survey vendor: whether participants voted in the 2020 general election",
-        "waves": "?",
+        "waves": "-",
         "method": "1. Self-reported turnout: binary survey question. “I am sure I voted” (1) vs. did not vote (0: “I did not vote”; “I thought about voting this time, but didn’t”; “I usually vote, but didn’t this time”)\n\n2. Validated turnout: binary. 0 = no validated vote in 2020 general election found in voter file data, 1 = validated vote found for 2020 general election",
         "pages": "S13 (variable description for both self-reported and validated turnout) Main Extended Data Fig.5 (treatment effects on both self-reported and validated turnout) S78 (treatment effects on both self-reported and validated turnout)"
       },
       {
         "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
         "questionsUsed": "1. Self-reported turnout: “In talking to people about elections, we often find that a lot of people were not able to vote because they weren’t registered, they were sick, or they just didn’t have time. Which of the following statements best describes you” (TURNOUT-POSTELEC)\n\n2. Validated turnout: matched participants from voter file data by vendor",
-        "waves": "Wave 4 and Wave 5 (pooled, self-repor ted)",
+        "waves": "Wave 4 and Wave 5 (pooled for self-reported)",
         "method": "1. Self-reported turnout: dichotomized measure. “I am sure I voted” (1) vs. did not vote (0: “I did not vote”; “I thought about voting this time, but didn’t”; “I usually vote, but didn’t this time”)\n\n2. Validated turnout: binary. 0 = no validated vote in 2020 general election found in voter file data, 1 = validated vote found for 2020 general election",
         "pages": "S118 (variable description) S120, S121, S122, S123 (treatment effects across platforms)"
       }
@@ -331,15 +331,15 @@
       {
         "paper": "Chronological Feed (Guess et al., 2023)",
         "questionsUsed": "1. Trump favorability: self-reported feeling thermometers for Trump (FT PEOPLEGROUPSB W3, FT PEOPB W4, FT PEOPB W5)\n\n2. Party-line presidential voting: based on self-reported presidential vote choice and whether the vote choice is consistent with the respondent’s own party identification (VOTE_POST_W4; VOTE_POST_W5)\n\n3. Party-line downballot voting: based on self-reported downballot vote choices and whether the vote choices are consistent with the respondent’s own party identification (VOTESENATE_W4; VOTESENATE_W5; VOTESENATE2_W4; VOTESENATE2_W5; VOTEHOUSE_W4; VOTEHOUSE_W5; VOTEGOV_W4; VOTEGOV_W5)",
-        "waves": "Trump favorabilit y (Wave 3-5) Party-line president ial voting (Wave 4-5) Party-line downballot voting (Wave 4-5)",
+        "waves": "Trump favorability (Waves 3–5)\n\nParty-line presidential voting (Waves 4–5)\n\nParty-line downballot voting (Waves 4–5)",
         "method": "1. Trump favorability: self-reported feeling thermometers\n\n2. Party-line presidential voting: binary measurement. Coded 1 if the vote choice is consistent with the participants’ own party identification (including leaners) and 0 otherwise\n\n3. Party-line downballot voting: sum of votes that are consistent with the respondent’s own party identification (including leaners) divided by the total number of non-missing responses to voting items",
         "pages": "S-104 (variable description for Trump favorability) S-12 (variable descriptions for party-line presidential voting and party-line downballot voting) Main Fig.3 (treatment effects on party-line presidential and downballot voting across platforms) S-21, S-22 (complier average treatment effects on party-line presidential and downballot voting, Facebook) S-69, S-70, S-71, S-72 (treatment effects on party-line presidential and downballot voting across specifications, Facebook) S-73, S-74, S-75, S-76 (treatment effects on party-line presidential and downballot voting across specifications, Instagram) S-105, S-106 (treatment effects on Trump favorability across platforms)"
       },
       {
         "paper": "Ad Experimental (Allcott et al., working paper)",
-        "questionsUsed": "1. Trump vote: whether the respondent self-reported to vote for Trump (VOTE_POST)\n\n2. Trump favorability: (a) self-reported approval for Trump (APPROVAL); (b) difference between Trump and Biden thermometer ratings\n\n3. Republican vote state: whether the participant voted for Republican across state offices (Senator, Governor, and the House) (VOTESENATE, VOTESENATE2, VOTEGOV, VOTEHOUSE)\n\n4. Incumbent vote state: whether the participant voted for the incumbent across state offices (Senator, Governor, the House) (VOTESENATE, VOTESENATE2, VOTEGOV, VOTEHOUSE)\n\n5. Straight-ticket voting: if voted for more than one office our of Senate, Governor, House, and President, whether the participant voted for all candidates of the same party",
+        "questionsUsed": "1. Trump vote: whether the respondent self-reported to vote for Trump (VOTE_POST)\n\n2. Trump favorability: (a) self-reported approval for Trump (APPROVAL); (b) difference between Trump and Biden thermometer ratings\n\n3. Republican vote state: whether the participant voted for Republican across state offices (Senator, Governor, and the House) (VOTESENATE, VOTESENATE2, VOTEGOV, VOTEHOUSE)\n\n4. Incumbent vote state: whether the participant voted for the incumbent across state offices (Senator, Governor, the House) (VOTESENATE, VOTESENATE2, VOTEGOV, VOTEHOUSE)\n\n5. Straight-ticket voting: if voted for more than one office out of Senate, Governor, House, and President, whether the participant voted for all candidates of the same party",
         "waves": "Wave 4",
-        "method": "1. Trump vote: coded as 1 if voted for Trump, -1 if voted for Biden, and 0 otherwise （ including did not vote)\n\n2. Trump favorability: (a) average of standardized values of the two measures; (b) for self-reported approval for Trump, coded as 1-5, where 5 indicates “Strongly approve”; (c) absolute difference between thermometer ratings\n\n3. Republican vote state: (a) sum across the measures divided by the number of races; (b) 1 if voted for Republican, -1 if voted for Democrat, and 0 otherwise (including did not vote)\n\n4. Incumbent vote state: (a) sum across the measures divided by the number of races; (b) 1 if voted for incumbent, -1 if voted for challenger, and 0 otherwise\n\n5. Straight-ticket voting: (a) 1 if voted for all candidates of the same party, and 0 otherwise; (b) Defined as missing if did not vote for more than one office",
+        "method": "1. Trump vote: coded as 1 if voted for Trump, -1 if voted for Biden, and 0 otherwise (including did not vote)\n\n2. Trump favorability: (a) average of standardized values of the two measures; (b) for self-reported approval for Trump, coded as 1-5, where 5 indicates “Strongly approve”; (c) absolute difference between thermometer ratings\n\n3. Republican vote state: (a) sum across the measures divided by the number of races; (b) 1 if voted for Republican, -1 if voted for Democrat, and 0 otherwise (including did not vote)\n\n4. Incumbent vote state: (a) sum across the measures divided by the number of races; (b) 1 if voted for incumbent, -1 if voted for challenger, and 0 otherwise\n\n5. Straight-ticket voting: (a) 1 if voted for all candidates of the same party, and 0 otherwise; (b) Defined as missing if did not vote for more than one office",
         "pages": "S-14 (variable descriptions for Trump vote and Trump favorability) S16 (variable descriptions for Republican vote state, Incumbent vote state, and Straight-ticket vote) Main Figure 3. (treatment effects on Trump vote and favorability across platforms and treatments) S-30, S-31, S-32 (treatment effects on Trump vote and favorability across platforms and treatments) S-33 (treatment effects on self-reported voting across platforms) S-34, S-35 (treatment effects on Republican vote state, Incumbent vote state, and Straight-ticket voting)"
       },
       {
@@ -352,7 +352,7 @@
       {
         "paper": "Likeminded (Nyhan et al., 2023)",
         "questionsUsed": "Vote choice and candidate evaluations:\n\n1. Presidential vote choice: whether the respondent voted for the congenial party candidate (VOTE-POST)\n\n2. House vote choice: whether the respondent voted for the congenial party candidate (VOTEHOUSE)\n\n3. Feeling thermometer toward the presidential candidate from the congenial party as defined using inferred ideology (FT-PEOPA, FT-PEOPB)\n\n4. Feeling thermometer toward the presidential candidate from the uncongenial party as defined using inferred ideology (FT-PEOPA, FT-PEOPB)",
-        "waves": "President ial vote choice and House vote choice (Waves 4 and 5) Feeling thermom eter ratings (Wave 4)",
+        "waves": "Presidential vote choice and House vote choice (Waves 4 and 5)\n\nFeeling thermometer ratings (Wave 4)",
         "method": "1. A composite scale using exploratory factor analysis with varimax rotation to select items from the candidate list\n\n2. The final scale is the average of the standardized measures included\n\n3. Senate and Governor vote choices were in the candidate list, yet were not included in the final composite scale due to missingness; Feeling thermometer ratings for Wave 5 were excluded in the primary analyses",
         "pages": "S11 (variable description) Main Fig.3 (treatment effects) Extended Data Fig.4 (treatment effects) Extended Data Table 3 (treatment effects) S77 (treatment effects) S80, S81 (treatment effects of Senate vote choice, Governor vote choice, and Wave 5 feeling thermometers. Note: these variables were not included in the main scale) S87, S88 (wave-by-wave treatment effects on feeling thermometers)"
       },
@@ -361,12 +361,12 @@
         "questionsUsed": "1. Party-line presidential voting: based on self-reported presidential vote choice and whether the vote choice is consistent with the respondent’s own party identification (VOTE_POST_W4, VOTE_POST_W5)\n\n2. Party-line downballot voting: based on self-reported downballot vote choices and whether the vote choices are consistent with the respondent’s own party identification (VOTESENATE_W4, VOTESENATE_W5, VOTESENATE2_W4, VOTESENATE2_W5, VOTEHOUSE_W4, VOTEHOUSE_W5, VOTEGOV_W4, VOTEGOV_W5",
         "waves": "Wave 4 and 5",
         "method": "1. Party-line presidential voting: binary measure. Coded 1 if consistent with the respondent’s own party identification (including leaners), and 0 if otherwise\n\n2. Party-line downballot voting: the sum of votes that are consistent with party identification (including leaners) divided by the total number of non-missing responses on these items",
-        "pages": "S-9 (variable descriptions for Party-line presidential voting and Party-line downballot voting) Main Table 1 (treatment effects for party-line presidential and downballot voting) S-47, S-48, S-49, S-50 (treatment effects for party-line presidential and downballot voting across specifications)"
+        "pages": "S-9 (variable descriptions for party-line presidential voting and party-line downballot voting) Main Table 1 (treatment effects for party-line presidential and downballot voting) S-47, S-48, S-49, S-50 (treatment effects for party-line presidential and downballot voting across specifications)"
       },
       {
         "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
         "questionsUsed": "Vote choice and/or candidate opinions:\n\n1. Presidential vote choice: whether the respondent self-reported to vote for the congenial party candidate (VOTE-POST)\n\n2. House vote choice: whether the respondent self-reported to vote for the congenial party candidate (VOTEHOUSE)\n\n3. Feeling thermometer toward the presidential candidate from the congenial party as defined using self-reported PID (0-100, FT-PEOPA, FT-PEOPB)\n\n4. Feeling thermometer toward the presidential candidate from the uncongenial party as defined using self-reported PID (0-100, FT-PEOPA, FT-PEOPB)",
-        "waves": "President ial and down-ball ot vote choices (Wave 4 and 5) Feeling thermom eters (Wave 4)",
+        "waves": "Presidential and down-ballot vote choices (Wave 4 and 5)\n\nFeeling thermometers (Wave 4)",
         "method": "1. A composite scale with varimax rotation to select items from the candidate list.\n\n2. The final scale is the average of the standardized measures included.\n\n3. Senate and Governor vote choice were included in the candidate list, yet were excluded in the scale due to missingness; Feeling thermometer ratings for Wave 5 were excluded in the primary analyses",
         "pages": "S41 (variable description) S116, S117 (treatment effects across platforms) S120, S121, S122, S123 (treatment effects for Senate and Governor vote choices and evaluations - not included in the main scale across platforms) S124, S125, S126, S127 (wave-by-wave treatment effects"
       }
