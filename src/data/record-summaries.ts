@@ -328,22 +328,74 @@ export const curatedRecordSummaries: Record<string, CuratedRecordSummary> = {
   [recordSummaryKey("a3-1", RS)]: fromQuestions("Belief about the winner of the 2020 presidential election", "Perceived election irregularities", "Confidence in election officials", "Perceived accuracy of election results and mail-in voting"),
 
   // A3.2 - Party-congenial election misconduct and outcomes
-  [recordSummaryKey("a3-2", LM)]: fromQuestions("Party-congenial coding of the perceived 2020 election winner", "Party-congenial coding of perceived illegal-voting frequency", "Party-congenial coding of whether illegal voting changed the election outcome"),
-  [recordSummaryKey("a3-2", UN)]: fromQuestions("Party-congenial coding of the perceived 2020 election winner", "Party-congenial coding of perceived illegal-voting frequency", "Party-congenial coding of whether illegal voting changed the election outcome"),
+  [recordSummaryKey("a3-2", LM)]: {
+    ...fromQuestions("Party-congenial coding of the perceived 2020 election winner", "Party-congenial coding of perceived illegal-voting frequency", "Party-congenial coding of whether illegal voting changed the election outcome"),
+    methods: [
+      { label: "Exploratory factor analysis", tone: "analysis" },
+      { label: "Varimax rotation", tone: "rotation" },
+      { label: "Average of standardized measures", tone: "aggregation" },
+      { label: "Inferred partisanship", tone: "general" },
+      { label: "Belief that registered voters were prevented from voting and that this affected election outcomes was excluded from the scale because it did not load with other items and was evaluated separately", tone: "restriction" },
+    ],
+  },
+  [recordSummaryKey("a3-2", UN)]: {
+    ...fromQuestions("Party-congenial coding of the perceived 2020 election winner", "Party-congenial coding of perceived illegal-voting frequency", "Party-congenial coding of whether illegal voting changed the election outcome"),
+    methods: [
+      { label: "Factor analysis", tone: "analysis" },
+      { label: "Varimax rotation", tone: "rotation" },
+      { label: "Average of standardized measures", tone: "aggregation" },
+      { label: "Self-reported partisanship", tone: "selfReport" },
+      { label: "Belief that registered voters were prevented from voting and that this affected election outcomes was excluded from the scale", tone: "restriction" },
+    ],
+  },
 
   // A3.3 - Respect for election norms
-  [recordSummaryKey("a3-3", LM)]: fromQuestions("Party-congenial coding of whether Donald Trump should concede to Joe Biden"),
-  [recordSummaryKey("a3-3", UN)]: fromQuestions("Party-congenial coding of whether Donald Trump should concede to Joe Biden"),
+  [recordSummaryKey("a3-3", LM)]: {
+    ...fromQuestions("Party-congenial coding of whether Donald Trump should concede to Joe Biden"),
+    methods: [
+      { label: "Standardized measure", tone: "transformation" },
+      { label: "Inferred ideology", tone: "general" },
+    ],
+  },
+  [recordSummaryKey("a3-3", UN)]: {
+    ...fromQuestions("Party-congenial coding of whether Donald Trump should concede to Joe Biden"),
+    methods: [
+      { label: "Standardized measure", tone: "transformation" },
+      { label: "Self-reported partisanship", tone: "selfReport" },
+    ],
+  },
 
   // A3.4 - Confidence in elections
-  [recordSummaryKey("a3-4", LM)]: fromQuestions("Party-congenial confidence in election officials", "Party-congenial perceived accuracy of the 2020 vote count", "Party-congenial trust in mail-ballot counting accuracy"),
-  [recordSummaryKey("a3-4", UN)]: fromQuestions("Party-congenial confidence in election officials", "Party-congenial perceived accuracy of the 2020 vote count", "Party-congenial trust in mail-ballot counting accuracy"),
+  [recordSummaryKey("a3-4", LM)]: {
+    ...fromQuestions("Party-congenial confidence in election officials", "Party-congenial perceived accuracy of the 2020 vote count", "Party-congenial trust in mail-ballot counting accuracy"),
+    methods: [
+      { label: "Exploratory factor analysis", tone: "analysis" },
+      { label: "Varimax rotation", tone: "rotation" },
+      { label: "Average of standardized measures", tone: "aggregation" },
+      { label: "Inferred ideology", tone: "general" },
+    ],
+  },
+  [recordSummaryKey("a3-4", UN)]: {
+    ...fromQuestions("Party-congenial confidence in election officials", "Party-congenial perceived accuracy of the 2020 vote count", "Party-congenial trust in mail-ballot counting accuracy"),
+    methods: [
+      { label: "Factor analysis", tone: "analysis" },
+      { label: "Varimax rotation", tone: "rotation" },
+      { label: "Average of standardized measures", tone: "aggregation" },
+      { label: "Self-reported partisanship", tone: "selfReport" },
+    ],
+  },
 
   // A3.5 - Democratic performance
   [recordSummaryKey("a3-5", AD)]: fromQuestions(...democraticStandards),
   [recordSummaryKey("a3-5", DE)]: fromQuestions(...democraticStandards),
   [recordSummaryKey("a3-5", LM)]: fromQuestions("Six statements assessing whether the United States meets democratic standards"),
-  [recordSummaryKey("a3-5", UN)]: fromQuestions("Three statements assessing whether the United States meets democratic standards"),
+  [recordSummaryKey("a3-5", UN)]: {
+    ...fromQuestions("Three statements assessing whether the United States meets democratic standards"),
+    methods: [
+      { label: "Standardized measure", tone: "transformation" },
+      { label: "Average of standardized measures", tone: "aggregation" },
+    ],
+  },
 
   // A3.6 - Confidence in institutions
   [recordSummaryKey("a3-6", CF)]: fromQuestions("Confidence in the executive branch, Congress, police, Supreme Court, local and state government, and large corporations"),

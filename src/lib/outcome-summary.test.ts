@@ -187,6 +187,148 @@ describe("curated record summaries", () => {
     expect(row("a2-6", "Untrustworthy").waves).toBe("Presidential and down-ballot vote choices (Wave 4 and 5)\n\nFeeling thermometers (Wave 4)");
   });
 
+  it("keeps corrected Trust content, spacing, summaries, and tones", () => {
+    const table = (id: string) => outcomeTables.find((candidate) => candidate.id === id)!;
+    const row = (tableId: string, paper: string) => table(tableId).rows.find((candidate) => candidate.paper.startsWith(paper))!;
+    const methods = (tableId: string, paper: string) => deriveRowSummary(table(tableId), row(tableId, paper)).methods;
+
+    for (const paper of ["Chronological Feed", "Reshares"]) {
+      expect(row("a3-1", paper).questionsUsed).toContain("mail-in voting\n\n(ELECTWIN_W5");
+    }
+
+    expect(methods("a3-2", "Likeminded")).toEqual([
+      { label: "Exploratory factor analysis", tone: "analysis" },
+      { label: "Varimax rotation", tone: "rotation" },
+      { label: "Average of standardized measures", tone: "aggregation" },
+      { label: "Inferred partisanship", tone: "general" },
+      { label: "Belief that registered voters were prevented from voting and that this affected election outcomes was excluded from the scale because it did not load with other items and was evaluated separately", tone: "restriction" },
+    ]);
+    expect(methods("a3-2", "Untrustworthy")).toEqual([
+      { label: "Factor analysis", tone: "analysis" },
+      { label: "Varimax rotation", tone: "rotation" },
+      { label: "Average of standardized measures", tone: "aggregation" },
+      { label: "Self-reported partisanship", tone: "selfReport" },
+      { label: "Belief that registered voters were prevented from voting and that this affected election outcomes was excluded from the scale", tone: "restriction" },
+    ]);
+    for (const paper of ["Likeminded", "Untrustworthy"]) {
+      expect(row("a3-2", paper).method).toContain("Excluded items include:\n\n(a)");
+      expect(row("a3-2", paper).method).toContain("\n\n(b) Asked only");
+    }
+    expect(methods("a3-2", "Untrustworthy").every((method) => !method.label.includes("ELECTWIN"))).toBe(true);
+
+    expect(methods("a3-3", "Likeminded")).toEqual([
+      { label: "Standardized measure", tone: "transformation" },
+      { label: "Inferred ideology", tone: "general" },
+    ]);
+    expect(methods("a3-3", "Untrustworthy")).toEqual([
+      { label: "Standardized measure", tone: "transformation" },
+      { label: "Self-reported partisanship", tone: "selfReport" },
+    ]);
+    expect(methods("a3-4", "Likeminded")).toEqual([
+      { label: "Exploratory factor analysis", tone: "analysis" },
+      { label: "Varimax rotation", tone: "rotation" },
+      { label: "Average of standardized measures", tone: "aggregation" },
+      { label: "Inferred ideology", tone: "general" },
+    ]);
+    expect(methods("a3-4", "Untrustworthy")).toEqual([
+      { label: "Factor analysis", tone: "analysis" },
+      { label: "Varimax rotation", tone: "rotation" },
+      { label: "Average of standardized measures", tone: "aggregation" },
+      { label: "Self-reported partisanship", tone: "selfReport" },
+    ]);
+
+    expect(row("a3-5", "Likeminded").waves).toBe("Wave 4-5 (pooled)");
+    expect(row("a3-5", "Untrustworthy").waves).toBe("Main analyses: Wave 4-5 (pooled)\n\nAuxiliary analyses: Wave 5");
+    expect(row("a3-5", "Untrustworthy").method).toContain("1. Main Analyses:\n\n1) Because");
+    expect(row("a3-5", "Untrustworthy").method).toContain("\n\n2) Standardized measure\n\n2. Auxiliary Analyses:");
+    expect(row("a3-5", "Untrustworthy").method).not.toContain("(?)");
+    expect(methods("a3-5", "Untrustworthy")).toEqual([
+      { label: "Standardized measure", tone: "transformation" },
+      { label: "Average of standardized measures", tone: "aggregation" },
+    ]);
+
+    for (const paper of ["Chronological Feed", "Reshares"]) {
+      expect(row("a3-6", paper).waves).toBe("Wave 3 and Wave 5 (pooled)");
+    }
+    expect(row("a3-6", "Chronological Feed").pages).toContain("Main Fig. 3");
+    expect(row("a3-6", "Chronological Feed").pages).toContain("wave-specific treatment effects");
+    expect(row("a3-6", "Chronological Feed").pages).not.toContain("specifica treatment");
+
+    for (const paper of ["Chronological Feed", "Reshares"]) {
+      expect(row("a3-7", paper).questionsUsed).toContain("CNN\n\n(INFOTRUSTA W4");
+    }
+    expect(row("a3-7", "Untrustworthy").questionsUsed).toContain("news\n\n(INFOTRUST SOURCE)");
+    expect(row("a3-7", "Untrustworthy").pages).toContain("Main Figure 3");
+    expect(row("a3-7", "Untrustworthy").pages).toContain("wave-specific treatment effects");
+    expect(row("a3-7", "Untrustworthy").pages).not.toContain("Figue");
+
+    for (const paper of ["Chronological Feed", "Reshares"]) {
+      expect(row("a3-8", paper).questionsUsed).toContain("Twitter\n\n(INFOTRUSTC W4");
+    }
+    expect(row("a3-8", "Chronological Feed").waves).toBe("Wave 4 and Wave 5 (pooled)");
+    expect(row("a3-8", "Deactivation").method).toMatch(/^1\. Each response/);
+    expect(methods("a3-8", "Deactivation")).toContainEqual({ label: "Recoded to 0-1", tone: "coding" });
+  });
+
+  it("preserves the all-table proofreading corrections", () => {
+    const table = (id: string) => outcomeTables.find((candidate) => candidate.id === id)!;
+    const row = (tableId: string, paper: string) => table(tableId).rows.find((candidate) => candidate.paper.startsWith(paper))!;
+    const dataset = JSON.stringify(outcomeTables);
+    const confirmedDefects = [
+      "responses resigned",
+      "question was resigned",
+      "tratment effects",
+      "computed by subtraction",
+      "Measured total web visits",
+      "passive tracing data",
+      "average of the standard measures",
+      "civil content engagement",
+      "principle components",
+      "Republkican",
+      "Probaby",
+      "should not conced (",
+      "Repubican",
+      "93 if Democrat",
+      "standardizd",
+      "Government protests",
+      "USEDEMOCF",
+      "A index using",
+      "treattment",
+      "SPECKNOW EVD",
+      "an six-question",
+      "campan season",
+      "Hunter Bidens’",
+      "standardize d",
+      "operationali zed",
+      "correspondi ng",
+      "wave-by-wa ve",
+      "Ture COVID",
+      "four-scale",
+      "sclae",
+      "a women",
+      "while supremacists",
+      "Donal Trump",
+    ];
+
+    for (const defect of confirmedDefects) {
+      expect(dataset, defect).not.toContain(defect);
+    }
+
+    expect(row("a1-1", "Reshares").questionsUsed).toContain("FT PEOPD W5]\n\n2. Difference");
+    expect(row("a1-1", "Untrustworthy").questionsUsed).toContain("FT-PEOPC, FT-PEOPD]");
+    expect(row("a1-2", "Ad Experimental").method).toContain("\n\n3. Respondents");
+    expect(row("a2-6", "Reshares").questionsUsed).toMatch(/VOTEGOV_W5\)$/);
+    expect(row("a3-5", "Ad Experimental").questionsUsed).toContain("USDEMOCD)\n\n5. Elections");
+    expect(row("a3-5", "Ad Experimental").questionsUsed).toContain("USDEMOCF)");
+    expect(row("a4-1", "Ad Experimental").questionsUsed).toContain("$15 per hour\n\n3. SPECKNOWPOC");
+    expect(row("a4-2", "Ad Experimental").questionsUsed).toContain("COVID-related restrictions\n\n2. SPECKNOWEVB");
+    for (const paper of ["Ad Experimental", "Deactivation"]) {
+      expect(row("a4-3", paper).questionsUsed).toContain("COVID-19\n\n6. MISINFOF");
+      expect(row("a4-3", paper).questionsUsed).toContain("Hunter Biden’s laptop");
+    }
+    expect(row("a4-5", "Reshares").questionsUsed).toMatch(/MISINFO7 W3\)$/);
+  });
+
   it("uses the requested Trump-favorability summary for both experimental papers", () => {
     const votePreference = outcomeTables.find((table) => table.id === "a2-6")!;
     const expected = "Trump favorability: (a) average of standardized values; (b) self-reported approval coded 1–5; (c) absolute difference between thermometer ratings";
