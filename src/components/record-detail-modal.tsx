@@ -4,6 +4,7 @@ import { useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { categoryMeta, type OutcomeRow, type OutcomeTable } from "@/data/outcome-measures";
+import { parseDetailOutline } from "@/lib/detail-outline";
 import { parseSourceEntries } from "@/lib/outcome-summary";
 
 interface RecordDetailModalProps {
@@ -11,12 +12,47 @@ interface RecordDetailModalProps {
   onClose: () => void;
 }
 
-function FullField({ label, value }: { label: string; value: string }) {
+function StructuredValue({ value }: { value: string }) {
+  const outline = parseDetailOutline(value);
+
+  if (!outline.items.length) return <span className="whitespace-pre-line">{value}</span>;
+
+  return (
+    <>
+      {outline.introduction.map((paragraph, index) => (
+        <p key={`${paragraph}-${index}`} className="mb-4 last:mb-0">{paragraph}</p>
+      ))}
+      <ol className="grid list-decimal gap-5 pl-5 marker:font-bold marker:text-[#14213d]">
+        {outline.items.map((item) => {
+          const childKind = item.children[0]?.kind;
+          return (
+            <li key={`${item.number}-${item.text}`}>
+              <p className="whitespace-pre-line">{item.text}</p>
+              {childKind === "alpha" ? (
+                <ol type="a" className="mt-3 grid gap-2 pl-5 [list-style-type:lower-alpha] marker:font-semibold marker:text-[#52606d]">
+                  {item.children.map((child, index) => <li key={`${child.text}-${index}`}>{child.text}</li>)}
+                </ol>
+              ) : childKind === "bullet" ? (
+                <ul className="mt-3 grid list-disc gap-2 pl-5 marker:text-[#147d79]">
+                  {item.children.map((child, index) => <li key={`${child.text}-${index}`}>{child.text}</li>)}
+                </ul>
+              ) : null}
+            </li>
+          );
+        })}
+      </ol>
+    </>
+  );
+}
+
+function FullField({ label, value, structured = false }: { label: string; value: string; structured?: boolean }) {
   return (
     <div>
       <dt className="text-[0.68rem] font-bold tracking-[0.14em] text-[#b94f35] uppercase">{label}</dt>
       <dd className="mt-2 whitespace-pre-line text-sm leading-7 text-[#35435b] sm:text-base">
-        {value.trim() || <span aria-label="Not specified in source">—</span>}
+        {value.trim()
+          ? structured ? <StructuredValue value={value.trim()} /> : value.trim()
+          : <span aria-label="Not specified in source">—</span>}
       </dd>
     </div>
   );
@@ -114,10 +150,10 @@ export function RecordDetailModal({ record, onClose }: RecordDetailModalProps) {
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-7 sm:px-8 sm:py-9">
           <dl className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-x-12">
-            <FullField label="Complete questions used" value={row.questionsUsed} />
+            <FullField label="Complete questions used" value={row.questionsUsed} structured={table.id === "a4-4"} />
             <div className="grid content-start gap-8">
               <FullField label="Waves" value={row.waves} />
-              <FullField label="Complete method" value={row.method} />
+              <FullField label="Complete method" value={row.method} structured={table.id === "a4-7"} />
             </div>
           </dl>
 

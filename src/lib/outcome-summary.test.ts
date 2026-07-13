@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { outcomeTables } from "@/data/outcome-measures";
 import { curatedRecordSummaries, getCuratedRecordSummary, recordSummaryKey } from "@/data/record-summaries";
+import { parseDetailOutline } from "@/lib/detail-outline";
 import { deriveRowSummary, parseSourceEntries, splitNumberedItems } from "@/lib/outcome-summary";
 
 const expectedComponentCounts: Record<string, number[]> = {
@@ -327,6 +328,51 @@ describe("curated record summaries", () => {
       expect(row("a4-3", paper).questionsUsed).toContain("Hunter Biden’s laptop");
     }
     expect(row("a4-5", "Reshares").questionsUsed).toMatch(/MISINFO7 W3\)$/);
+  });
+
+  it("keeps corrected Knowledge spacing, nested details, summaries, and tones", () => {
+    const table = (id: string) => outcomeTables.find((candidate) => candidate.id === id)!;
+    const row = (tableId: string, paper: string) => table(tableId).rows.find((candidate) => candidate.paper.startsWith(paper))!;
+    const methods = (tableId: string, paper: string) => deriveRowSummary(table(tableId), row(tableId, paper)).methods;
+
+    for (const paper of ["Chronological Feed", "Reshares"]) {
+      expect(row("a4-1", paper).questionsUsed).toContain("policy positions\n\n(SPECKNOWPOA W4");
+      expect(row("a4-2", paper).questionsUsed).toContain("did not occur\n\n(SPECKNOWEVA W4");
+      expect(row("a4-5", paper).questionsUsed).toContain("time of the study\n\n(MISINFOI W4");
+    }
+
+    expect(row("a4-2", "Likeminded").questionsUsed).toContain("currently in the news\n\n(SPECKNOWPO)");
+    expect(row("a4-2", "Untrustworthy").questionsUsed).toContain("three did not.\n\n(SPECKNOWEVENT-[ITEM])");
+    expect(row("a4-2", "Untrustworthy").questionsUsed).toContain("currently in the news\n\n(SPECKNOWPO)");
+
+    const a43Methods = [{ label: "Standardized average score", tone: "aggregation" }];
+    for (const paper of ["Ad Experimental", "Deactivation"]) {
+      expect(methods("a4-3", paper)).toEqual(a43Methods);
+      const outline = parseDetailOutline(row("a4-4", paper).questionsUsed);
+      expect(outline.items.map((item) => item.children.length)).toEqual([6, 7, 11]);
+      expect(outline.items[0].children[0].text).toMatch(/^SPECKNOWPOA:/);
+      expect(outline.items[1].children[0].text).toMatch(/^SPECKNOWEVA:/);
+      expect(outline.items[2].children[0].text).toMatch(/^MISINFOA:/);
+    }
+
+    expect(row("a4-5", "Likeminded").questionsUsed.match(/\n\n\(MISINFO\)/g)).toHaveLength(2);
+    expect(row("a4-6", "Likeminded").questionsUsed.match(/\n\n\(MISINFO\)/g)).toHaveLength(2);
+    expect(row("a4-6", "Untrustworthy").waves).toBe("Wave 4");
+
+    const a47Methods = [
+      { label: "Pro-attitudinal knowledge: difference between mean belief in true and false claims", tone: "coding" },
+      { label: "Pro-attitudinal false beliefs: mean belief in false claims", tone: "aggregation" },
+    ];
+    expect(row("a4-7", "Likeminded").questionsUsed.match(/\n\n\(MISINFO\)/g)).toHaveLength(2);
+    expect(row("a4-7", "Untrustworthy").questionsUsed).toContain("adult film star (T)\n\n(MISINFO-C");
+    expect(row("a4-7", "Untrustworthy").questionsUsed).toContain("masks in public (T)\n\n(MISINFO-A");
+    for (const paper of ["Likeminded", "Untrustworthy"]) {
+      expect(methods("a4-7", paper)).toEqual(a47Methods);
+      const outline = parseDetailOutline(row("a4-7", paper).method);
+      expect(outline.items).toHaveLength(2);
+      expect(outline.items.map((item) => item.children.length)).toEqual([3, 3]);
+      expect(outline.items.flatMap((item) => item.children).every((child) => child.kind === "alpha")).toBe(true);
+    }
   });
 
   it("uses the requested Trump-favorability summary for both experimental papers", () => {

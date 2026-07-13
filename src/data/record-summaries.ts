@@ -434,8 +434,14 @@ export const curatedRecordSummaries: Record<string, CuratedRecordSummary> = {
   ]),
 
   // A4.3 - Fact knowledge
-  [recordSummaryKey("a4-3", AD)]: fromQuestions(...factKnowledgeClaims),
-  [recordSummaryKey("a4-3", DE)]: fromQuestions(...factKnowledgeClaims),
+  [recordSummaryKey("a4-3", AD)]: {
+    ...fromQuestions(...factKnowledgeClaims),
+    methods: [{ label: "Standardized average score", tone: "aggregation" }],
+  },
+  [recordSummaryKey("a4-3", DE)]: {
+    ...fromQuestions(...factKnowledgeClaims),
+    methods: [{ label: "Standardized average score", tone: "aggregation" }],
+  },
 
   // A4.4 - Knowledge index
   [recordSummaryKey("a4-4", AD)]: fromQuestions("Election knowledge: candidate policy-position identification", "News knowledge: accuracy about recent events", "Fact knowledge: accuracy about circulating true and false claims"),
@@ -467,8 +473,20 @@ export const curatedRecordSummaries: Record<string, CuratedRecordSummary> = {
   ),
 
   // A4.7 - Pro-attitudinal knowledge and false claims
-  [recordSummaryKey("a4-7", LM)]: fromQuestions("Wave 4 pro-attitudinal accuracy across partisan, COVID-related, and candidate claims", "Wave 5 pro-attitudinal accuracy across six false and three true-but-plausibly-false election claims"),
-  [recordSummaryKey("a4-7", UN)]: fromQuestions("True and false claim subset congenial to liberal participants", "True and false claim subset congenial to conservative participants"),
+  [recordSummaryKey("a4-7", LM)]: {
+    ...fromQuestions("Wave 4 pro-attitudinal accuracy across partisan, COVID-related, and candidate claims", "Wave 5 pro-attitudinal accuracy across six false and three true-but-plausibly-false election claims"),
+    methods: [
+      { label: "Pro-attitudinal knowledge: difference between mean belief in true and false claims", tone: "coding" },
+      { label: "Pro-attitudinal false beliefs: mean belief in false claims", tone: "aggregation" },
+    ],
+  },
+  [recordSummaryKey("a4-7", UN)]: {
+    ...fromQuestions("True and false claim subset congenial to liberal participants", "True and false claim subset congenial to conservative participants"),
+    methods: [
+      { label: "Pro-attitudinal knowledge: difference between mean belief in true and false claims", tone: "coding" },
+      { label: "Pro-attitudinal false beliefs: mean belief in false claims", tone: "aggregation" },
+    ],
+  },
 };
 
 export function getCuratedRecordSummary(table: OutcomeTable, row: OutcomeRow) {

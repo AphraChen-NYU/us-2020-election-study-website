@@ -71,4 +71,23 @@ describe("filterOutcomeTablesWithFacets", () => {
     expect(results.map((table) => table.id)).toEqual(["a2-6"]);
     expect(results[0].rows.map((row) => row.paper)).toEqual(["Reshares (Guess et al., 2023)"]);
   });
+
+  it("uses curated Knowledge summary methods in keyword search and method facets", () => {
+    const a43 = filterOutcomeTablesWithFacets(outcomeTables, { ...emptyVariableFilters, methods: ["Standardized average score"] }, "knowledge");
+    expect(a43.map((table) => table.id)).toEqual(["a4-3"]);
+    expect(a43[0].rows).toHaveLength(2);
+
+    const method = "Pro-attitudinal false beliefs: mean belief in false claims";
+    const a47Facet = filterOutcomeTablesWithFacets(outcomeTables, { ...emptyVariableFilters, methods: [method] }, "knowledge");
+    expect(a47Facet.map((table) => table.id)).toEqual(["a4-7"]);
+    expect(a47Facet[0].rows).toHaveLength(2);
+
+    const a47Search = filterOutcomeTablesWithFacets(outcomeTables, {
+      ...emptyVariableFilters,
+      query: "pro-attitudinal false beliefs",
+      scope: "method",
+    }, "knowledge");
+    expect(a47Search.map((table) => table.id)).toEqual(["a4-7"]);
+    expect(a47Search[0].rows).toHaveLength(2);
+  });
 });
