@@ -82,11 +82,11 @@ function tagsForMethodItem(item: string): MethodTag[] {
   if (/principal components? analysis|principle components? analysis/.test(lower)) add("PCA", "analysis");
   if (/exploratory factor analysis/.test(lower)) add("Exploratory factor analysis", "analysis");
   else if (/factor analysis/.test(lower) && !/principal|principle components?/.test(lower)) add("Factor analysis", "analysis");
-  if (/varimax rotation/.test(lower)) add("Varimax rotation", "transformation");
-  if (/average of (three |the |these )?standardized|average of standardized|standardized average/.test(lower)) add("Average of standardized measures", "transformation");
-  if (/index of standardized|composite.*standardized/.test(lower)) add("Standardized composite index", "transformation");
-  if (/sum of .*binary|sum of self-reported binary/.test(lower)) add("Sum of binary items", "coding");
-  else if (/composite \(summed\)|summed index|sum of scores|number of correct/.test(lower)) add("Summed index", "coding");
+  if (/varimax rotation/.test(lower)) add("Varimax rotation", "rotation");
+  if (/average of (three |the |these )?standardized|average of standardized|standardized average/.test(lower)) add("Average of standardized measures", "aggregation");
+  if (/index of standardized|composite.*standardized/.test(lower)) add("Standardized composite index", "aggregation");
+  if (/sum of .*binary|sum of self-reported binary/.test(lower)) add("Sum of binary items", "aggregation");
+  else if (/composite \(summed\)|summed index|sum of scores|number of correct/.test(lower)) add("Summed index", "aggregation");
   if (/standardized value|standardize the value|standardized at|standard deviation units/.test(lower)
     && !tags.some((tag) => tag.label.includes("standardized"))) add("Standardized score", "transformation");
   if (/difference between mean belief|difference between mean|avg\. true|average.*true.*average.*false/.test(lower)) add("True-minus-false belief score", "coding");
@@ -98,8 +98,8 @@ function tagsForMethodItem(item: string): MethodTag[] {
     if (/do not lean|lean toward neither|non-partisan|no party/.test(lower)) add("Excludes respondents without a party lean", "restriction");
     else add(compactFallbackMethod(value), "restriction");
   }
-  if (/matched voter|voter file|validated contribution|campaign contribution data/.test(lower)) add("Validated against administrative records", "coding");
-  if (/self-reported/.test(lower) && tags.length === 0) add("Self-reported measure", "general");
+  if (/matched voter|voter file|validated contribution|campaign contribution data/.test(lower)) add("Validated against administrative records", "validation");
+  if (/self-reported/.test(lower) && tags.length === 0) add("Self-reported measure", "selfReport");
 
   if (!tags.length) add(compactFallbackMethod(value), "general");
   return tags;

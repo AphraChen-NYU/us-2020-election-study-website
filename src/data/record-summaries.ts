@@ -8,7 +8,16 @@ export interface CuratedComponent {
   sourceItem: string;
 }
 
-export type CuratedMethodTagTone = "analysis" | "transformation" | "restriction" | "coding" | "general";
+export type CuratedMethodTagTone =
+  | "analysis"
+  | "rotation"
+  | "aggregation"
+  | "transformation"
+  | "coding"
+  | "validation"
+  | "restriction"
+  | "selfReport"
+  | "general";
 
 export interface CuratedMethodTag {
   label: string;
@@ -225,8 +234,8 @@ export const curatedRecordSummaries: Record<string, CuratedRecordSummary> = {
       { label: "Validated campaign contributions during the 30 days before the election", sourceField: "questionsUsed", sourceItem: "Validated 2" },
     ]),
     methods: [
-      { label: "Self-reported measure", tone: "general" },
-      { label: "Validated against administrative records", tone: "coding" },
+      { label: "Self-reported measure", tone: "selfReport" },
+      { label: "Validated against administrative records", tone: "validation" },
     ],
   },
 
@@ -235,8 +244,8 @@ export const curatedRecordSummaries: Record<string, CuratedRecordSummary> = {
     ...fromQuestions(...onPlatformEngagementFull),
     methods: [
       { label: "PCA", tone: "analysis" },
-      { label: "Varimax rotation", tone: "transformation" },
-      { label: "Index of on-platform political engagement", tone: "general" },
+      { label: "Varimax rotation", tone: "rotation" },
+      { label: "Index of on-platform political engagement", tone: "aggregation" },
     ],
   },
   [recordSummaryKey("a2-4", AD)]: fromQuestions(
@@ -252,8 +261,8 @@ export const curatedRecordSummaries: Record<string, CuratedRecordSummary> = {
     ...fromQuestions(...onPlatformEngagementFull),
     methods: [
       { label: "Exploratory factor analysis", tone: "analysis" },
-      { label: "Varimax rotation", tone: "transformation" },
-      { label: "The average of standardized measures", tone: "transformation" },
+      { label: "Varimax rotation", tone: "rotation" },
+      { label: "The average of standardized measures", tone: "aggregation" },
     ],
   },
 
@@ -272,9 +281,9 @@ export const curatedRecordSummaries: Record<string, CuratedRecordSummary> = {
       "Party-line down-ballot voting based on state-office choices and party identification",
     ),
     methods: [
-      { label: "Self-reported measures", tone: "general" },
+      { label: "Self-reported measures", tone: "selfReport" },
       { label: "binary coding for presidential voting", tone: "coding" },
-      { label: "sum of votes for downballot voting", tone: "coding" },
+      { label: "sum of votes for downballot voting", tone: "aggregation" },
     ],
   },
   [recordSummaryKey("a2-6", AD)]: {
@@ -309,7 +318,7 @@ export const curatedRecordSummaries: Record<string, CuratedRecordSummary> = {
     ),
     methods: [
       { label: "Binary coding for party-line presidential voting", tone: "coding" },
-      { label: "Sum of votes for party-line downballot voting", tone: "coding" },
+      { label: "Sum of votes for party-line downballot voting", tone: "aggregation" },
     ],
   },
   [recordSummaryKey("a2-6", UN)]: fromQuestions(...votePreferenceUntrustworthy),

@@ -22,8 +22,9 @@ import {
   type CategoryFilter,
   type VariableFilters,
 } from "@/lib/filter-outcomes";
-import { deriveRowSummary, type MethodTagTone } from "@/lib/outcome-summary";
+import { deriveRowSummary } from "@/lib/outcome-summary";
 import { resolveVisibleOpenTable } from "@/lib/table-accordion";
+import { methodToneStyles } from "@/lib/method-tag-palette";
 import { cn } from "@/lib/utils";
 
 const filterOptions: { value: CategoryFilter; label: string; href: string }[] = [
@@ -34,14 +35,6 @@ const filterOptions: { value: CategoryFilter; label: string; href: string }[] = 
     href: `/variable-operationalization/${category}`,
   })),
 ];
-
-const methodToneClasses: Record<MethodTagTone, string> = {
-  analysis: "border-[#8fb8ff] bg-[#edf4ff] text-[#2159b3]",
-  transformation: "border-[#cbb4f7] bg-[#f5efff] text-[#6943ad]",
-  restriction: "border-[#14213d]/14 bg-[#f4f2ee] text-[#52606d]",
-  coding: "border-[#9fcf9a] bg-[#edf8eb] text-[#327039]",
-  general: "border-[#14213d]/14 bg-white text-[#35435b]",
-};
 
 function ComponentSummary({ table, row }: { table: OutcomeTable; row: OutcomeRow }) {
   const components = deriveRowSummary(table, row).components;
@@ -61,7 +54,10 @@ function MethodSummary({ table, row }: { table: OutcomeTable; row: OutcomeRow })
   return (
     <div className="flex flex-wrap gap-1.5">
       {methods.map((method) => (
-        <span key={method.label} className={cn("inline-flex rounded-md border px-2 py-1 text-xs font-semibold leading-5", methodToneClasses[method.tone])}>{method.label}</span>
+        <span key={method.label} className={cn("inline-flex items-center gap-1.5 rounded-md border px-2 py-1 text-xs font-semibold leading-5", methodToneStyles[method.tone].className)}>
+          <span aria-hidden="true" className={cn("size-1.5 shrink-0 rounded-full", methodToneStyles[method.tone].dotClassName)} />
+          <span>{method.label}</span>
+        </span>
       ))}
     </div>
   );
