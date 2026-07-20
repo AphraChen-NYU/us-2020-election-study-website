@@ -94,7 +94,7 @@ export function VariableFilterBar({
   const facets = useMemo(() => [
     ...(!lockedCategory ? [{ key: "themes" as const, label: "Theme", options: filterOptions.themes }] : []),
     { key: "papers" as const, label: "Paper", options: filterOptions.papers },
-    { key: "outcomes" as const, label: "Outcome Table", options: filterOptions.outcomes },
+    { key: "outcomes" as const, label: "Measure", options: filterOptions.outcomes },
   ], [filterOptions, lockedCategory]);
   const [openFacet, setOpenFacet] = useState<keyof VariableFilters | null>(null);
   const visibleOpenFacet = facets.some((facet) => facet.key === openFacet) ? openFacet : null;

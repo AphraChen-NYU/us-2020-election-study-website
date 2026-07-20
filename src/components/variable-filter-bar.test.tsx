@@ -40,7 +40,7 @@ describe("VariableFilterBar", () => {
     expect(Array.from(container.querySelectorAll("summary")).map((summary) => summary.textContent?.trim())).toEqual([
       "Theme",
       "Paper",
-      "Outcome Table",
+      "Measure",
     ]);
     const filterGroup = screen.getByRole("group", { name: "Search by" });
     const clearButton = screen.getByRole("button", { name: "Clear all filters" }) as HTMLButtonElement;
@@ -141,7 +141,7 @@ describe("VariableFilterBar", () => {
     expect(screen.getByLabelText("Chronological Feed (Guess et al., 2023)")).not.toBeNull();
   });
 
-  it("narrows overview outcomes further when a paper is selected", () => {
+  it("narrows overview measures further when a paper is selected", () => {
     const { container } = render(<FilterHarness />);
     const [themeSummary, paperSummary, outcomeSummary] = Array.from(container.querySelectorAll("summary"));
 
@@ -173,7 +173,7 @@ describe("VariableFilterBar", () => {
     expect((screen.getByRole("button", { name: "Clear all filters" }) as HTMLButtonElement).disabled).toBe(true);
   });
 
-  it("omits Theme and scopes Outcome Table options on a theme route", () => {
+  it("omits Theme and scopes Measure options on a theme route", () => {
     const { container } = render(
       <VariableFilterBar
         id="theme-test"
@@ -187,7 +187,7 @@ describe("VariableFilterBar", () => {
 
     expect(Array.from(container.querySelectorAll("summary")).map((summary) => summary.textContent?.trim())).toEqual([
       "Paper",
-      "Outcome Table",
+      "Measure",
     ]);
     expect(screen.getByRole("group", { name: "Search by" }).lastElementChild).toBe(
       screen.getByRole("button", { name: "Clear all filters" }),
@@ -196,7 +196,7 @@ describe("VariableFilterBar", () => {
     expect(screen.queryByLabelText("Election knowledge")).toBeNull();
   });
 
-  it("allows only Paper or Outcome Table to be open on a theme route", () => {
+  it("allows only Paper or Measure to be open on a theme route", () => {
     const { container } = render(<FilterHarness lockedCategory="polarization" />);
     const [paperSummary, outcomeSummary] = Array.from(container.querySelectorAll("summary"));
     const paperMenu = paperSummary.closest("details")!;
