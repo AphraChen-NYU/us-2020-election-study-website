@@ -29,7 +29,7 @@ export function VariableOverview() {
           </h1>
         </div>
         <p className="max-w-2xl text-lg leading-8 text-[#52606d] lg:pb-2">
-          Select a theme to browse its tables, or search across every theme for a paper, measure, survey wave, method, or source reference.
+          Select a theme to browse its tables, or filter the collection by theme, paper, and outcome table.
         </p>
       </div>
 

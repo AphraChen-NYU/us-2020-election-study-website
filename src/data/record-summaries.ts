@@ -36,7 +36,7 @@ const AD = "Ad Experimental (Allcott et al., working paper)";
 const DE = "Deactivation (Allcott et al., 2024)";
 const LM = "Likeminded (Nyhan et al., 2023)";
 const RS = "Reshares (Guess et al., 2023)";
-const UN = "Untrustworthy (Bergeron-Boutin et al., working paper)";
+const UN = "Untrustworthy (Bergeron-Boutin et al., forthcoming)";
 
 export function recordSummaryKey(tableId: string, paper: string) {
   return `${tableId}::${paper}`;

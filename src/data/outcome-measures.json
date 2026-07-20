@@ -41,7 +41,7 @@
         "pages": "S-7 (variable description) Main Table 1 (main treatment effects) S-39, S-40, S-41, S-42 (treatment effects across specifications) S-51, S-52, S-53 (wave-by-wave treatment effects across specifications)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "1. Difference in feeling thermometer scores between people who support the party the respondent prefers and people who support the other party [Wave 4: FT-PEOPD, FT-PEOPE; Wave 5: FT-PEOPC, FT-PEOPD]\n\n2. Difference in feeling thermometer scores between people running for office as the party the respondent prefers and people running for office from the other party (Wave 4: FT-PEOPB, FT-PEOPC; Wave 5: FT-PEOPE, FT-PEOPF)\n\n3. Difference in perceptions of how smart people are who support the party the respondent prefers and people who support the other party (DEMSMART, REPSMART)",
         "waves": "Wave 4-5",
         "method": "1. Average of three standardized measures\n\n2. Omit Question (3) because it was only asked in Wave 4\n\n3. Main outcome combines the W4 and W5 for Questions (1) and (2)",
@@ -91,7 +91,7 @@
         "pages": "S-7 (variable description) Main Table 1 (main treatment effects) S-39, S-40, S-41, S-42 (treatment effects across specifications)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "1. Responses to six issue opinion questions: immigration, health care, unemployment, COVID, foreign policy, the treatment of blacks and whites, police funding, and views on gender/#metoo [IMMIG, HEALTH, UNEMPLOY, COVID, BLACKWHITE, POLICE, SEXISM]",
         "waves": "Wave 4",
         "method": "1. An index of standardized responses.\n\n2. Each question was re-signed so that higher values are closer to the congenial-party mean.",
@@ -177,7 +177,7 @@
         "pages": "S-78 (variable description) Main Fig.1 (average daily proportional difference in time spent on-platform) S-18 (average daily proportional difference in time spent on-platform) S-19 (time spent in hours on other social media platforms) S-63 (comparisons among the full sample, passive tracking sample, and US MAP)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "",
         "waves": "Participants who completed Waves 1–2 and one of post-treatment surveys",
         "method": "1. Time spent on-platform: based on Meta’s internal measures of the amount of time that each person actively engages with the app or website. This metric includes time spent on all surfaces on Facebook.\n\n2. Time spent on-platform: standardized time spent, which was computed by subtracting the average time that US monthly active users spent on the platform and then dividing by the standard deviation of this measure\n\n3. Time spent off-platform on other websites: based on the passive tracking data provided by a subset of respondents. Measured by total web visits on desktop/laptop devices, tablets, and smartphones on Windows, Mac and Android systems",
@@ -220,7 +220,7 @@
         "pages": "S13 (variable description) Main Extended Data Fig.5 (treatment effects) S78 (treatment effects)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "1. Attended a protest or rally\n\n2. Contributed money to a political candidate or organization\n\n3. Signed an online petition\n\n4. Tried to convince someone how to vote (online or in-person)\n\n5. Wrote and posted political messages online\n\n6. Talked about politics with someone you know\n\n(survey item POLPART)",
         "waves": "Wave 4",
         "method": "Sum of self-reported binary questions",
@@ -314,7 +314,7 @@
         "pages": "S13 (variable description for both self-reported and validated turnout) Main Extended Data Fig.5 (treatment effects on both self-reported and validated turnout) S78 (treatment effects on both self-reported and validated turnout)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "1. Self-reported turnout: “In talking to people about elections, we often find that a lot of people were not able to vote because they weren’t registered, they were sick, or they just didn’t have time. Which of the following statements best describes you” (TURNOUT-POSTELEC)\n\n2. Validated turnout: matched participants from voter file data by vendor",
         "waves": "Wave 4 and Wave 5 (pooled for self-reported)",
         "method": "1. Self-reported turnout: dichotomized measure. “I am sure I voted” (1) vs. did not vote (0: “I did not vote”; “I thought about voting this time, but didn’t”; “I usually vote, but didn’t this time”)\n\n2. Validated turnout: binary. 0 = no validated vote in 2020 general election found in voter file data, 1 = validated vote found for 2020 general election",
@@ -364,7 +364,7 @@
         "pages": "S-9 (variable descriptions for party-line presidential voting and party-line downballot voting) Main Table 1 (treatment effects for party-line presidential and downballot voting) S-47, S-48, S-49, S-50 (treatment effects for party-line presidential and downballot voting across specifications)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "Vote choice and/or candidate opinions:\n\n1. Presidential vote choice: whether the respondent self-reported to vote for the congenial party candidate (VOTE-POST)\n\n2. House vote choice: whether the respondent self-reported to vote for the congenial party candidate (VOTEHOUSE)\n\n3. Feeling thermometer toward the presidential candidate from the congenial party as defined using self-reported PID (0-100, FT-PEOPA, FT-PEOPB)\n\n4. Feeling thermometer toward the presidential candidate from the uncongenial party as defined using self-reported PID (0-100, FT-PEOPA, FT-PEOPB)",
         "waves": "Presidential and down-ballot vote choices (Wave 4 and 5)\n\nFeeling thermometers (Wave 4)",
         "method": "1. A composite scale with varimax rotation to select items from the candidate list.\n\n2. The final scale is the average of the standardized measures included.\n\n3. Senate and Governor vote choice were included in the candidate list, yet were excluded in the scale due to missingness; Feeling thermometer ratings for Wave 5 were excluded in the primary analyses",
@@ -408,7 +408,7 @@
         "pages": "S12 (variable description) S169 (factor loadings) Main Fig.3 (treatment effects) S77 (treatment effects) S80, S81 (treatment effects for the two excluded questions)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "Party-congenial beliefs:\n\n1. Which candidate won the 2020 election (ELECTWIN): Joe Biden (2 if Democrat, 0 if Republican), Donald Trump (0 if Democrat, 2 if Republican), or Not yet determined (1)\n\n2. How often people voted illegally (IRREG2020B): Often (1 if Democrat, 4 if Republican), Sometimes (2 if Democrat, 3 if Republican), Rarely (3 if Democrat, 2 if Republican), Never (4 if Democrat, 1 if Republican)\n\n3. Asked only of people who did not answer “Never” to IRREG2020B: Whether people illegally voting changed the outcome of the presidential election (ILLEGALVOTEEFFECT2020): Yes (4 if Republican, 1 if Democrat), No (2 if Republican, 3 if Democrat), Not sure (3 if Republican, 2 if Democrat) [never on IRREG2020=1 if Republican, 4 if Democrat]",
         "waves": "Wave 5",
         "method": "1. A composite scale using factor analysis with varimax rotation to select items in each list.\n\n2. The scale was defined as the average of the standardized measures included.\n\n3. Using self-reported partisanship. For these items, the authors code each differently depending on whether the respondent self-identifies as Democrat or a Republican.\n\n4. The belief that registered voters were prevented from voting and that this affected election outcomes was excluded from the scale. IRREG2020A was excluded because it did not load with other items, PREVENTEFFECT2020 (its load was above 0.7) was excluded to maintain consistency with other papers. Excluded items include:\n\n(a) How often registered voters were illegally prevented from voting (IRREG2020A): Often (4 if Democrat, 1 if Republican), Sometimes (3 if Democrat, 2 if Republican), Rarely (2 if Democrat, 3 if Republican), Never (1 if Democrat, 4 if Republican)\n\n(b) Asked only of people who did not answer “Never” to IRREG2020A: Whether people illegally prevented from voting changed the outcome of the presidential election (PREVENTEFFECT2020): Yes (4 if Democrat, 1 if Republican), No (2 if Democrat, 3 if Republican), Not sure (3 if Democrat, 2 if Republican). [never on IRREG2020=1 if Democrat, 4 if Republican]\n\n5. ELECTWIN was included even though its load was below 0.7 to maintain consistency with other papers",
@@ -430,7 +430,7 @@
         "pages": "S13 (variable description) Main Fig.3 (treatment effects) S77 (treatment effects)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "Whether Donald Trump should or should not concede the election to Joe Biden (TRUMPCONCEDE): Definitely should concede (4 if Democrat, 1 if Republican), Probably should concede (3 if Democrat, 2 if Republican), Probably should not concede (2 if Democrat, 3 if Republican), Definitely should not concede (1 if Democrat, 4 if Republican)",
         "waves": "Wave 5",
         "method": "1. Standardized measure\n\n2. Using self-reported partisanship. For these items, the authors code each differently depending on whether the respondent self-identifies as Democrat or a Republican.",
@@ -452,7 +452,7 @@
         "pages": "S12-13 (variable description) S169 (factor loadings) Main Fig.3 (treatment effects) S77 (treatment effects)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "Confidence in elections:\n\n1. Confidence in the officials who oversee elections (CONFOFFICIALS): None (1 if Democrat, 5 if Republican), A little (2 if Democrat, 4 if Republican), A moderate amount (3 if Democrat, 3 if Republican), A lot (4 if Democrat, 2 if Republican), A great deal (5 if Democrat, 1 if Republican)\n\n2. How accurately the votes were counted in the 2020 general election (COUNTACCURATE): Not at all accurately (1 if Democrat, 5 if Republican), Not very accurately (2 if Democrat, 4 if Republican), Moderately accurately (3 if Democrat, 3 if Republican), Very accurately (4 if Democrat, 2 if Republican), Completely accurately (5 if Democrat, 1 if Republican)\n\n3. How much do you trust that votes are counted accurately when people mail in their ballots (MAILACCURATE): A great deal (5 if Democrat, 1 if Republican), A lot (4 if Democrat, 2 if Republican), A moderate amount (3 if Democrat, 3 if Republican), A little (2 if Democrat, 4 if Republican), Not at all (1 if Democrat, 5 if Republican)",
         "waves": "Wave 5",
         "method": "1. A composite scale using factor analysis with varimax rotation to select items in each list.\n\n2. The scale was defined as the average of the standardized measures included.\n\n3. Using self-reported partisanship. For these items, the authors code each differently depending on whether the respondent self-identifies as Democrat or a Republican.",
@@ -488,7 +488,7 @@
         "pages": "S17 (variable description) Extended Data Fig. 5 (treatment effects) S78 (treatment effects) S87, S88 (wave-specific treatment effects)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "1. Responses to three statements as to whether U.S. meets a given standard (USDEMOC): “How well do the following statements describe the United States as of today?” (response options: 1=The U.S. does not meet this standard, 2=The U.S. partly meets this standard, 3=The U.S. mostly meets this standard, 4=The U.S. fully meets this standard)",
         "waves": "Main analyses: Wave 4-5 (pooled)\n\nAuxiliary analyses: Wave 5",
         "method": "1. Main Analyses:\n\n1) Because the items did not load highly on the same scale, the authors analyzed each item separately in the main analyses as RQa (“Elections are free from foreign influence”), RQb (“All adult citizens have equal opportunity to vote”), and RQc (“Elections are conducted without fraud”).\n\n2) Standardized measure\n\n2. Auxiliary Analyses: a “Perceptions of democratic performance” scale: average of standardized measures",
@@ -553,7 +553,7 @@
         "pages": "S-8 (variable description) S-70, S-71 (factor loadings) Main Table 1 (treatment effects) S-47, S-48, S-49, S-50 (treatment effects across specifications) S-51, S-52, S-53 (wave-specific treatment effects across specifications)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "1. How much respondents think political information from each of these sources can be trusted: Local news, National newspapers, National network TV news\n\n(INFOTRUST SOURCE)",
         "waves": "Wave 4 and Wave 5 (pooled)",
         "method": "1. Average of three standardized items",
@@ -639,7 +639,7 @@
         "pages": "S-8 (variable description) Main Table 1. (treatment effects) S-39, S-40, S-41, S-42 (treatment effects across specifications)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "1. The proportion correct on a six-question battery of candidate policy positions",
         "waves": "Wave 4",
         "method": "1. Share of correct answers",
@@ -689,7 +689,7 @@
         "pages": "S-8 (variable description) Main Table 1 (treatment effects) S-39, S-40, S-41, S-42 (treatment effects across specifications)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "Research Question section version:\n\n1. Seven statements about particular events that occurred during the campaign season, using the prompt: “The following is a list of events. Please indicate how certain you are about whether each event did or did not happen in the last few weeks.” Four events did occur and three did not.\n\n(SPECKNOWEVENT-[ITEM])\n\nAdditional Outcomes section version:\n\n1. The proportion correct on a seven-question battery assessing knowledge about events currently in the news\n\n(SPECKNOWPO)",
         "waves": "Wave 4",
         "method": "1. Sum of scores measuring news knowledge, on a four-point scale.",
@@ -769,7 +769,7 @@
         "pages": "S16, S17 (variable description) Main Extended Data Fig.5 (treatment effects) S78 (treatment effects) S87, S88 (wave-by-wave treatment effects)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "Named as “Avg. true - avg. false beliefs”\n\n1. Currently circulating fake news topics (conservative): Evidence found on Hunter Biden’s laptop proves Joe Biden took bribes from foreign powers (MISINFO-A), Joe Biden is a pedophile (MISINFO-K)\n\n2. Currently circulating fake news topic (liberal): Amy Coney Barrett said that a woman needs a man’s permission to own property (MISINFO-C)\n\n3. Currently circulating fake news topic (COVID-related): Masks and face coverings are not effective in preventing the spread of COVID-19 (MISINFO-E), The U.S. government has a plan to force a COVID-19 vaccine on everyone (MISINFO-D)\n\n4. False statement by Trump: Millions of fraudulent ballots were cast in the 2020 presidential election (MISINFO-F)\n\n5. False statement by Biden: Donald Trump held a Bible upside-down in front of a church (MISINFO-G)\n\n6. True liberal-congenial statements: The current FBI director, Christopher Wray, has said that the greatest terrorist threat is white supremacists (MISINFO-B), Prior to the 2016 presidential election, Donald Trump arranged a payment to an adult film star (MISINFO-J)\n\n7. True conservative-congenial statement: At the beginning of the COVID-19 pandemic, Anthony Fauci did not recommend wearing masks in public (MISINFO-I)\n\n8. True COVID statement: In October, most rural counties were in the COVID-19 “red zone” based on their high rates of new cases (MISINFO-H)",
         "waves": "Wave 4",
         "method": "1. Difference between mean belief in true claims and mean belief in false claims for all claims\n\n2. Standardized at the respondent level, four-point scale",
@@ -791,7 +791,7 @@
         "pages": "S16, S17 (variable description) Main Extended Data Fig. 5 (treatment effects) S78 (treatment effects) S87, S88 (wave–by-wave treatment effects)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "Respondents’ beliefs in false claims:\n\n1. Currently circulating fake news topic (conservative): Evidence found on Hunter Biden’s laptop proves Joe Biden took bribes from foreign powers (MISINFO-A), Joe Biden is a pedophile (MISINFO-K)\n\n2. Currently circulating fake news topic (liberal): Amy Coney Barrett said that a woman needs a man’s permission to own property (MISINFO-C)\n\n3. Currently circulating fake news topic (COVID-related): Masks and face coverings are not effective in preventing the spread of COVID-19 (MISINFO-E), The U.S. government has a plan to force a COVID-19 vaccine on everyone (MISINFO-D)\n\n4. False statement by Trump: Millions of fraudulent ballots were cast in the 2020 presidential election (MISINFO-F)\n\n5. False statement by Biden: Donald Trump held a Bible upside-down in front of a church (MISINFO-G)",
         "waves": "Wave 4",
         "method": "1. Mean belief in false claims for all claims\n\n2. Standardized at the respondent level, four-point scale",
@@ -813,7 +813,7 @@
         "pages": "S16, S17 (variable description) Main Extended Data Fig. 5 (treatment effects) S78 (treatment effects) S87, S88 (wave-by-wave treatment effects)"
       },
       {
-        "paper": "Untrustworthy (Bergeron-Boutin et al., working paper)",
+        "paper": "Untrustworthy (Bergeron-Boutin et al., forthcoming)",
         "questionsUsed": "1. Pro-attitudinal subset for liberal participants: Amy Coney Barrett said that a woman needs a man’s permission to own property (F), Donald Trump held a Bible upside-down in front of a church (F), The current FBI director, Christopher Wray, has said that the greatest domestic terrorist threat is white supremacists (T), Prior to the 2016 presidential election, Donald Trump arranged a payment to an adult film star (T)\n\n(MISINFO-C, MISINFO-G, MISINFO-B, MISINFO-J)\n\n2. Pro-attitudinal subset for conservative participants: Evidence found on Hunter Biden’s laptop proves Joe Biden took bribes from foreign powers (F), Joe Biden is a pedophile (F), Millions of fraudulent ballots were cast in the 2020 presidential election (F), At the beginning of the COVID-19 pandemic, Anthony Fauci did not recommend wearing masks in public (T)\n\n(MISINFO-A, MISINFO-K, MISINFO-F, MISINFO-I)",
         "waves": "Wave 4",
         "method": "1. Avg. true - Avg. false beliefs (pro-attitude):\n\n(a) Difference between mean belief in true claims and mean belief in false claims for two pro-attitudinal subsets for liberal and conservative participants\n\n(b) Pro-attitudinal subsets for liberal and conservative participants were to be created using participants’ inferred ideology\n\n(c) Standardized at the respondent level, four-point scale\n\n2. False beliefs (pro-attitude):\n\n(a) Mean belief in false claims for two pro-attitudinal subsets for liberal and conservative participants\n\n(b) Pro-attitudinal subsets for liberal and conservative participants were to be created using participants’ inferred ideology\n\n(c) Standardized at the respondent level, four-point scale",

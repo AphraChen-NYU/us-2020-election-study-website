@@ -45,7 +45,7 @@ export default async function VariableThemePage({ params }: ThemePageProps) {
                 {meta.label} variable operationalization
               </h1>
               <p className="max-w-2xl text-lg leading-8 text-white/72 lg:pb-2">
-                {meta.description} Search paper names, survey measures, waves, methods, and page references within this theme.
+                {meta.description} Filter the tables in this theme by paper or outcome table.
               </p>
             </div>
           </div>

@@ -1,106 +1,53 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronDown, RotateCcw, Search, SlidersHorizontal, X } from "lucide-react";
+import { ChevronDown, RotateCcw, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { categoryMeta, outcomeCategories, outcomeTables, type OutcomeCategory } from "@/data/outcome-measures";
-import { deriveRowSummary } from "@/lib/outcome-summary";
-import { emptyVariableFilters, type SearchScope, type VariableFilters } from "@/lib/filter-outcomes";
+import { outcomeTables, type OutcomeCategory } from "@/data/outcome-measures";
+import { emptyVariableFilters, getVariableFilterOptions, reconcileVariableFilters, type VariableFilterOption, type VariableFilters } from "@/lib/filter-outcomes";
 import { cn } from "@/lib/utils";
 
-interface FilterOption {
-  value: string;
-  label: string;
-  group?: string;
-}
-
-const scopeOptions: { value: SearchScope; label: string }[] = [
-  { value: "all", label: "All fields" },
-  { value: "paper", label: "Papers" },
-  { value: "measure", label: "Measures" },
-  { value: "method", label: "Construction methods" },
-  { value: "waves", label: "Waves" },
-  { value: "source", label: "Sources" },
-];
-
-const themeOptions: FilterOption[] = outcomeCategories.map((category) => ({ value: category, label: categoryMeta[category].label }));
-const paperOptions: FilterOption[] = [...new Set(outcomeTables.flatMap((table) => table.rows.map((row) => row.paper)))]
-  .sort((a, b) => a.localeCompare(b))
-  .map((paper) => ({ value: paper, label: paper }));
-
-const tableMeasureOptions: FilterOption[] = outcomeTables.map((table) => ({
-  value: `table:${table.id}`,
-  label: `${table.number} ${table.title}`,
-  group: "Measure tables",
-}));
-
-const componentMeasureOptions: FilterOption[] = [...new Set(
-  outcomeTables.flatMap((table) => table.rows.flatMap((row) => deriveRowSummary(table, row).components.map((component) => component.label))),
-)]
-  .sort((a, b) => a.localeCompare(b))
-  .map((label) => ({ value: `component:${label}`, label, group: "Key variables" }));
-
-const measureOptions = [...tableMeasureOptions, ...componentMeasureOptions];
-const methodOptions: FilterOption[] = [...new Set(
-  outcomeTables.flatMap((table) => table.rows.flatMap((row) => deriveRowSummary(table, row).methods.map((method) => method.label))),
-)]
-  .sort((a, b) => a.localeCompare(b))
-  .map((label) => ({ value: label, label }));
-
-const optionLabels = new Map(
-  [...themeOptions, ...paperOptions, ...measureOptions, ...methodOptions].map((option) => [option.value, option.label]),
-);
-
 function FacetMenu({
-  id,
   label,
   options,
   selected,
   onChange,
+  open,
+  onOpenChange,
 }: {
-  id: string;
   label: string;
-  options: FilterOption[];
+  options: VariableFilterOption[];
   selected: string[];
   onChange: (values: string[]) => void;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }) {
-  const [optionQuery, setOptionQuery] = useState("");
-  const normalized = optionQuery.trim().toLocaleLowerCase();
-  const visibleOptions = normalized ? options.filter((option) => option.label.toLocaleLowerCase().includes(normalized)) : options;
-  const grouped = visibleOptions.reduce((groups, option) => {
+  const grouped = options.reduce((groups, option) => {
     const group = option.group ?? "";
     groups.set(group, [...(groups.get(group) ?? []), option]);
     return groups;
-  }, new Map<string, FilterOption[]>());
+  }, new Map<string, VariableFilterOption[]>());
 
   function toggle(value: string) {
     onChange(selected.includes(value) ? selected.filter((item) => item !== value) : [...selected, value]);
   }
 
   return (
-    <details className="group/facet relative">
-      <summary className="flex min-h-10 cursor-pointer list-none items-center gap-2 rounded-full border border-[#14213d]/16 bg-white px-4 py-2 text-sm font-bold text-[#35435b] transition-colors hover:border-[#147d79]/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]">
+    <details open={open} className="group/facet relative">
+      <summary
+        onClick={(event) => {
+          event.preventDefault();
+          onOpenChange(!open);
+        }}
+        className="flex min-h-10 cursor-pointer list-none items-center gap-2 rounded-full border border-[#14213d]/16 bg-white px-4 py-2 text-sm font-bold text-[#35435b] transition-colors hover:border-[#147d79]/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
+      >
         {label}
         {selected.length ? <span className="rounded-full bg-[#147d79] px-2 py-0.5 text-[0.68rem] text-white">{selected.length}</span> : null}
         <ChevronDown aria-hidden="true" className="size-3.5 transition-transform group-open/facet:rotate-180" />
       </summary>
-      <div className="relative z-40 mt-2 w-full rounded-2xl border border-[#14213d]/14 bg-white p-3 shadow-[0_18px_55px_rgba(20,33,61,0.16)] lg:absolute lg:left-0 lg:w-[360px]">
-        {options.length > 8 ? (
-          <div className="relative mb-3">
-            <Search aria-hidden="true" className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-[#52606d]" />
-            <label htmlFor={`${id}-option-search`} className="sr-only">Search {label.toLocaleLowerCase()} options</label>
-            <input
-              id={`${id}-option-search`}
-              type="search"
-              value={optionQuery}
-              onChange={(event) => setOptionQuery(event.target.value)}
-              placeholder={`Find ${label.toLocaleLowerCase()}`}
-              className="min-h-10 w-full rounded-xl border border-[#14213d]/14 bg-[#f7f4ed] py-2 pr-3 pl-9 text-sm focus:border-[#147d79] focus:outline-none"
-            />
-          </div>
-        ) : null}
+      <div className="relative z-40 mt-2 w-[min(360px,calc(100vw-2.5rem))] rounded-2xl border border-[#14213d]/14 bg-white p-3 shadow-[0_18px_55px_rgba(20,33,61,0.16)] sm:absolute sm:left-0">
         <div className="max-h-72 overflow-y-auto pr-1">
-          {visibleOptions.length ? Array.from(grouped.entries()).map(([group, groupOptions]) => (
+          {Array.from(grouped.entries()).map(([group, groupOptions]) => (
             <fieldset key={group || label} className={cn(group && "mb-4 last:mb-0")}>
               {group ? <legend className="mb-2 px-1 text-[0.65rem] font-bold tracking-[0.14em] text-[#b94f35] uppercase">{group}</legend> : null}
               <div className="grid gap-1">
@@ -117,7 +64,7 @@ function FacetMenu({
                 ))}
               </div>
             </fieldset>
-          )) : <p className="px-2 py-5 text-center text-sm text-[#52606d]">No matching options</p>}
+          ))}
         </div>
       </div>
     </details>
@@ -139,90 +86,68 @@ export function VariableFilterBar({
   tableCount: number;
   rowCount: number;
 }) {
-  const selectedCount = filters.themes.length + filters.papers.length + filters.measures.length + filters.methods.length;
-  const hasSelections = Boolean(filters.query.trim() || selectedCount);
+  const filterOptions = useMemo(
+    () => getVariableFilterOptions(outcomeTables, lockedCategory, filters),
+    [filters, lockedCategory],
+  );
 
   const facets = useMemo(() => [
-    ...(!lockedCategory ? [{ key: "themes" as const, label: "Theme", options: themeOptions }] : []),
-    { key: "papers" as const, label: "Paper", options: paperOptions },
-    { key: "measures" as const, label: "Measure", options: measureOptions },
-    { key: "methods" as const, label: "Method", options: methodOptions },
-  ], [lockedCategory]);
+    ...(!lockedCategory ? [{ key: "themes" as const, label: "Theme", options: filterOptions.themes }] : []),
+    { key: "papers" as const, label: "Paper", options: filterOptions.papers },
+    { key: "outcomes" as const, label: "Outcome Table", options: filterOptions.outcomes },
+  ], [filterOptions, lockedCategory]);
+  const [openFacet, setOpenFacet] = useState<keyof VariableFilters | null>(null);
+  const visibleOpenFacet = facets.some((facet) => facet.key === openFacet) ? openFacet : null;
+
+  const selectedCount = filters.themes.length + filters.papers.length + filters.outcomes.length;
+  const optionLabels = useMemo(() => new Map(
+    [...filterOptions.themes, ...filterOptions.papers, ...filterOptions.outcomes].map((option) => [option.value, option.label]),
+  ), [filterOptions]);
 
   function update<K extends keyof VariableFilters>(key: K, value: VariableFilters[K]) {
-    onChange({ ...filters, [key]: value });
+    onChange(reconcileVariableFilters(outcomeTables, { ...filters, [key]: value }, lockedCategory));
   }
 
   const activeValues = [
     ...filters.themes.map((value) => ({ field: "themes" as const, value })),
     ...filters.papers.map((value) => ({ field: "papers" as const, value })),
-    ...filters.measures.map((value) => ({ field: "measures" as const, value })),
-    ...filters.methods.map((value) => ({ field: "methods" as const, value })),
+    ...filters.outcomes.map((value) => ({ field: "outcomes" as const, value })),
   ];
 
   return (
     <div className="border-y border-[#14213d]/12 py-5">
-      <div className="grid gap-3 xl:grid-cols-[minmax(360px,1fr)_auto] xl:items-center">
-        <div className="grid gap-2 sm:grid-cols-[minmax(240px,1fr)_190px]">
-          <div className="relative">
-            <Search aria-hidden="true" className="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-[#52606d]" />
-            <label htmlFor={`${id}-search`} className="sr-only">Search variable operationalization records</label>
-            <input
-              id={`${id}-search`}
-              type="search"
-              value={filters.query}
-              onChange={(event) => update("query", event.target.value)}
-              placeholder="Search records"
-              className="min-h-12 w-full rounded-full border border-[#14213d]/18 bg-white py-3 pr-12 pl-12 text-sm text-[#14213d] shadow-sm placeholder:text-[#52606d]/75 focus:border-[#147d79] focus:outline-none focus:ring-3 focus:ring-[#147d79]/18"
-            />
-            {filters.query ? (
-              <button type="button" onClick={() => update("query", "")} aria-label="Clear search" className="absolute top-1/2 right-3 grid size-8 -translate-y-1/2 place-items-center rounded-full text-[#52606d] hover:bg-[#14213d]/7 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]">
-                <X aria-hidden="true" className="size-4" />
-              </button>
-            ) : null}
-          </div>
-          <div>
-            <label htmlFor={`${id}-scope`} className="sr-only">Search within</label>
-            <select
-              id={`${id}-scope`}
-              value={filters.scope}
-              onChange={(event) => update("scope", event.target.value as SearchScope)}
-              className="min-h-12 w-full rounded-full border border-[#14213d]/18 bg-white px-4 py-3 text-sm font-semibold text-[#35435b] focus:border-[#147d79] focus:outline-none focus:ring-3 focus:ring-[#147d79]/18"
-            >
-              {scopeOptions.map((option) => <option key={option.value} value={option.value}>Search in: {option.label}</option>)}
-            </select>
-          </div>
-        </div>
-
-        <div className="hidden flex-wrap gap-2 lg:flex">
-          {facets.map((facet) => (
-            <FacetMenu key={facet.key} id={`${id}-${facet.key}`} label={facet.label} options={facet.options} selected={filters[facet.key]} onChange={(values) => update(facet.key, values)} />
-          ))}
-        </div>
-
-        <details className="group/filters lg:hidden">
-          <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between rounded-xl border border-[#14213d]/16 bg-white px-4 py-2.5 text-sm font-bold text-[#35435b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]">
-            <span className="flex items-center gap-2"><SlidersHorizontal aria-hidden="true" className="size-4" /> Filters {selectedCount ? `(${selectedCount})` : ""}</span>
-            <ChevronDown aria-hidden="true" className="size-4 transition-transform group-open/filters:rotate-180" />
-          </summary>
-          <div className="mt-2 grid gap-2 rounded-2xl border border-[#14213d]/12 bg-[#fffdf8] p-3">
-            {facets.map((facet) => (
-              <FacetMenu key={facet.key} id={`${id}-mobile-${facet.key}`} label={facet.label} options={facet.options} selected={filters[facet.key]} onChange={(values) => update(facet.key, values)} />
-            ))}
-          </div>
-        </details>
+      <div className="flex flex-wrap items-center gap-2.5" role="group" aria-labelledby={`${id}-label`}>
+        <span id={`${id}-label`} className="mr-1 text-sm font-bold tracking-[0.08em] text-[#52606d] uppercase">Search by</span>
+        {facets.map((facet) => (
+          <FacetMenu
+            key={facet.key}
+            label={facet.label}
+            options={facet.options}
+            selected={filters[facet.key]}
+            onChange={(values) => update(facet.key, values)}
+            open={visibleOpenFacet === facet.key}
+            onOpenChange={(open) => setOpenFacet((current) => open ? facet.key : current === facet.key ? null : current)}
+          />
+        ))}
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          disabled={!selectedCount}
+          onClick={() => {
+            setOpenFacet(null);
+            onChange({ ...emptyVariableFilters });
+          }}
+        >
+          <RotateCcw aria-hidden="true" className="size-3.5" /> Clear all filters
+        </Button>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-[#52606d]">
+      <div className="mt-4 text-sm text-[#52606d]">
         <p aria-live="polite">
           Showing <strong className="text-[#14213d]">{tableCount}</strong> {tableCount === 1 ? "table" : "tables"} and{" "}
           <strong className="text-[#14213d]">{rowCount}</strong> {rowCount === 1 ? "record" : "records"}
         </p>
-        {hasSelections ? (
-          <Button type="button" variant="ghost" size="sm" onClick={() => onChange({ ...emptyVariableFilters })}>
-            <RotateCcw aria-hidden="true" className="size-3.5" /> Clear all
-          </Button>
-        ) : null}
       </div>
 
       {activeValues.length ? (
