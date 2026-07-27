@@ -23,16 +23,58 @@ export default function Home() {
                 Exploring social media and the 2020 U.S. election
               </h1>
               <p className="mt-8 max-w-3xl text-lg leading-8 text-white/72 sm:text-xl">
-                This research hub brings together materials from a collaboration between independent academics and Meta researchers. Begin with a structured guide to how key variables were operationalized across the study’s papers.
+                This research hub brings together materials from a collaboration between independent academics and Meta researchers. Explore the study’s publications and a structured guide to how key variables were operationalized across its papers.
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
-                <Link href="/variable-operationalization" className={cn(buttonVariants({ variant: "accent" }), "group")}>
+                <a href="#about" className={buttonVariants({ variant: "accent" })}>
+                  About the study
+                </a>
+                <Link
+                  href="/variable-operationalization"
+                  className={cn(buttonVariants({ variant: "outline" }), "group border-white/35 text-white hover:bg-white/10")}
+                >
                   Explore variable operationalization
                   <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" />
                 </Link>
-                <a href="#about" className={cn(buttonVariants({ variant: "outline" }), "border-white/35 text-white hover:bg-white/10")}>
-                  About this project
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="matrix-pattern-light scroll-mt-20 border-y border-[#14213d]/12 bg-[#fffdf8]">
+          <div className="mx-auto grid max-w-[1440px] gap-14 px-5 py-20 sm:px-8 md:py-28 lg:grid-cols-[0.8fr_1.2fr] lg:px-12">
+            <div>
+              <Badge>About the study</Badge>
+              <h2 className="mt-5 text-5xl leading-none tracking-[-0.035em] sm:text-6xl">A clearer route into complex research</h2>
+            </div>
+            <div className="max-w-3xl">
+              <p className="text-xl leading-9 text-[#263550]">
+                The U.S. 2020 Facebook and Instagram Election Study brought together independent external academics and Meta researchers to examine questions about social media, political attitudes, behavior, and information during the election.
+              </p>
+              <p className="mt-6 leading-8 text-[#52606d]">
+                This research hub provides a library of study publications alongside a searchable variable operationalization guide, making it easier to trace research questions, measures, methods, and supporting materials without drawing conclusions beyond the underlying research.
+              </p>
+              <div className="mt-9 grid gap-4 sm:grid-cols-2">
+                <a
+                  href="https://www.icpsr.umich.edu/sites/icpsr/news/data-from-u-s-2020-presidential-election-facebook-and-instagram-study-now-available-at-icpsr"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group rounded-2xl border border-[#14213d]/14 bg-white p-5 transition-colors hover:border-[#147d79]/45"
+                >
+                  <LibraryBig aria-hidden="true" className="size-5 text-[#147d79]" />
+                  <span className="mt-8 flex items-center justify-between gap-3 font-semibold">
+                    ICPSR-SOMAR replication data <ExternalLink aria-hidden="true" className="size-4 text-[#52606d]" />
+                  </span>
                 </a>
+                <Link
+                  href="/related-papers"
+                  className="group rounded-2xl border border-[#14213d]/14 bg-white p-5 transition-colors hover:border-[#147d79]/45"
+                >
+                  <BookOpenText aria-hidden="true" className="size-5 text-[#b94f35]" />
+                  <span className="mt-8 flex items-center justify-between gap-3 font-semibold">
+                    Study Publications <ArrowRight aria-hidden="true" className="size-4 text-[#52606d] transition-transform group-hover:translate-x-1" />
+                  </span>
+                </Link>
               </div>
             </div>
           </div>
@@ -65,47 +107,6 @@ export default function Home() {
                 <p className="mt-3 max-w-md leading-7 text-[#52606d]">{categoryMeta[category].description}</p>
               </Link>
             ))}
-          </div>
-        </section>
-
-        <section id="about" className="matrix-pattern-light border-y border-[#14213d]/12 bg-[#fffdf8]">
-          <div className="mx-auto grid max-w-[1440px] gap-14 px-5 py-20 sm:px-8 md:py-28 lg:grid-cols-[0.8fr_1.2fr] lg:px-12">
-            <div>
-              <Badge>About the study</Badge>
-              <h2 className="mt-5 text-5xl leading-none tracking-[-0.035em] sm:text-6xl">A clearer route into complex research</h2>
-            </div>
-            <div className="max-w-3xl">
-              <p className="text-xl leading-9 text-[#263550]">
-                The U.S. 2020 Facebook and Instagram Election Study brought together independent external academics and Meta researchers to examine questions about social media, political attitudes, behavior, and information during the election.
-              </p>
-              <p className="mt-6 leading-8 text-[#52606d]">
-                This first local release focuses on variable operationalization. It makes the source material easier to search and compare without drawing conclusions beyond the underlying research. Additional sections are reserved for future content.
-              </p>
-              <div className="mt-9 grid gap-4 sm:grid-cols-2">
-                <a
-                  href="https://www.icpsr.umich.edu/sites/icpsr/news/data-from-u-s-2020-presidential-election-facebook-and-instagram-study-now-available-at-icpsr"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group rounded-2xl border border-[#14213d]/14 bg-white p-5 transition-colors hover:border-[#147d79]/45"
-                >
-                  <LibraryBig aria-hidden="true" className="size-5 text-[#147d79]" />
-                  <span className="mt-8 flex items-center justify-between gap-3 font-semibold">
-                    ICPSR study overview <ExternalLink aria-hidden="true" className="size-4 text-[#52606d]" />
-                  </span>
-                </a>
-                <a
-                  href="https://www.pnas.org/doi/10.1073/pnas.2321584121"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group rounded-2xl border border-[#14213d]/14 bg-white p-5 transition-colors hover:border-[#147d79]/45"
-                >
-                  <BookOpenText aria-hidden="true" className="size-5 text-[#b94f35]" />
-                  <span className="mt-8 flex items-center justify-between gap-3 font-semibold">
-                    Peer-reviewed overview <ExternalLink aria-hidden="true" className="size-4 text-[#52606d]" />
-                  </span>
-                </a>
-              </div>
-            </div>
           </div>
         </section>
 

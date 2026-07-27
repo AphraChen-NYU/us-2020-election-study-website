@@ -39,4 +39,13 @@ describe("outcome measures dataset", () => {
     expect(untrustworthyRows.every((row) => row.paper === "Untrustworthy (Bergeron-Boutin et al., forthcoming)")).toBe(true);
     expect(rows.some((row) => row.paper === "Untrustworthy (Bergeron-Boutin et al., working paper)")).toBe(false);
   });
+
+  it("uses the 2026 citation for every Ad Experimental record", () => {
+    const rows = outcomeTables.flatMap((table) => table.rows);
+    const adExperimentalRows = rows.filter((row) => row.paper.startsWith("Ad Experimental"));
+
+    expect(adExperimentalRows).toHaveLength(16);
+    expect(adExperimentalRows.every((row) => row.paper === "Ad Experimental (Allcott et al., 2026)")).toBe(true);
+    expect(rows.some((row) => row.paper === "Ad Experimental (Allcott et al., working paper)")).toBe(false);
+  });
 });
