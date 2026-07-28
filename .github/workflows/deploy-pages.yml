@@ -47,6 +47,12 @@ jobs:
       - name: Build static site
         run: pnpm build
 
+      - name: Verify exported site content
+        run: |
+          grep -q 'aria-label="Primary navigation"' out/index.html
+          grep -q 'Platform usage outcome measures' out/variable-operationalization/participation/index.html
+          grep -q 'Chronological Feed (Guess et al., 2023)' out/variable-operationalization/participation/index.html
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
@@ -62,3 +68,18 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify deployed site content
+        env:
+          DEPLOYED_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          site_url="${DEPLOYED_URL%/}"
+          curl --fail --location --retry 5 --retry-delay 2 --retry-all-errors \
+            "${site_url}/?version=${GITHUB_SHA}" \
+            --output deployed-home.html
+          curl --fail --location --retry 5 --retry-delay 2 --retry-all-errors \
+            "${site_url}/variable-operationalization/participation?version=${GITHUB_SHA}" \
+            --output deployed-participation.html
+          grep -q 'aria-label="Primary navigation"' deployed-home.html
+          grep -q 'Platform usage outcome measures' deployed-participation.html
+          grep -q 'Chronological Feed (Guess et al., 2023)' deployed-participation.html
