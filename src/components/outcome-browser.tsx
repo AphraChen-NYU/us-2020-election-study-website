@@ -109,11 +109,14 @@ function MobileSummaryCard({ table, row, index, onOpen }: { table: OutcomeTable;
 function SummaryTable({ table, onOpen }: { table: OutcomeTable; onOpen: (row: OutcomeRow) => void }) {
   return (
     <>
-      <div className="grid gap-4 md:hidden">
+      <div data-table-layout="cards" className="grid gap-4 sm:hidden">
         {table.rows.map((row, index) => <MobileSummaryCard key={`${table.id}-${row.paper}-${index}`} table={table} row={row} index={index} onOpen={() => onOpen(row)} />)}
       </div>
 
-      <div className="hidden min-w-0 max-w-full overflow-x-auto rounded-2xl border border-[#14213d]/12 bg-white md:block">
+      <div
+        data-table-layout="table"
+        className="hidden min-w-0 max-w-full overflow-x-auto rounded-2xl border border-[#14213d]/12 bg-white sm:block"
+      >
         <table className="w-full min-w-[1180px] border-collapse text-left text-[0.82rem]">
           <caption className="sr-only">{table.number}: {table.title}</caption>
           <thead>

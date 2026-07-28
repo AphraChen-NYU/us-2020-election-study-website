@@ -25,9 +25,11 @@ describe("publication links", () => {
   });
 
   it("places Study Publications before Variable Operationalization in desktop and mobile navigation", () => {
-    render(<SiteHeader />);
+    const { container } = render(<SiteHeader />);
 
     const desktopNavigation = screen.getByRole("navigation", { name: "Primary navigation" });
+    expect(desktopNavigation.className).toContain("md:flex");
+    expect(container.querySelector('button[aria-label="Open navigation"]')?.className).toContain("md:hidden");
     expect(within(desktopNavigation).getAllByRole("link").map((link) => link.textContent)).toEqual([
       "Home",
       "Study Publications",
