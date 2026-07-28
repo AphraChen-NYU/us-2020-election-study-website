@@ -34,9 +34,8 @@ jobs:
           cache: pnpm
 
       - name: Configure GitHub Pages
+        id: setup_pages
         uses: actions/configure-pages@v5
-        with:
-          static_site_generator: next
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -46,12 +45,20 @@ jobs:
 
       - name: Build static site
         run: pnpm build
+        env:
+          PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
 
       - name: Verify exported site content
         run: |
+          participation_page="out/variable-operationalization/participation/index.html"
+          if [[ ! -f "$participation_page" ]]; then
+            echo "Expected exported page was not generated: $participation_page"
+            find out/variable-operationalization -maxdepth 3 -type f -print | sort
+            exit 1
+          fi
           grep -q 'aria-label="Primary navigation"' out/index.html
-          grep -q 'Platform usage outcome measures' out/variable-operationalization/participation/index.html
-          grep -q 'Chronological Feed (Guess et al., 2023)' out/variable-operationalization/participation/index.html
+          grep -q 'Platform usage outcome measures' "$participation_page"
+          grep -q 'Chronological Feed (Guess et al., 2023)' "$participation_page"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
@@ -78,7 +85,7 @@ jobs:
             "${site_url}/?version=${GITHUB_SHA}" \
             --output deployed-home.html
           curl --fail --location --retry 5 --retry-delay 2 --retry-all-errors \
-            "${site_url}/variable-operationalization/participation?version=${GITHUB_SHA}" \
+            "${site_url}/variable-operationalization/participation/?version=${GITHUB_SHA}" \
             --output deployed-participation.html
           grep -q 'aria-label="Primary navigation"' deployed-home.html
           grep -q 'Platform usage outcome measures' deployed-participation.html
