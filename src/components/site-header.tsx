@@ -10,8 +10,6 @@ const navItems = [
   { href: "/", label: "Home" },
   { href: "/related-papers", label: "Study Publications" },
   { href: "/variable-operationalization", label: "Variable Operationalization" },
-  { href: "/placeholder-1", label: "Placeholder 1" },
-  { href: "/placeholder-2", label: "Placeholder 2" },
 ];
 
 export function SiteHeader() {

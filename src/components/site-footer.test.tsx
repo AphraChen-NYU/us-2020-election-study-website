@@ -7,31 +7,34 @@ import { SiteFooter } from "@/components/site-footer";
 afterEach(cleanup);
 
 describe("SiteFooter", () => {
-  it("summarizes the public research hub without temporary local language", () => {
-    render(<SiteFooter />);
+  it("summarizes the public research hub and links to the external project page", () => {
+    const { container } = render(<SiteFooter />);
+    const description = container.querySelector("footer p:nth-of-type(2)");
+    const projectPage = screen.getByRole("link", { name: "project page" });
 
-    expect(
-      screen.getByText(
-        "A research hub bringing together study publications, research themes, and detailed documentation of how key variables were operationalized.",
-      ),
-    ).not.toBeNull();
+    expect(description?.textContent).toBe(
+      "A research hub bringing together study publications, research themes, and detailed documentation of how key variables were operationalized. For more details about the project, see the project page.",
+    );
+    expect(projectPage.getAttribute("href")).toBe("https://medium.com/");
+    expect(projectPage.getAttribute("target")).toBe("_blank");
+    expect(projectPage.getAttribute("rel")).toBe("noreferrer");
     expect(screen.queryByText("A local research interface", { exact: false })).toBeNull();
   });
 
-  it("shows all four internal destinations in the requested order", () => {
+  it("shows only the two requested internal destinations in order", () => {
     render(<SiteFooter />);
 
-    const links = screen.getAllByRole("link");
+    const links = screen
+      .getAllByRole("link")
+      .filter((link) => link.getAttribute("href")?.startsWith("/"));
     expect(links.map((link) => link.textContent)).toEqual([
       "Browse study publications",
       "Explore variable operationalization",
-      "Placeholder 1",
-      "Placeholder 2",
     ]);
     expect(links[0].getAttribute("href")).toBe("/related-papers");
     expect(links[1].getAttribute("href")).toBe("/variable-operationalization");
-    expect(links[2].getAttribute("href")).toBe("/placeholder-1");
-    expect(links[3].getAttribute("href")).toBe("/placeholder-2");
+    expect(screen.queryByRole("link", { name: "Placeholder 1" })).toBeNull();
+    expect(screen.queryByRole("link", { name: "Placeholder 2" })).toBeNull();
     expect(screen.queryByText("ICPSR study overview")).toBeNull();
   });
 });

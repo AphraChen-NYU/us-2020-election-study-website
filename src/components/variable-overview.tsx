@@ -25,11 +25,11 @@ export function VariableOverview() {
         <div>
           <Badge>Variable operationalization</Badge>
           <h1 className="mt-6 max-w-4xl text-[clamp(3.2rem,7vw,6.6rem)] leading-[0.9] tracking-[-0.05em]">
-            Choose a research theme
+            Variables by theme, paper, or measure
           </h1>
         </div>
         <p className="max-w-2xl text-lg leading-8 text-[#52606d] lg:pb-2">
-          Select a theme to browse its tables, or filter the collection by theme, paper, and outcome table.
+          Use the drop down menus to search for FIES variables
         </p>
       </div>
 

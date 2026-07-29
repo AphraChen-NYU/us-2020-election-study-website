@@ -4,6 +4,7 @@ import { cleanup, fireEvent, render, screen, within } from "@testing-library/rea
 import { afterEach, describe, expect, it, vi } from "vitest";
 import Home from "@/app/page";
 import RelatedPapersPage from "@/app/related-papers/page";
+import VariableOperationalizationPage from "@/app/variable-operationalization/page";
 import { SiteHeader } from "@/components/site-header";
 
 vi.mock("next/navigation", () => ({
@@ -34,8 +35,6 @@ describe("publication links", () => {
       "Home",
       "Study Publications",
       "Variable Operationalization",
-      "Placeholder 1",
-      "Placeholder 2",
     ]);
     expect(screen.getByRole("link", { name: "Study Publications" }).getAttribute("href")).toBe("/related-papers");
 
@@ -45,10 +44,17 @@ describe("publication links", () => {
       "Home",
       "Study Publications",
       "Variable Operationalization",
-      "Placeholder 1",
-      "Placeholder 2",
     ]);
     expect(screen.getAllByRole("link", { name: "Study Publications" })).toHaveLength(2);
+  });
+
+  it("uses the revised variable overview heading and search guidance", () => {
+    render(<VariableOperationalizationPage />);
+
+    expect(screen.getByRole("heading", { level: 1, name: "Variables by theme, paper, or measure" })).not.toBeNull();
+    expect(screen.getByText("Use the drop down menus to search for FIES variables", { exact: true })).not.toBeNull();
+    expect(screen.queryByText("Choose a research theme", { exact: true })).toBeNull();
+    expect(screen.queryByText("Select a theme", { exact: false })).toBeNull();
   });
 
   it("uses the Study Publications title and introduction", () => {
