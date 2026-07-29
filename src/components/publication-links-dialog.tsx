@@ -2,19 +2,18 @@
 
 import { useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
-import { X } from "lucide-react";
+import { ExternalLink, X } from "lucide-react";
 import type { PeerReviewedPaper } from "@/data/peer-reviewed-papers";
-import { getPaperCitationTitle } from "@/lib/publication-citation";
 
-interface CitationDialogProps {
+interface PublicationLinksDialogProps {
   paper: PeerReviewedPaper | null;
   onClose: () => void;
 }
 
-export function CitationDialog({ paper, onClose }: CitationDialogProps) {
+export function PublicationLinksDialog({ paper, onClose }: PublicationLinksDialogProps) {
   const titleId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
-  const closeRef = useRef<HTMLButtonElement>(null);
+  const firstLinkRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (!paper) return;
@@ -22,7 +21,7 @@ export function CitationDialog({ paper, onClose }: CitationDialogProps) {
     const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
+    firstLinkRef.current?.focus();
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -77,17 +76,16 @@ export function CitationDialog({ paper, onClose }: CitationDialogProps) {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="flex h-full w-full flex-col overflow-hidden bg-[#fffdf8] shadow-2xl sm:h-auto sm:max-h-[min(720px,calc(100vh-3rem))] sm:max-w-3xl sm:rounded-[2rem]"
+        className="flex h-full w-full flex-col overflow-hidden bg-[#fffdf8] shadow-2xl sm:h-auto sm:max-h-[min(720px,calc(100vh-3rem))] sm:max-w-2xl sm:rounded-[2rem]"
       >
         <header className="flex items-center justify-between gap-6 border-b border-[#14213d]/12 px-5 py-5 sm:px-8 sm:py-6">
           <h2 id={titleId} className="text-3xl leading-tight tracking-[-0.03em] sm:text-4xl">
-            Cite this paper
+            Choose a publication link
           </h2>
           <button
-            ref={closeRef}
             type="button"
             onClick={onClose}
-            aria-label="Close citation"
+            aria-label="Close publication links"
             className="grid size-11 shrink-0 place-items-center rounded-full border border-[#14213d]/14 bg-white text-[#14213d] transition-colors hover:border-[#147d79]/45 hover:text-[#147d79] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
           >
             <X aria-hidden="true" className="size-5" />
@@ -95,35 +93,23 @@ export function CitationDialog({ paper, onClose }: CitationDialogProps) {
         </header>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-7 sm:px-8 sm:py-9">
-          <div className="rounded-2xl border border-[#14213d]/12 bg-white px-5 py-5 sm:px-6">
-            <p className="break-words text-base leading-8 text-[#35435b]">
-              {paper.citation.authors} ({paper.citation.yearLabel}). {getPaperCitationTitle(paper)}
-              {paper.journal ? (
-                <>
-                  {" "}
-                  <cite className="italic">
-                    {paper.journal}
-                    {paper.citation.volume ? `, ${paper.citation.volume}` : ""}
-                  </cite>
-                  {paper.citation.issue ? `(${paper.citation.issue})` : ""}
-                  {paper.citation.locator ? `, ${paper.citation.locator}` : ""}.
-                </>
-              ) : null}
-              {paper.citation.doi ? (
-                <>
-                  {" "}
-                  <a
-                    href={paper.citation.doi}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-[#147d79] underline decoration-[#147d79]/35 underline-offset-4 transition-colors hover:text-[#0f625f] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
-                  >
-                    {paper.citation.doi}
-                  </a>
-                </>
-              ) : null}
-            </p>
-          </div>
+          <ul className="grid gap-3">
+            {paper.publicationLinks.map((link, index) => (
+              <li key={link.url}>
+                <a
+                  ref={index === 0 ? firstLinkRef : undefined}
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={onClose}
+                  className="flex min-h-14 items-center justify-between gap-4 rounded-2xl border border-[#14213d]/14 bg-white px-5 py-4 text-base font-bold text-[#14213d] transition-colors hover:border-[#147d79]/50 hover:text-[#147d79] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
+                >
+                  <span>{link.label}</span>
+                  <ExternalLink aria-hidden="true" className="size-5 shrink-0" />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>,

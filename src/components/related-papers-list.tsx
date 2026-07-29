@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import { BookOpenText, ChevronDown, ExternalLink } from "lucide-react";
 import { CitationDialog } from "@/components/citation-dialog";
+import { PublicationLinksDialog } from "@/components/publication-links-dialog";
 import { peerReviewedPapers, type PeerReviewedPaper } from "@/data/peer-reviewed-papers";
 import { getAbstractPreview, getAuthorPreview } from "@/lib/publication-preview";
 
@@ -19,9 +20,11 @@ const publicationStatus = {
 
 export function RelatedPapersList() {
   const [citationPaper, setCitationPaper] = useState<PeerReviewedPaper | null>(null);
+  const [publicationLinksPaper, setPublicationLinksPaper] = useState<PeerReviewedPaper | null>(null);
   const [expandedAuthorIds, setExpandedAuthorIds] = useState<Set<string>>(() => new Set());
   const [expandedAbstractIds, setExpandedAbstractIds] = useState<Set<string>>(() => new Set());
   const closeCitation = useCallback(() => setCitationPaper(null), []);
+  const closePublicationLinks = useCallback(() => setPublicationLinksPaper(null), []);
   const toggleAuthorList = useCallback((paperId: string) => {
     setExpandedAuthorIds((current) => {
       const next = new Set(current);
@@ -112,7 +115,11 @@ export function RelatedPapersList() {
                           Publication
                         </dt>
                         <dd className="text-[0.9375rem] leading-6 font-semibold text-[#263550]">
-                          {paper.status === "published" ? `${paper.journal} · ${paper.year}` : "Forthcoming"}
+                          {paper.status === "published"
+                            ? `${paper.journal} · ${paper.year}`
+                            : paper.journal
+                              ? `${paper.journal} · Forthcoming`
+                              : "Forthcoming"}
                         </dd>
                       </div>
                     </dl>
@@ -159,9 +166,9 @@ export function RelatedPapersList() {
                     </div>
 
                     <div className="mt-5 flex flex-wrap items-center gap-3">
-                      {paper.publicationUrl ? (
+                      {paper.publicationLinks.length === 1 ? (
                         <a
-                          href={paper.publicationUrl}
+                          href={paper.publicationLinks[0].url}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#14213d] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#147d79]"
@@ -169,6 +176,17 @@ export function RelatedPapersList() {
                           View publication
                           <ExternalLink aria-hidden="true" className="size-4" />
                         </a>
+                      ) : paper.publicationLinks.length > 1 ? (
+                        <button
+                          type="button"
+                          aria-haspopup="dialog"
+                          aria-label={`View publication options for ${paper.title}`}
+                          onClick={() => setPublicationLinksPaper(paper)}
+                          className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#14213d] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#147d79] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
+                        >
+                          View publication
+                          <ChevronDown aria-hidden="true" className="size-4 shrink-0" />
+                        </button>
                       ) : (
                         <p className="text-sm font-semibold text-[#52606d]">A publication link is not yet available.</p>
                       )}
@@ -189,6 +207,7 @@ export function RelatedPapersList() {
           );
         })}
       </ol>
+      <PublicationLinksDialog paper={publicationLinksPaper} onClose={closePublicationLinks} />
       <CitationDialog paper={citationPaper} onClose={closeCitation} />
     </>
   );

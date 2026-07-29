@@ -3,10 +3,16 @@ export type PublicationStatus = "published" | "forthcoming";
 export interface PaperCitation {
   authors: string;
   yearLabel: string;
+  title?: string;
   volume: string | null;
   issue: string | null;
   locator: string | null;
   doi: string | null;
+}
+
+export interface PublicationLink {
+  label: string;
+  url: string;
 }
 
 export interface PeerReviewedPaper {
@@ -16,9 +22,10 @@ export interface PeerReviewedPaper {
   authors: string[];
   abstract: string;
   citation: PaperCitation;
-  publicationUrl: string | null;
+  publicationLinks: PublicationLink[];
   journal: string | null;
   year: number | null;
+  publicationDate: string | null;
   status: PublicationStatus;
 }
 
@@ -54,7 +61,7 @@ const feedExperimentAuthors = [
   "Joshua A. Tucker",
 ];
 
-export const peerReviewedPapers: PeerReviewedPaper[] = [
+const suppliedPapers: PeerReviewedPaper[] = [
   {
     id: "ad-experimental",
     studyLabel: "Ad Experimental",
@@ -104,9 +111,15 @@ export const peerReviewedPapers: PeerReviewedPaper[] = [
       locator: "884–895",
       doi: "https://doi.org/10.1038/s41562-025-02328-w",
     },
-    publicationUrl: "https://www.nature.com/articles/s41562-025-02328-w",
+    publicationLinks: [
+      {
+        label: "Journal article",
+        url: "https://www.nature.com/articles/s41562-025-02328-w",
+      },
+    ],
     journal: "Nature Human Behaviour",
     year: 2026,
+    publicationDate: "2026-03-02",
     status: "published",
   },
   {
@@ -124,9 +137,15 @@ export const peerReviewedPapers: PeerReviewedPaper[] = [
       locator: "398–404",
       doi: "https://doi.org/10.1126/science.abp9364",
     },
-    publicationUrl: "https://www.science.org/doi/10.1126/science.abp9364",
+    publicationLinks: [
+      {
+        label: "Journal article",
+        url: "https://www.science.org/doi/10.1126/science.abp9364",
+      },
+    ],
     journal: "Science",
     year: 2023,
+    publicationDate: "2023-07-27",
     status: "published",
   },
   {
@@ -177,9 +196,15 @@ export const peerReviewedPapers: PeerReviewedPaper[] = [
       locator: "e2321584121",
       doi: "https://doi.org/10.1073/pnas.2321584121",
     },
-    publicationUrl: "https://www.pnas.org/doi/10.1073/pnas.2321584121",
+    publicationLinks: [
+      {
+        label: "Journal article",
+        url: "https://www.pnas.org/doi/10.1073/pnas.2321584121",
+      },
+    ],
     journal: "Proceedings of the National Academy of Sciences",
     year: 2024,
+    publicationDate: "2024-05-13",
     status: "published",
   },
   {
@@ -228,9 +253,15 @@ export const peerReviewedPapers: PeerReviewedPaper[] = [
       locator: "137–144",
       doi: "https://doi.org/10.1038/s41586-023-06297-w",
     },
-    publicationUrl: "https://www.nature.com/articles/s41586-023-06297-w",
+    publicationLinks: [
+      {
+        label: "Journal article",
+        url: "https://www.nature.com/articles/s41586-023-06297-w",
+      },
+    ],
     journal: "Nature",
     year: 2023,
+    publicationDate: "2023-07-27",
     status: "published",
   },
   {
@@ -248,9 +279,15 @@ export const peerReviewedPapers: PeerReviewedPaper[] = [
       locator: "404–408",
       doi: "https://doi.org/10.1126/science.add8424",
     },
-    publicationUrl: "https://www.science.org/doi/10.1126/science.add8424",
+    publicationLinks: [
+      {
+        label: "Journal article",
+        url: "https://www.science.org/doi/10.1126/science.add8424",
+      },
+    ],
     journal: "Science",
     year: 2023,
+    publicationDate: "2023-07-27",
     status: "published",
   },
   {
@@ -299,9 +336,260 @@ export const peerReviewedPapers: PeerReviewedPaper[] = [
       locator: null,
       doi: null,
     },
-    publicationUrl: null,
+    publicationLinks: [],
     journal: null,
     year: null,
+    publicationDate: null,
+    status: "forthcoming",
+  },
+  {
+    id: "deceptive",
+    studyLabel: "Deceptive",
+    title: "How deceptive online networks reached millions in the US 2020 elections",
+    authors: [
+      "Ruth E. Appel",
+      "Young Mie Kim",
+      "Jennifer Pan",
+      "Yiqing Xu",
+      "Ben Nimmo",
+      "Daniel Robert Thomas",
+      "Hunt Allcott",
+      "Pablo Barberá",
+      "Taylor Brown",
+      "Adriana Crespo-Tenorio",
+      "Drew Dimmery",
+      "Deen Freelon",
+      "Matthew Gentzkow",
+      "Sandra González-Bailón",
+      "Andrew M. Guess",
+      "Shanto Iyengar",
+      "David Lazer",
+      "Neil Malhotra",
+      "Devra Moehler",
+      "Brendan Nyhan",
+      "Jaime Settle",
+      "Emily Thorson",
+      "Rebekah Tromble",
+      "Carlos Velasco Rivera",
+      "Arjun Wilkins",
+      "Magdalena Wojcieszak",
+      "Beixian Xiong",
+      "Chad Kiewiet de Jonge",
+      "Annie Franco",
+      "Winter Mason",
+      "Natalie Jomini Stroud",
+      "Joshua A. Tucker",
+    ],
+    abstract:
+      "Deceptive online networks are coordinated efforts that use identity deception to pursue strategic political or financial goals. During the US 2020 elections, these networks reached at least 37 million Facebook and 3 million Instagram users, representing 15% and 2% of the platforms’ active US adult users, respectively. Only 3 networks out of 49—1 network with explicitly political aims and 2 that appeared to use politics as a lure for profit—were responsible for over 70% of users reached. Notably, accounts unaffiliated with the networks played an important role in facilitating this reach by resharing content the three networks produced. Deceptive networks, regardless of whether their goals were political or financial, reached users who were older, more conservative, more frequently exposed to content from untrustworthy sources, and spent more time on Facebook.",
+    citation: {
+      authors: "Appel, R. E., Kim, Y. M., Pan, J., et al.",
+      yearLabel: "2026",
+      volume: "10",
+      issue: "6",
+      locator: "1068–1082",
+      doi: "https://doi.org/10.1038/s41562-026-02435-2",
+    },
+    publicationLinks: [
+      {
+        label: "Journal article",
+        url: "https://www.nature.com/articles/s41562-026-02435-2",
+      },
+    ],
+    journal: "Nature Human Behaviour",
+    year: 2026,
+    publicationDate: "2026-04-06",
+    status: "published",
+  },
+  {
+    id: "segregation",
+    studyLabel: "Segregation",
+    title: "Asymmetric ideological segregation in exposure to political news on Facebook",
+    authors: [
+      "Sandra González-Bailón",
+      "David Lazer",
+      "Pablo Barberá",
+      "Meiqing Zhang",
+      "Hunt Allcott",
+      "Taylor Brown",
+      "Adriana Crespo-Tenorio",
+      "Deen Freelon",
+      "Matthew Gentzkow",
+      "Andrew M. Guess",
+      "Shanto Iyengar",
+      "Young Mie Kim",
+      "Neil Malhotra",
+      "Devra Moehler",
+      "Brendan Nyhan",
+      "Jennifer Pan",
+      "Carlos Velasco Rivera",
+      "Jaime Settle",
+      "Emily Thorson",
+      "Rebekah Tromble",
+      "Arjun Wilkins",
+      "Magdalena Wojcieszak",
+      "Chad Kiewiet de Jonge",
+      "Annie Franco",
+      "Winter Mason",
+      "Natalie Jomini Stroud",
+      "Joshua A. Tucker",
+    ],
+    abstract:
+      "Does Facebook enable ideological segregation in political news consumption? We analyzed exposure to news during the US 2020 election using aggregated data for 208 million US Facebook users. We compared the inventory of all political news that users could have seen in their feeds with the information that they saw (after algorithmic curation) and the information with which they engaged. We show that (i) ideological segregation is high and increases as we shift from potential exposure to actual exposure to engagement; (ii) there is an asymmetry between conservative and liberal audiences, with a substantial corner of the news ecosystem consumed exclusively by conservatives; and (iii) most misinformation, as identified by Meta’s Third-Party Fact-Checking Program, exists within this homogeneously conservative corner, which has no equivalent on the liberal side. Sources favored by conservative audiences were more prevalent on Facebook’s news ecosystem than those favored by liberals.",
+    citation: {
+      authors: "González-Bailón, S., Lazer, D., Barberá, P., et al.",
+      yearLabel: "2023",
+      volume: "381",
+      issue: "6656",
+      locator: "392–398",
+      doi: "https://doi.org/10.1126/science.ade7138",
+    },
+    publicationLinks: [
+      {
+        label: "Journal article",
+        url: "https://www.science.org/doi/10.1126/science.ade7138",
+      },
+    ],
+    journal: "Science",
+    year: 2023,
+    publicationDate: "2023-07-27",
+    status: "published",
+  },
+  {
+    id: "misinformation",
+    studyLabel: "Misinformation",
+    title: "The Diffusion and Reach of (Mis)Information on Facebook During the U.S. 2020 Election",
+    authors: [
+      "Sandra González-Bailón",
+      "David Lazer",
+      "Pablo Barberá",
+      "William Godel",
+      "Hunt Allcott",
+      "Taylor Brown",
+      "Adriana Crespo-Tenorio",
+      "Deen Freelon",
+      "Matthew Gentzkow",
+      "Andrew M. Guess",
+      "Shanto Iyengar",
+      "Young Mie Kim",
+      "Neil Malhotra",
+      "Devra Moehler",
+      "Brendan Nyhan",
+      "Jennifer Pan",
+      "Carlos Velasco Rivera",
+      "Jaime Settle",
+      "Emily Thorson",
+      "Rebekah Tromble",
+      "Arjun Wilkins",
+      "Magdalena Wojcieszak",
+      "Chad Kiewiet de Jonge",
+      "Annie Franco",
+      "Winter Mason",
+      "Natalie Jomini Stroud",
+      "Joshua A. Tucker",
+    ],
+    abstract:
+      "Social media creates the possibility for rapid, viral spread of content, but how many posts actually reach millions? And is misinformation special in how it propagates? We answer these questions by analyzing the virality of and exposure to information on Facebook during the U.S. 2020 presidential election. We examine the diffusion trees of the approximately 1 B posts that were re-shared at least once by U.S.-based adults from July 1, 2020, to February 1, 2021. We differentiate misinformation from non-misinformation posts to show that (1) misinformation diffused more slowly, relying on a small number of active users that spread misinformation via long chains of peer-to-peer diffusion that reached millions; non-misinformation spread primarily through one-to-many affordances (mainly, Pages); (2) the relative importance of peer-to-peer spread for misinformation was likely due to an enforcement gap in content moderation policies designed to target mostly Pages and Groups; and (3) periods of aggressive content moderation proximate to the election coincide with dramatic drops in the spread and reach of misinformation and (to a lesser extent) political content.",
+    citation: {
+      authors: "González-Bailón, S., Lazer, D., Barberá, P., et al.",
+      yearLabel: "2024",
+      title: "The diffusion and reach of (mis)information on Facebook during the U.S. 2020 election",
+      volume: "11",
+      issue: null,
+      locator: "1124–1146",
+      doi: "https://doi.org/10.15195/v11.a41",
+    },
+    publicationLinks: [
+      {
+        label: "Journal article",
+        url: "https://sociologicalscience.com/articles-v11-41-1124/",
+      },
+    ],
+    journal: "Sociological Science",
+    year: 2024,
+    publicationDate: "2024-12-11",
+    status: "published",
+  },
+  {
+    id: "emotion",
+    studyLabel: "Emotion",
+    title: "The Effect of Deactivating Facebook and Instagram on Users’ Emotional State",
+    authors: [
+      "Hunt Allcott",
+      "Matthew Gentzkow",
+      "Benjamin Wittenbrink",
+      "Taylor Brown",
+      "Juan C. Cisneros",
+      "Adriana Crespo-Tenorio",
+      "Drew Dimmery",
+      "Deen Freelon",
+      "Sandra González-Bailón",
+      "Andrew M. Guess",
+      "Young Mie Kim",
+      "David Lazer",
+      "Neil Malhotra",
+      "Devra Moehler",
+      "Sameer Nair-Desai",
+      "Brendan Nyhan",
+      "Jennifer Pan",
+      "Jaime Settle",
+      "Emily Thorson",
+      "Rebekah Tromble",
+      "Carlos Velasco Rivera",
+      "Arjun Wilkins",
+      "Magdalena Wojcieszak",
+      "Annie Franco",
+      "Chad Kiewiet de Jonge",
+      "Winter Mason",
+      "Natalie Jomini Stroud",
+      "Joshua A. Tucker",
+    ],
+    abstract:
+      "We estimate the effect of social media deactivation on users’ emotional state in two large randomized experiments before the 2020 U.S. election. People who deactivated Facebook for the six weeks before the election reported a 0.060 standard deviation improvement in an index of happiness, depression, and anxiety, relative to controls who deactivated for just the first of those six weeks. People who deactivated Instagram for those six weeks reported a 0.041 standard deviation improvement relative to controls. Exploratory analysis suggests the Facebook effect is driven by people over 35, while the Instagram effect is driven by women under 25.",
+    citation: {
+      authors: "Allcott, H., Gentzkow, M., Wittenbrink, B., et al.",
+      yearLabel: "Forthcoming",
+      title: "The effect of deactivating Facebook and Instagram on users’ emotional state",
+      volume: null,
+      issue: null,
+      locator: null,
+      doi: "https://doi.org/10.1257/pol.20240806",
+    },
+    publicationLinks: [
+      {
+        label: "Forthcoming (AEA)",
+        url: "https://www.aeaweb.org/articles?id=10.1257/pol.20240806&&from=f",
+      },
+      {
+        label: "Working paper (NBER PDF)",
+        url: "https://www.nber.org/system/files/working_papers/w33697/w33697.pdf",
+      },
+    ],
+    journal: "American Economic Journal: Economic Policy",
+    year: null,
+    publicationDate: null,
     status: "forthcoming",
   },
 ];
+
+const comparePaperTitles = (left: PeerReviewedPaper, right: PeerReviewedPaper) =>
+  left.title.localeCompare(right.title, "en", { sensitivity: "base" }) ||
+  left.id.localeCompare(right.id, "en");
+
+export const peerReviewedPapers = [...suppliedPapers].sort((left, right) => {
+  if (left.status !== right.status) {
+    return left.status === "forthcoming" ? 1 : -1;
+  }
+
+  if (left.status === "forthcoming") {
+    return comparePaperTitles(left, right);
+  }
+
+  if (left.publicationDate !== right.publicationDate) {
+    if (!left.publicationDate) return 1;
+    if (!right.publicationDate) return -1;
+    return left.publicationDate.localeCompare(right.publicationDate);
+  }
+
+  return comparePaperTitles(left, right);
+});
