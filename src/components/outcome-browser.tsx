@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, RotateCcw, Search } from "lucide-react";
 import { RecordDetailModal } from "@/components/record-detail-modal";
 import { VariableFilterBar } from "@/components/variable-filter-bar";
+import { VariableGuidance } from "@/components/variable-guidance";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -230,6 +231,9 @@ export function OutcomeBrowser({ category }: { category: CategoryFilter }) {
 
   return (
     <div>
+      <div className="mx-auto max-w-[1440px] px-5 pt-10 sm:px-8 md:pt-12 lg:px-12">
+        <VariableGuidance kind="scope" className="mb-8" />
+      </div>
       <div className="sticky top-20 z-30 bg-[#f7f4ed]/96 backdrop-blur">
         <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
           <nav className="flex flex-wrap gap-2 pt-4" aria-label="Browse variable operationalization by research theme">
@@ -237,11 +241,20 @@ export function OutcomeBrowser({ category }: { category: CategoryFilter }) {
               <Link key={option.value} href={option.href} aria-current={category === option.value ? "page" : undefined} className={cn("min-h-10 rounded-full border px-4 py-2 text-xs font-bold transition-colors sm:text-sm", category === option.value ? "border-[#147d79] bg-[#147d79] text-white" : "border-[#14213d]/16 bg-white text-[#52606d] hover:border-[#147d79]/50 hover:text-[#14213d]")}>{option.label}</Link>
             ))}
           </nav>
-          <VariableFilterBar id="theme-variable-filter" filters={filters} onChange={setFilters} lockedCategory={lockedCategory} tableCount={filteredTables.length} rowCount={visibleRows} />
+          <VariableFilterBar
+            id="theme-variable-filter"
+            filters={filters}
+            onChange={setFilters}
+            lockedCategory={lockedCategory}
+            tableCount={filteredTables.length}
+            rowCount={visibleRows}
+            instruction="Use the drop down menus to search for FIES variables"
+          />
         </div>
       </div>
       <div className="mx-auto min-w-0 max-w-[1440px] px-5 py-12 sm:px-8 md:py-16 lg:px-12">
         <VariableResults tables={filteredTables} onReset={() => setFilters({ ...emptyVariableFilters })} />
+        <VariableGuidance kind="variableNames" className="mt-12 md:mt-16" />
       </div>
     </div>
   );

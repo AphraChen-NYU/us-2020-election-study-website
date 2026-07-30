@@ -49,10 +49,42 @@ describe("publication links", () => {
   });
 
   it("uses the revised variable overview heading and search guidance", () => {
-    render(<VariableOperationalizationPage />);
+    const { container } = render(<VariableOperationalizationPage />);
 
     expect(screen.getByRole("heading", { level: 1, name: "Variables by theme, paper, or measure" })).not.toBeNull();
-    expect(screen.getByText("Use the drop down menus to search for FIES variables", { exact: true })).not.toBeNull();
+    expect(screen.getAllByText("Use the drop down menus to search for FIES variables", { exact: true })).toHaveLength(1);
+    const scopeNote = screen.getByRole("complementary", { name: "Variable scope guidance" });
+    const variableNameNote = screen.getByRole("complementary", { name: "Variable-name note" });
+    expect(scopeNote.textContent).toContain(
+      "The variable descriptions below are for common measures used across the papers. For variables that were used primarily in only one study (e.g. emotional state - Allcott et al., forthcoming; deceptive online networks - Appel et al., 2026; diffusion and ideological segregation - González-Bailón et al., 2023, 2024), please see the individual papers.",
+    );
+    expect(within(variableNameNote).getByText("Note:", { exact: true })).not.toBeNull();
+    expect(
+      within(variableNameNote).getByText(
+        "When variable names are included in the variable details on this website, these refer to the variable names as included in the supplemental appendices of the papers.",
+        { exact: true },
+      ),
+    ).not.toBeNull();
+    expect(within(scopeNote).getByRole("link", { name: "individual papers" }).getAttribute("href")).toBe(
+      "/related-papers",
+    );
+    expect(within(variableNameNote).queryByRole("link")).toBeNull();
+    expect(scopeNote.className).not.toContain("grid-cols");
+    expect(scopeNote.className).not.toContain("border-y");
+    expect(scopeNote.className).not.toContain("rounded-2xl");
+    expect(scopeNote).not.toBe(variableNameNote);
+    expect(screen.queryByText("Scope note", { exact: true })).toBeNull();
+    expect(screen.queryByText("Variable-name reference", { exact: true })).toBeNull();
+    const instruction = container.querySelector('[data-filter-instruction="overview-variable-filter"]');
+    const filter = container.querySelector('[data-variable-filter="overview-variable-filter"]');
+    const filterLabel = container.querySelector("#overview-variable-filter-label");
+    const polarizationTheme = screen.getByRole("link", {
+      name: "View Polarization variable operationalization tables",
+    });
+    expect(instruction?.parentElement).toBe(filter);
+    expect(scopeNote.compareDocumentPosition(instruction!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(instruction!.compareDocumentPosition(filterLabel!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(polarizationTheme.compareDocumentPosition(variableNameNote)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(screen.queryByText("Choose a research theme", { exact: true })).toBeNull();
     expect(screen.queryByText("Select a theme", { exact: false })).toBeNull();
   });

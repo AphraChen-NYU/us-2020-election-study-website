@@ -13,7 +13,9 @@ describe("getOutcomeFilterLabel", () => {
   it("removes table codes by using titles and strips generic measure suffixes", () => {
     expect(getOutcomeFilterLabel(outcomeTables.find((table) => table.id === "a1-1")!)).toBe("Affective polarization");
     expect(getOutcomeFilterLabel(outcomeTables.find((table) => table.id === "a3-2")!)).toBe("Party-congenial election misconduct and outcomes");
-    expect(getOutcomeFilterLabel(outcomeTables.find((table) => table.id === "a4-7")!)).toBe("Pro-attitudinal Knowledge of Events and Belief in False Claims");
+    const proAttitudinal = outcomeTables.find((table) => table.id === "a4-7")!;
+    expect(getOutcomeFilterLabel(proAttitudinal)).toBe("Pro-attitudinal knowledge of events and belief in false claims");
+    expect(proAttitudinal.title).toBe("Pro-attitudinal Knowledge of Events and Belief in False Claims outcome measures");
   });
 });
 
@@ -35,7 +37,7 @@ describe("getVariableFilterOptions", () => {
     expect(options.outcomes).toHaveLength(3);
     expect(options.outcomes.map((option) => option.value)).toEqual(["table:a1-1", "table:a1-2", "table:a1-3"]);
     expect(options.outcomes.every((option) => option.group === undefined)).toBe(true);
-    expect(options.papers.map((option) => option.value)).toContain("Untrustworthy (Bergeron-Boutin et al., forthcoming)");
+    expect(options.papers.map((option) => option.value)).toContain("Untrustworthy (Bergeron-Boutin et al., 2026)");
   });
 
   it("scopes overview paper and outcome options to selected themes", () => {

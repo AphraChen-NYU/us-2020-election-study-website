@@ -13,8 +13,8 @@ describe("peer-reviewed papers dataset", () => {
       "Misinformation",
       "Ad Experimental",
       "Deceptive",
-      "Emotion",
       "Untrustworthy",
+      "Emotion",
     ]);
     expect(peerReviewedPapers.map((paper) => paper.publicationDate)).toEqual([
       "2023-07-27",
@@ -25,7 +25,7 @@ describe("peer-reviewed papers dataset", () => {
       "2024-12-11",
       "2026-03-02",
       "2026-04-06",
-      null,
+      "2026-07-29",
       null,
     ]);
   });
@@ -61,11 +61,11 @@ describe("peer-reviewed papers dataset", () => {
     }
   });
 
-  it("has eight published papers and two forthcoming papers with verified available links", () => {
+  it("has nine published papers and one forthcoming paper with verified available links", () => {
     const published = peerReviewedPapers.filter((paper) => paper.status === "published");
     const forthcoming = peerReviewedPapers.filter((paper) => paper.status === "forthcoming");
 
-    expect(published).toHaveLength(8);
+    expect(published).toHaveLength(9);
     expect(
       published.every(
         (paper) =>
@@ -74,7 +74,7 @@ describe("peer-reviewed papers dataset", () => {
       ),
     ).toBe(true);
     expect(published.every((paper) => paper.journal && paper.year)).toBe(true);
-    expect(forthcoming.map((paper) => paper.id)).toEqual(["emotion", "untrustworthy"]);
+    expect(forthcoming.map((paper) => paper.id)).toEqual(["emotion"]);
     expect(forthcoming.find((paper) => paper.id === "emotion")).toEqual(
       expect.objectContaining({
         publicationLinks: [
@@ -91,8 +91,68 @@ describe("peer-reviewed papers dataset", () => {
         year: null,
       }),
     );
-    expect(forthcoming.find((paper) => paper.id === "untrustworthy")).toEqual(
-      expect.objectContaining({ publicationLinks: [], journal: null, year: null }),
+  });
+
+  it("stores the verified published Untrustworthy record without changing its author order", () => {
+    const untrustworthy = peerReviewedPapers.find((paper) => paper.id === "untrustworthy");
+
+    expect(untrustworthy).toEqual(
+      expect.objectContaining({
+        title:
+          "Untrustworthy sources on Facebook and Instagram in 2020: Concentrated exposure but no attitudinal effects",
+        authors: [
+          "Olivier Bergeron-Boutin",
+          "Brendan Nyhan",
+          "Jaime Settle",
+          "Emily Thorson",
+          "Magdalena Wojcieszak",
+          "Taylor Brown",
+          "Adriana Crespo-Tenorio",
+          "Carlos Velasco Rivera",
+          "Hunt Allcott",
+          "Pablo Barberá",
+          "Drew Dimmery",
+          "Deen Freelon",
+          "Matthew Gentzkow",
+          "Sandra González-Bailón",
+          "Andrew M. Guess",
+          "Edward Kennedy",
+          "Young Mie Kim",
+          "David Lazer",
+          "Neil Malhotra",
+          "Devra Moehler",
+          "Jennifer Pan",
+          "Daniel Robert Thomas",
+          "Rebekah Tromble",
+          "Arjun Wilkins",
+          "Beixian Xiong",
+          "Chad Kiewiet de Jonge",
+          "Annie Franco",
+          "Winter Mason",
+          "Natalie Jomini Stroud",
+          "Joshua A. Tucker",
+        ],
+        abstract:
+          "Despite concern about exposure to content from untrustworthy sources on social media, little is known about the frequency or effects of exposure to their content. We examine 2020 data from all active US adults on Facebook and Instagram to measure exposure to content from Pages, groups, and web domains on Facebook and public accounts on Instagram that repeatedly publish misinformation. We find that average users saw relatively little content in their feeds from these untrustworthy sources; exposure was highly concentrated. A multimonth field experiment during the 2020 election among consenting users reduced feed-based exposure to content from untrustworthy sources by approximately 70% on both platforms but had no measurable effects on numerous preregistered outcomes, even among participants with high pretreatment exposure. Our results demonstrate that a feasible platform intervention can successfully reduce exposure to content from untrustworthy sources but suggest that these changes are unlikely to have immediate effects on attitudes and beliefs.",
+        citation: {
+          authors: "Bergeron-Boutin, O., Nyhan, B., Settle, J., et al.",
+          yearLabel: "2026",
+          volume: "12",
+          issue: "31",
+          locator: "eadz6502",
+          doi: "https://doi.org/10.1126/sciadv.adz6502",
+        },
+        publicationLinks: [
+          {
+            label: "Journal article",
+            url: "https://www.science.org/doi/10.1126/sciadv.adz6502",
+          },
+        ],
+        journal: "Science Advances",
+        year: 2026,
+        publicationDate: "2026-07-29",
+        status: "published",
+      }),
     );
   });
 
@@ -182,18 +242,18 @@ describe("peer-reviewed papers dataset", () => {
         doi: "https://doi.org/10.1038/s41562-026-02435-2",
       },
       {
+        id: "untrustworthy",
+        volume: "12",
+        issue: "31",
+        locator: "eadz6502",
+        doi: "https://doi.org/10.1126/sciadv.adz6502",
+      },
+      {
         id: "emotion",
         volume: null,
         issue: null,
         locator: null,
         doi: "https://doi.org/10.1257/pol.20240806",
-      },
-      {
-        id: "untrustworthy",
-        volume: null,
-        issue: null,
-        locator: null,
-        doi: null,
       },
     ]);
   });

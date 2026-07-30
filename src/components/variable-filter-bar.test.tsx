@@ -54,6 +54,51 @@ describe("VariableFilterBar", () => {
     expect(container.textContent).not.toContain("Filters");
   });
 
+  it("places optional search guidance immediately above the Search by controls", () => {
+    const instruction = "Use the drop down menus to search for FIES variables";
+    const { container } = render(
+      <VariableFilterBar
+        id="instruction-test"
+        filters={emptyVariableFilters}
+        onChange={() => undefined}
+        tableCount={24}
+        rowCount={90}
+        instruction={instruction}
+      />,
+    );
+    const filter = container.querySelector('[data-variable-filter="instruction-test"]');
+    const instructionElement = container.querySelector('[data-filter-instruction="instruction-test"]');
+    const filterLabel = container.querySelector("#instruction-test-label");
+
+    expect(screen.getByText(instruction, { exact: true })).toBe(instructionElement);
+    expect(instructionElement?.parentElement).toBe(filter);
+    expect(instructionElement!.compareDocumentPosition(filterLabel!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+  });
+
+  it("uses an expanded responsive panel only for the Measure menu", () => {
+    const { container } = render(
+      <VariableFilterBar
+        id="expanded-measure-test"
+        filters={emptyVariableFilters}
+        onChange={() => undefined}
+        tableCount={24}
+        rowCount={90}
+      />,
+    );
+    const measurePanel = container.querySelector('[data-facet-panel="measure"]');
+    const measureScroll = container.querySelector('[data-facet-scroll="measure"]');
+    const measureOptionGroups = Array.from(container.querySelectorAll('[data-facet-options="measure"]'));
+    const paperPanel = container.querySelector('[data-facet-panel="paper"]');
+    const paperScroll = container.querySelector('[data-facet-scroll="paper"]');
+
+    expect(measurePanel?.className).toContain("lg:w-[min(640px,calc(100vw-2.5rem))]");
+    expect(measureScroll?.className).toContain("max-h-[min(36rem,70vh)]");
+    expect(measureOptionGroups.every((group) => group.className.includes("sm:grid-cols-2"))).toBe(true);
+    expect(paperPanel?.className).toContain("w-[min(360px,calc(100vw-2.5rem))]");
+    expect(paperPanel?.className).not.toContain("640px");
+    expect(paperScroll?.className).toContain("max-h-72");
+  });
+
   it("renders table-only outcome labels and the forthcoming paper citation", () => {
     const { container } = render(
       <VariableFilterBar
@@ -67,7 +112,13 @@ describe("VariableFilterBar", () => {
 
     expect(screen.getByLabelText("Affective polarization")).not.toBeNull();
     expect(screen.getByLabelText("Party-congenial election misconduct and outcomes")).not.toBeNull();
-    expect(screen.getByLabelText("Untrustworthy (Bergeron-Boutin et al., forthcoming)")).not.toBeNull();
+    expect(screen.getByLabelText("Untrustworthy (Bergeron-Boutin et al., 2026)")).not.toBeNull();
+    expect(
+      screen.getByLabelText("Pro-attitudinal knowledge of events and belief in false claims"),
+    ).not.toBeNull();
+    expect(
+      screen.queryByLabelText("Pro-attitudinal Knowledge of Events and Belief in False Claims"),
+    ).toBeNull();
     expect(container.textContent).not.toContain("A1.1 Affective polarization outcome measures");
     expect(container.textContent).not.toContain("Bergeron-Boutin et al., working paper");
   });

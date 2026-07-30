@@ -14,6 +14,7 @@ function FacetMenu({
   onChange,
   open,
   onOpenChange,
+  expanded = false,
 }: {
   label: string;
   options: VariableFilterOption[];
@@ -21,6 +22,7 @@ function FacetMenu({
   onChange: (values: string[]) => void;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  expanded?: boolean;
 }) {
   const grouped = options.reduce((groups, option) => {
     const group = option.group ?? "";
@@ -33,7 +35,7 @@ function FacetMenu({
   }
 
   return (
-    <details open={open} className="group/facet relative">
+    <details open={open} className="group/facet relative" data-facet-menu={label.toLowerCase()}>
       <summary
         onClick={(event) => {
           event.preventDefault();
@@ -45,12 +47,26 @@ function FacetMenu({
         {selected.length ? <span className="rounded-full bg-[#147d79] px-2 py-0.5 text-[0.68rem] text-white">{selected.length}</span> : null}
         <ChevronDown aria-hidden="true" className="size-3.5 transition-transform group-open/facet:rotate-180" />
       </summary>
-      <div className="relative z-40 mt-2 w-[min(360px,calc(100vw-2.5rem))] rounded-2xl border border-[#14213d]/14 bg-white p-3 shadow-[0_18px_55px_rgba(20,33,61,0.16)] sm:absolute sm:left-0">
-        <div className="max-h-72 overflow-y-auto pr-1">
+      <div
+        data-facet-panel={label.toLowerCase()}
+        className={cn(
+          "relative z-40 mt-2 rounded-2xl border border-[#14213d]/14 bg-white p-3 shadow-[0_18px_55px_rgba(20,33,61,0.16)] sm:absolute sm:left-0",
+          expanded
+            ? "w-[min(640px,calc(100vw-2.5rem))] sm:w-[min(520px,calc(100vw-2.5rem))] lg:left-1/2 lg:w-[min(640px,calc(100vw-2.5rem))] lg:-translate-x-1/2"
+            : "w-[min(360px,calc(100vw-2.5rem))]",
+        )}
+      >
+        <div
+          data-facet-scroll={label.toLowerCase()}
+          className={cn(expanded ? "max-h-[min(36rem,70vh)]" : "max-h-72", "overflow-y-auto pr-1")}
+        >
           {Array.from(grouped.entries()).map(([group, groupOptions]) => (
             <fieldset key={group || label} className={cn(group && "mb-4 last:mb-0")}>
               {group ? <legend className="mb-2 px-1 text-[0.65rem] font-bold tracking-[0.14em] text-[#b94f35] uppercase">{group}</legend> : null}
-              <div className="grid gap-1">
+              <div
+                data-facet-options={label.toLowerCase()}
+                className={cn("grid gap-1", expanded && "sm:grid-cols-2 sm:gap-x-3")}
+              >
                 {groupOptions.map((option) => (
                   <label key={option.value} className="flex cursor-pointer items-start gap-3 rounded-lg px-2 py-2 text-sm leading-5 text-[#35435b] hover:bg-[#f7f4ed]">
                     <input
@@ -78,6 +94,7 @@ export function VariableFilterBar({
   lockedCategory,
   tableCount,
   rowCount,
+  instruction,
 }: {
   id: string;
   filters: VariableFilters;
@@ -85,6 +102,7 @@ export function VariableFilterBar({
   lockedCategory?: OutcomeCategory;
   tableCount: number;
   rowCount: number;
+  instruction?: string;
 }) {
   const filterOptions = useMemo(
     () => getVariableFilterOptions(outcomeTables, lockedCategory, filters),
@@ -115,7 +133,12 @@ export function VariableFilterBar({
   ];
 
   return (
-    <div className="border-y border-[#14213d]/12 py-5">
+    <div data-variable-filter={id} className="border-y border-[#14213d]/12 py-5">
+      {instruction ? (
+        <p className="mb-4 max-w-3xl text-[0.95rem] leading-7 text-[#52606d]" data-filter-instruction={id}>
+          {instruction}
+        </p>
+      ) : null}
       <div className="flex flex-wrap items-center gap-2.5" role="group" aria-labelledby={`${id}-label`}>
         <span id={`${id}-label`} className="mr-1 text-sm font-bold tracking-[0.08em] text-[#52606d] uppercase">Search by</span>
         {facets.map((facet) => (
@@ -127,6 +150,7 @@ export function VariableFilterBar({
             onChange={(values) => update(facet.key, values)}
             open={visibleOpenFacet === facet.key}
             onOpenChange={(open) => setOpenFacet((current) => open ? facet.key : current === facet.key ? null : current)}
+            expanded={facet.key === "outcomes"}
           />
         ))}
         <Button

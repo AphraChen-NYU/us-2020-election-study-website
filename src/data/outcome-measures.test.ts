@@ -31,12 +31,12 @@ describe("outcome measures dataset", () => {
     expect(outcomeTables.reduce((total, table) => total + table.rows.length, 0)).toBe(90);
   });
 
-  it("uses the forthcoming citation for every Untrustworthy record", () => {
+  it("uses the published 2026 citation for every Untrustworthy record", () => {
     const rows = outcomeTables.flatMap((table) => table.rows);
     const untrustworthyRows = rows.filter((row) => row.paper.startsWith("Untrustworthy (Bergeron-Boutin"));
 
     expect(untrustworthyRows).toHaveLength(16);
-    expect(untrustworthyRows.every((row) => row.paper === "Untrustworthy (Bergeron-Boutin et al., forthcoming)")).toBe(true);
+    expect(untrustworthyRows.every((row) => row.paper === "Untrustworthy (Bergeron-Boutin et al., 2026)")).toBe(true);
     expect(rows.some((row) => row.paper === "Untrustworthy (Bergeron-Boutin et al., working paper)")).toBe(false);
   });
 

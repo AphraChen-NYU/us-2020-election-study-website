@@ -26,9 +26,11 @@ export function hasActiveVariableFilters(filters: VariableFilters) {
 
 export function getOutcomeFilterLabel(table: OutcomeTable) {
   const withoutOutcomeMeasures = table.title.replace(/\s+outcome measures$/i, "");
-  return (withoutOutcomeMeasures === table.title
+  const label = (withoutOutcomeMeasures === table.title
     ? table.title.replace(/\s+measures$/i, "")
     : withoutOutcomeMeasures).trim();
+
+  return table.id === "a4-7" ? "Pro-attitudinal knowledge of events and belief in false claims" : label;
 }
 
 export function getVariableFilterOptions(

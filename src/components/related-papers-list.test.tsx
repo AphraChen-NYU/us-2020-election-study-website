@@ -17,10 +17,10 @@ describe("RelatedPapersList", () => {
     const { container } = render(<RelatedPapersList />);
 
     expect(container.querySelectorAll("article")).toHaveLength(10);
-    expect(screen.getAllByRole("link", { name: "View publication" })).toHaveLength(8);
+    expect(screen.getAllByRole("link", { name: "View publication" })).toHaveLength(9);
     expect(screen.getByRole("button", { name: /^View publication options for/ })).not.toBeNull();
     expect(screen.getAllByRole("button", { name: /^Cite this paper:/ })).toHaveLength(10);
-    expect(screen.getByText("A publication link is not yet available.")).not.toBeNull();
+    expect(screen.queryByText("A publication link is not yet available.")).toBeNull();
     expect(container.querySelector('[data-author-display="ad-experimental"]')?.textContent).toContain("Ro’ee Levy");
     expect(container.querySelector('[data-author-display="untrustworthy"]')?.textContent).toContain(
       "Olivier Bergeron-Boutin",
@@ -28,10 +28,10 @@ describe("RelatedPapersList", () => {
     expect(Array.from(container.querySelectorAll("dt")).map((term) => term.textContent)).toEqual(
       Array.from({ length: 10 }, () => ["Authors", "Publication"]).flat(),
     );
-    expect(container.querySelectorAll('[data-publication-status="published"]')).toHaveLength(8);
-    expect(container.querySelectorAll('[data-publication-status="forthcoming"]')).toHaveLength(2);
-    expect(screen.getAllByText("Journal Article", { exact: true })).toHaveLength(8);
-    expect(screen.getAllByText("Forthcoming", { exact: true })).toHaveLength(3);
+    expect(container.querySelectorAll('[data-publication-status="published"]')).toHaveLength(9);
+    expect(container.querySelectorAll('[data-publication-status="forthcoming"]')).toHaveLength(1);
+    expect(screen.getAllByText("Journal Article", { exact: true })).toHaveLength(9);
+    expect(screen.getAllByText("Forthcoming", { exact: true })).toHaveLength(1);
     expect(screen.getByText("American Economic Journal: Economic Policy · Forthcoming", { exact: true })).not.toBeNull();
     expect(screen.queryByText("View full author list", { exact: true })).toBeNull();
     expect(container.querySelector('[data-publication-status="published"]')?.className).not.toBe(
@@ -246,5 +246,16 @@ describe("RelatedPapersList", () => {
     const dialog = screen.getByRole("dialog", { name: "Cite this paper" });
     expect(within(dialog).getByText("American Economic Journal: Economic Policy", { exact: true }).tagName).toBe("CITE");
     expect(dialog.querySelector("p")?.textContent).toBe(getCitationText(emotionPaper));
+  });
+
+  it("italicizes the verified journal and volume for the published Untrustworthy paper", () => {
+    render(<RelatedPapersList />);
+    const untrustworthyPaper = peerReviewedPapers.find((paper) => paper.id === "untrustworthy")!;
+
+    fireEvent.click(screen.getByRole("button", { name: `Cite this paper: ${untrustworthyPaper.title}` }));
+
+    const dialog = screen.getByRole("dialog", { name: "Cite this paper" });
+    expect(within(dialog).getByText("Science Advances, 12", { exact: true }).tagName).toBe("CITE");
+    expect(dialog.querySelector("p")?.textContent).toBe(getCitationText(untrustworthyPaper));
   });
 });
