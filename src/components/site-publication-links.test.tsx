@@ -3,6 +3,7 @@
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import Home from "@/app/page";
+import StudyDatasetsPage from "@/app/datasets/page";
 import RelatedPapersPage from "@/app/related-papers/page";
 import VariableOperationalizationPage from "@/app/variable-operationalization/page";
 import { SiteHeader } from "@/components/site-header";
@@ -20,12 +21,14 @@ describe("publication links", () => {
     const relatedCards = container.querySelectorAll('#about a[href="/related-papers"]');
 
     expect(icpsrLink.getAttribute("href")).toBe(
-      "https://www.icpsr.umich.edu/sites/icpsr/news/data-from-u-s-2020-presidential-election-facebook-and-instagram-study-now-available-at-icpsr",
+      "https://www.icpsr.umich.edu/sites/somar/search/studies?start=0&fq=PRINCIPAL_INVESTIGATORS_FACET%3AMeta+%28United+States%29&q=",
     );
+    expect(icpsrLink.getAttribute("target")).toBe("_blank");
+    expect(icpsrLink.getAttribute("rel")).toBe("noreferrer");
     expect(relatedCards).toHaveLength(1);
   });
 
-  it("places Study Publications before Variable Operationalization in desktop and mobile navigation", () => {
+  it("places Study Datasets between Study Publications and Variable Operationalization in both menus", () => {
     const { container } = render(<SiteHeader />);
 
     const desktopNavigation = screen.getByRole("navigation", { name: "Primary navigation" });
@@ -34,6 +37,7 @@ describe("publication links", () => {
     expect(within(desktopNavigation).getAllByRole("link").map((link) => link.textContent)).toEqual([
       "Home",
       "Study Publications",
+      "Study Datasets",
       "Variable Operationalization",
     ]);
     expect(screen.getByRole("link", { name: "Study Publications" }).getAttribute("href")).toBe("/related-papers");
@@ -43,9 +47,11 @@ describe("publication links", () => {
     expect(within(mobileNavigation).getAllByRole("link").map((link) => link.textContent)).toEqual([
       "Home",
       "Study Publications",
+      "Study Datasets",
       "Variable Operationalization",
     ]);
     expect(screen.getAllByRole("link", { name: "Study Publications" })).toHaveLength(2);
+    expect(screen.getAllByRole("link", { name: "Study Datasets" })).toHaveLength(2);
   });
 
   it("uses the revised variable overview heading and search guidance", () => {
@@ -103,6 +109,24 @@ describe("publication links", () => {
     expect(screen.queryByText("Published", { exact: true })).toBeNull();
   });
 
+  it("uses the Study Datasets title and introduction", () => {
+    render(<StudyDatasetsPage />);
+
+    expect(screen.getByRole("heading", { level: 1, name: "Study datasets" })).not.toBeNull();
+    expect(screen.getByRole("heading", { level: 2, name: "Datasets by paper" })).not.toBeNull();
+    expect(screen.getByRole("region", { name: "Study datasets by paper" })).not.toBeNull();
+    expect(
+      screen.getByText(
+        "Browse The Social Media Archive (SOMAR) datasets linked to publications from the U.S. 2020 Facebook and Instagram Election Study.",
+      ),
+    ).not.toBeNull();
+    expect(
+      screen.getByText(
+        "Expand a paper to review its linked datasets, table summaries, source records, and citations.",
+      ),
+    ).not.toBeNull();
+  });
+
   it("places About before Research themes and updates the hero actions", () => {
     const { container } = render(<Home />);
     const sections = Array.from(container.querySelectorAll<HTMLElement>("main > section"));
@@ -121,5 +145,32 @@ describe("publication links", () => {
       "/related-papers",
     );
     expect(screen.queryByText("Related Papers", { exact: true })).toBeNull();
+  });
+
+  it("adds the three homepage resource panels in the requested order", () => {
+    render(<Home />);
+
+    const resources = screen.getByRole("region", { name: "Explore study resources" });
+    const headings = within(resources).getAllByRole("heading", { level: 2 });
+    expect(headings.map((heading) => heading.textContent)).toEqual([
+      "Explore the study publications",
+      "Explore the study datasets",
+      "See how every variable was operationalized",
+    ]);
+    expect(
+      within(resources).getByRole("link", { name: "View study publications" }).getAttribute("href"),
+    ).toBe("/related-papers");
+    expect(
+      within(resources).getByRole("link", { name: "View study datasets" }).getAttribute("href"),
+    ).toBe("/datasets");
+    expect(within(resources).getByRole("link", { name: "Open the library" }).getAttribute("href")).toBe(
+      "/variable-operationalization",
+    );
+    expect(
+      screen.getByRole("heading", {
+        level: 2,
+        name: "Four lenses on the Study - Variable Operationalization",
+      }),
+    ).not.toBeNull();
   });
 });

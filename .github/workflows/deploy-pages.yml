@@ -51,14 +51,22 @@ jobs:
       - name: Verify exported site content
         run: |
           participation_page="out/variable-operationalization/participation/index.html"
+          datasets_page="out/datasets/index.html"
           if [[ ! -f "$participation_page" ]]; then
             echo "Expected exported page was not generated: $participation_page"
             find out/variable-operationalization -maxdepth 3 -type f -print | sort
             exit 1
           fi
+          if [[ ! -f "$datasets_page" ]]; then
+            echo "Expected exported page was not generated: $datasets_page"
+            find out -maxdepth 3 -type f -print | sort
+            exit 1
+          fi
           grep -q 'aria-label="Primary navigation"' out/index.html
           grep -q 'Platform usage outcome measures' "$participation_page"
           grep -q 'Chronological Feed (Guess et al., 2023)' "$participation_page"
+          grep -q 'Study datasets' "$datasets_page"
+          grep -q 'Datasets by paper' "$datasets_page"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
@@ -87,6 +95,11 @@ jobs:
           curl --fail --location --retry 5 --retry-delay 2 --retry-all-errors \
             "${site_url}/variable-operationalization/participation/?version=${GITHUB_SHA}" \
             --output deployed-participation.html
+          curl --fail --location --retry 5 --retry-delay 2 --retry-all-errors \
+            "${site_url}/datasets/?version=${GITHUB_SHA}" \
+            --output deployed-datasets.html
           grep -q 'aria-label="Primary navigation"' deployed-home.html
           grep -q 'Platform usage outcome measures' deployed-participation.html
           grep -q 'Chronological Feed (Guess et al., 2023)' deployed-participation.html
+          grep -q 'Study datasets' deployed-datasets.html
+          grep -q 'Datasets by paper' deployed-datasets.html

@@ -24,7 +24,13 @@ export function SiteFooter() {
             href="/related-papers"
             className="rounded-sm font-semibold text-white transition-colors hover:text-[#8ed3cc] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8ed3cc]"
           >
-            Browse study publications
+            View study publications
+          </Link>
+          <Link
+            href="/datasets"
+            className="rounded-sm font-semibold text-white/85 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8ed3cc]"
+          >
+            Browse study datasets
           </Link>
           <Link
             href="/variable-operationalization"

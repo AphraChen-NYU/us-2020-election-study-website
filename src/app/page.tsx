@@ -56,7 +56,7 @@ export default function Home() {
               </p>
               <div className="mt-9 grid gap-4 sm:grid-cols-2">
                 <a
-                  href="https://www.icpsr.umich.edu/sites/icpsr/news/data-from-u-s-2020-presidential-election-facebook-and-instagram-study-now-available-at-icpsr"
+                  href="https://www.icpsr.umich.edu/sites/somar/search/studies?start=0&fq=PRINCIPAL_INVESTIGATORS_FACET%3AMeta+%28United+States%29&q="
                   target="_blank"
                   rel="noreferrer"
                   className="group rounded-2xl border border-[#14213d]/14 bg-white p-5 transition-colors hover:border-[#147d79]/45"
@@ -84,7 +84,9 @@ export default function Home() {
           <div className="grid gap-8 border-b border-[#14213d]/14 pb-10 lg:grid-cols-[1fr_1.1fr]">
             <div>
               <p className="text-xs font-bold tracking-[0.18em] text-[#b94f35] uppercase">Research themes</p>
-              <h2 className="mt-4 max-w-xl text-5xl leading-[0.98] tracking-[-0.035em] sm:text-6xl">Four lenses on the study</h2>
+              <h2 className="mt-4 max-w-2xl text-5xl leading-[0.98] tracking-[-0.035em] sm:text-6xl">
+                Four lenses on the Study - Variable Operationalization
+              </h2>
             </div>
             <p className="max-w-2xl self-end text-lg leading-8 text-[#52606d]">
               The variable operationalization library organizes measures by the central questions they help researchers examine, while preserving the paper-level detail needed to compare operational choices.
@@ -110,16 +112,67 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 lg:px-12">
-          <div className="rounded-[2rem] bg-[#147d79] px-7 py-12 text-white sm:px-12 md:flex md:items-end md:justify-between md:gap-10">
-            <div>
-              <SearchCheck aria-hidden="true" className="size-7" />
-              <h2 className="mt-8 max-w-2xl text-5xl leading-none tracking-[-0.035em]">See how every variable was operationalized</h2>
-              <p className="mt-5 max-w-2xl leading-7 text-white/75">Search 24 tables, filter by research theme, and compare papers without losing the methodological detail.</p>
+        <section
+          className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 lg:px-12"
+          aria-label="Explore study resources"
+        >
+          <div className="grid gap-5">
+            <div className="rounded-[2rem] bg-[#14213d] px-7 py-12 text-white sm:px-12 md:flex md:items-end md:justify-between md:gap-10">
+              <div>
+                <BookOpenText aria-hidden="true" className="size-7" />
+                <h2 className="mt-8 max-w-2xl text-5xl leading-none tracking-[-0.035em]">
+                  Explore the study publications
+                </h2>
+                <p className="mt-5 max-w-2xl leading-7 text-white/75">
+                  Review paper titles, authors, abstracts, publication links, and citations from the study.
+                </p>
+              </div>
+              <Link
+                href="/related-papers"
+                className={cn(buttonVariants(), "mt-8 shrink-0 bg-white text-[#14213d] hover:bg-[#f7f4ed] md:mt-0")}
+              >
+                View study publications
+                <ArrowRight aria-hidden="true" className="size-4" />
+              </Link>
             </div>
-            <Link href="/variable-operationalization" className={cn(buttonVariants(), "mt-8 shrink-0 bg-white text-[#14213d] hover:bg-[#f7f4ed] md:mt-0")}>
-              Open the library <ArrowRight aria-hidden="true" className="size-4" />
-            </Link>
+
+            <div className="rounded-[2rem] bg-[#b94f35] px-7 py-12 text-white sm:px-12 md:flex md:items-end md:justify-between md:gap-10">
+              <div>
+                <LibraryBig aria-hidden="true" className="size-7" />
+                <h2 className="mt-8 max-w-2xl text-5xl leading-none tracking-[-0.035em]">
+                  Explore the study datasets
+                </h2>
+                <p className="mt-5 max-w-2xl leading-7 text-white/80">
+                  Browse SOMAR datasets linked to each paper, including summaries, source records, and citations.
+                </p>
+              </div>
+              <Link
+                href="/datasets"
+                className={cn(buttonVariants(), "mt-8 shrink-0 bg-white text-[#14213d] hover:bg-[#f7f4ed] md:mt-0")}
+              >
+                View study datasets
+                <ArrowRight aria-hidden="true" className="size-4" />
+              </Link>
+            </div>
+
+            <div className="rounded-[2rem] bg-[#147d79] px-7 py-12 text-white sm:px-12 md:flex md:items-end md:justify-between md:gap-10">
+              <div>
+                <SearchCheck aria-hidden="true" className="size-7" />
+                <h2 className="mt-8 max-w-2xl text-5xl leading-none tracking-[-0.035em]">
+                  See how every variable was operationalized
+                </h2>
+                <p className="mt-5 max-w-2xl leading-7 text-white/75">
+                  Search 24 tables, filter by research theme, and compare papers without losing the methodological detail.
+                </p>
+              </div>
+              <Link
+                href="/variable-operationalization"
+                className={cn(buttonVariants(), "mt-8 shrink-0 bg-white text-[#14213d] hover:bg-[#f7f4ed] md:mt-0")}
+              >
+                Open the library
+                <ArrowRight aria-hidden="true" className="size-4" />
+              </Link>
+            </div>
           </div>
         </section>
       </main>
