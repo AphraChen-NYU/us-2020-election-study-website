@@ -59,7 +59,13 @@ export function StudyDatasetsBrowser() {
 
   return (
     <>
-      <div className="mb-8 border-y border-[#14213d]/12 py-5" data-dataset-filter>
+      <div className="mb-8 border-b border-[#14213d]/12 pb-5" data-dataset-filter>
+        <p
+          className="mb-4 max-w-3xl text-sm leading-6 text-[#52606d]"
+          data-dataset-filter-instruction
+        >
+          Use the dropdown menus to search for SOMAR datasets related to each paper.
+        </p>
         <div className="flex flex-wrap items-center gap-2.5" role="group" aria-labelledby="dataset-filter-label">
           <span id="dataset-filter-label" className="mr-1 text-sm font-bold tracking-[0.08em] text-[#52606d] uppercase">
             Search by

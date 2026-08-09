@@ -150,8 +150,8 @@ describe("publication links", () => {
     const heroActions = within(hero).getAllByRole("link");
     expect(heroActions.map((link) => link.textContent?.trim())).toEqual([
       "About the study",
-      "Browse study publications",
-      "Explore study datasets",
+      "View study publications",
+      "Browse study datasets",
       "Explore variable operationalization",
     ]);
     expect(heroActions.map((link) => link.getAttribute("href"))).toEqual([

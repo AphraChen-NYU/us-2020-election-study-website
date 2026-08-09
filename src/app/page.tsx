@@ -111,7 +111,7 @@ export default function Home() {
                   className={cn(buttonVariants({ variant: "outline" }), "group border-white/35 text-white hover:bg-white/10")}
                 >
                   <BookOpenText aria-hidden="true" className="size-4" />
-                  Browse study publications
+                  View study publications
                   <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
@@ -119,7 +119,7 @@ export default function Home() {
                   className={cn(buttonVariants({ variant: "outline" }), "group border-white/35 text-white hover:bg-white/10")}
                 >
                   <LibraryBig aria-hidden="true" className="size-4" />
-                  Explore study datasets
+                  Browse study datasets
                   <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link

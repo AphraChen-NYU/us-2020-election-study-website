@@ -85,12 +85,22 @@ describe("StudyDatasetsBrowser", () => {
     const { container } = render(<StudyDatasetsBrowser />);
     const segregation = studyDatasetGroups.find((group) => group.id === "segregation")!;
     const resultCount = container.querySelector('p[aria-live="polite"]')!;
+    const filter = container.querySelector<HTMLElement>("[data-dataset-filter]")!;
+    const filterInstruction = screen.getByText(
+      "Use the dropdown menus to search for SOMAR datasets related to each paper.",
+      { exact: true },
+    );
     const filterGroup = screen.getByRole("group", { name: "Search by" });
     const paperSummary = container.querySelector("summary")!;
     const paperMenu = paperSummary.closest("details")!;
     const clearButton = screen.getByRole("button", { name: "Clear all filters" }) as HTMLButtonElement;
 
     expect(paperSummary.textContent?.trim()).toBe("Paper");
+    expect(filterInstruction.parentElement).toBe(filter);
+    expect(filterInstruction.compareDocumentPosition(filterGroup)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(filter.className).toContain("border-b");
+    expect(filter.className).not.toContain("border-y");
+    expect(filter.className).not.toContain("border-t");
     expect(filterGroup.contains(clearButton)).toBe(true);
     expect(clearButton.disabled).toBe(true);
     expect(container.querySelector("input[type='search']")).toBeNull();
