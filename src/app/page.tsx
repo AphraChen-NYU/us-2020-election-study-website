@@ -9,6 +9,83 @@ import { cn } from "@/lib/utils";
 
 const themeNumbers = ["01", "02", "03", "04"];
 
+function ResourceSectionHeader({
+  eyebrow,
+  heading,
+  introduction,
+  href,
+  linkLabel,
+}: {
+  eyebrow: string;
+  heading: string;
+  introduction: string;
+  href?: string;
+  linkLabel?: string;
+}) {
+  return (
+    <div
+      className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-0"
+      data-editorial-resource-header
+    >
+      <div className="lg:pr-10 xl:pr-12">
+        <p className="text-xs font-bold tracking-[0.18em] text-[#b94f35] uppercase">{eyebrow}</p>
+        <h2 className="mt-4 max-w-2xl text-5xl leading-[0.98] tracking-[-0.035em] sm:text-6xl">
+          {heading}
+        </h2>
+      </div>
+      <div className="max-w-2xl self-end lg:border-l lg:border-[#14213d]/14 lg:pl-10 xl:pl-12">
+        <p className="text-lg leading-8 text-[#52606d]">{introduction}</p>
+        {href && linkLabel ? (
+          <Link href={href} className={cn(buttonVariants(), "group mt-6")}>
+            {linkLabel}
+            <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function EditorialResourceSection({
+  id,
+  eyebrow,
+  heading,
+  introduction,
+  href,
+  linkLabel,
+  shaded = false,
+}: {
+  id: string;
+  eyebrow: string;
+  heading: string;
+  introduction: string;
+  href: string;
+  linkLabel: string;
+  shaded?: boolean;
+}) {
+  return (
+    <section
+      id={id}
+      data-home-resource-section={id}
+      data-compact-resource-section
+      className={cn(
+        "relative scroll-mt-20 overflow-hidden border-b border-[#14213d]/12",
+        shaded && "bg-[#fffdf8]",
+      )}
+    >
+      <div className="relative mx-auto max-w-[1440px] px-5 py-14 sm:px-8 md:py-20 lg:px-12">
+        <ResourceSectionHeader
+          eyebrow={eyebrow}
+          heading={heading}
+          introduction={introduction}
+          href={href}
+          linkLabel={linkLabel}
+        />
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#f7f4ed]">
@@ -23,16 +100,33 @@ export default function Home() {
                 Exploring social media and the 2020 U.S. election
               </h1>
               <p className="mt-8 max-w-3xl text-lg leading-8 text-white/72 sm:text-xl">
-                This research hub brings together materials from a collaboration between independent academics and Meta researchers. Explore the study’s publications and a structured guide to how key variables were operationalized across its papers.
+                This research hub brings together materials from a collaboration between independent academics and Meta researchers. Explore the study’s publications, linked datasets, and structured documentation of how key variables were operationalized across its papers.
               </p>
-              <div className="mt-9 flex flex-wrap gap-3">
+              <div className="mt-9 flex flex-wrap gap-3" data-hero-actions>
                 <a href="#about" className={buttonVariants({ variant: "accent" })}>
                   About the study
                 </a>
                 <Link
+                  href="/related-papers"
+                  className={cn(buttonVariants({ variant: "outline" }), "group border-white/35 text-white hover:bg-white/10")}
+                >
+                  <BookOpenText aria-hidden="true" className="size-4" />
+                  Browse study publications
+                  <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="/datasets"
+                  className={cn(buttonVariants({ variant: "outline" }), "group border-white/35 text-white hover:bg-white/10")}
+                >
+                  <LibraryBig aria-hidden="true" className="size-4" />
+                  Explore study datasets
+                  <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link
                   href="/variable-operationalization"
                   className={cn(buttonVariants({ variant: "outline" }), "group border-white/35 text-white hover:bg-white/10")}
                 >
+                  <SearchCheck aria-hidden="true" className="size-4" />
                   Explore variable operationalization
                   <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -52,7 +146,7 @@ export default function Home() {
                 The U.S. 2020 Facebook and Instagram Election Study brought together independent external academics and Meta researchers to examine questions about social media, political attitudes, behavior, and information during the election.
               </p>
               <p className="mt-6 leading-8 text-[#52606d]">
-                This research hub provides a library of study publications alongside a searchable variable operationalization guide, making it easier to trace research questions, measures, methods, and supporting materials without drawing conclusions beyond the underlying research.
+                This research hub provides libraries of study publications and linked datasets alongside a searchable variable operationalization guide, making it easier to trace research questions, measures, methods, and supporting materials without drawing conclusions beyond the underlying research.
               </p>
               <div className="mt-9 grid gap-4 sm:grid-cols-2">
                 <a
@@ -66,111 +160,137 @@ export default function Home() {
                     ICPSR-SOMAR replication data <ExternalLink aria-hidden="true" className="size-4 text-[#52606d]" />
                   </span>
                 </a>
-                <Link
-                  href="/related-papers"
+                <a
+                  href="https://medium.com/"
+                  target="_blank"
+                  rel="noreferrer"
                   className="group rounded-2xl border border-[#14213d]/14 bg-white p-5 transition-colors hover:border-[#147d79]/45"
                 >
-                  <BookOpenText aria-hidden="true" className="size-5 text-[#b94f35]" />
+                  <ExternalLink aria-hidden="true" className="size-5 text-[#b94f35]" />
                   <span className="mt-8 flex items-center justify-between gap-3 font-semibold">
-                    Study Publications <ArrowRight aria-hidden="true" className="size-4 text-[#52606d] transition-transform group-hover:translate-x-1" />
+                    Project overview <ExternalLink aria-hidden="true" className="size-4 text-[#52606d]" />
                   </span>
-                </Link>
+                </a>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 md:py-28 lg:px-12">
-          <div className="grid gap-8 border-b border-[#14213d]/14 pb-10 lg:grid-cols-[1fr_1.1fr]">
-            <div>
-              <p className="text-xs font-bold tracking-[0.18em] text-[#b94f35] uppercase">Research themes</p>
-              <h2 className="mt-4 max-w-2xl text-5xl leading-[0.98] tracking-[-0.035em] sm:text-6xl">
-                Four lenses on the Study - Variable Operationalization
-              </h2>
-            </div>
-            <p className="max-w-2xl self-end text-lg leading-8 text-[#52606d]">
-              The variable operationalization library organizes measures by the central questions they help researchers examine, while preserving the paper-level detail needed to compare operational choices.
-            </p>
-          </div>
+        <EditorialResourceSection
+          id="study-publications"
+          eyebrow="Publication library"
+          heading="Study Publications"
+          introduction="Browse all peer-reviewed and forthcoming papers from the U.S. 2020 Facebook and Instagram Election Study. View complete author lists, abstracts, publication links, and formatted citations for each paper."
+          href="/related-papers"
+          linkLabel="Browse study publications"
+        />
 
-          <div className="mt-4 grid md:grid-cols-2">
-            {outcomeCategories.map((category, index) => (
-              <Link
-                href={`/variable-operationalization/${category}`}
-                key={category}
-                className="group border-b border-[#14213d]/14 py-10 md:odd:border-r md:odd:pr-10 md:even:pl-10"
-                aria-label={`Explore ${categoryMeta[category].label} variable operationalization tables`}
-              >
-                <div className="flex items-start justify-between gap-6">
-                  <span className="font-editorial text-3xl text-[#147d79]">{themeNumbers[index]}</span>
-                  <ArrowRight aria-hidden="true" className="mt-1 size-5 text-[#14213d]/35 transition-transform group-hover:translate-x-1 group-hover:text-[#147d79]" />
-                </div>
-                <h3 className="mt-12 text-4xl tracking-[-0.025em]">{categoryMeta[category].label}</h3>
-                <p className="mt-3 max-w-md leading-7 text-[#52606d]">{categoryMeta[category].description}</p>
-              </Link>
-            ))}
+        <EditorialResourceSection
+          id="study-datasets"
+          eyebrow="Dataset library"
+          heading="Study Datasets"
+          introduction="Explore SOMAR replication datasets linked to each study publication. Review concise dataset summaries, open source records, and access complete citation information."
+          href="/datasets"
+          linkLabel="Explore study datasets"
+          shaded
+        />
+
+        <section
+          id="variable-operationalization"
+          data-home-resource-section="variable-operationalization"
+          data-compact-resource-section
+          className="relative scroll-mt-20 overflow-hidden border-b border-[#14213d]/12"
+        >
+          <div className="relative mx-auto max-w-[1440px] px-5 py-14 sm:px-8 md:py-20 lg:px-12">
+            <ResourceSectionHeader
+              eyebrow="Variable Library"
+              heading="Four lenses on the Study - Variable Operationalization"
+              introduction="The variable operationalization library organizes measures by the central questions they help researchers examine, while preserving the paper-level detail needed to compare operational choices."
+            />
+
+            <div
+              className="mt-12 grid border-t border-[#14213d]/14 md:grid-cols-2 xl:grid-cols-4"
+              data-variable-theme-grid
+              data-variable-theme-layout="responsive-row"
+            >
+              {outcomeCategories.map((category, index) => (
+                <Link
+                  href={`/variable-operationalization/${category}`}
+                  key={category}
+                  className="group border-b border-[#14213d]/14 py-8 transition-colors hover:bg-white/45 md:odd:border-r md:odd:pr-8 md:even:pl-8 xl:px-6 xl:odd:pr-6 xl:even:pl-6 xl:first:pl-0 xl:last:pr-0 xl:[&:not(:last-child)]:border-r"
+                  aria-label={`Explore ${categoryMeta[category].label} variable operationalization tables`}
+                >
+                  <div className="flex items-start justify-between gap-6">
+                    <span className="font-editorial text-3xl text-[#147d79]">{themeNumbers[index]}</span>
+                    <ArrowRight aria-hidden="true" className="mt-1 size-5 text-[#14213d]/35 transition-transform group-hover:translate-x-1 group-hover:text-[#147d79]" />
+                  </div>
+                  <h3 className="mt-8 text-3xl tracking-[-0.025em] md:text-4xl xl:text-3xl">
+                    {categoryMeta[category].label}
+                  </h3>
+                  <p className="mt-2 max-w-md leading-6 text-[#52606d]">{categoryMeta[category].description}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
         <section
+          id="explore-resources"
+          data-home-resource-section="explore-resources"
           className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 lg:px-12"
           aria-label="Explore study resources"
         >
-          <div className="grid gap-5">
-            <div className="rounded-[2rem] bg-[#14213d] px-7 py-12 text-white sm:px-12 md:flex md:items-end md:justify-between md:gap-10">
+          <div className="overflow-hidden rounded-[2rem] bg-[#14213d] px-7 py-12 text-white sm:px-12 md:py-14">
+            <div className="grid gap-6 border-b border-white/15 pb-9 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
               <div>
-                <BookOpenText aria-hidden="true" className="size-7" />
-                <h2 className="mt-8 max-w-2xl text-5xl leading-none tracking-[-0.035em]">
-                  Explore the study publications
+                <p className="text-xs font-bold tracking-[0.18em] text-[#8ed3cc] uppercase">Research hub</p>
+                <h2 className="mt-4 max-w-xl text-5xl leading-none tracking-[-0.035em] sm:text-6xl">
+                  Explore the study
                 </h2>
-                <p className="mt-5 max-w-2xl leading-7 text-white/75">
-                  Review paper titles, authors, abstracts, publication links, and citations from the study.
-                </p>
               </div>
+              <p className="max-w-2xl text-lg leading-8 text-white/70">
+                Move between the study publications, linked SOMAR datasets, and detailed variable operationalization documentation.
+              </p>
+            </div>
+
+            <div className="mt-7 grid gap-4 lg:grid-cols-3" data-resource-destination-tiles>
               <Link
                 href="/related-papers"
-                className={cn(buttonVariants(), "mt-8 shrink-0 bg-white text-[#14213d] hover:bg-[#f7f4ed] md:mt-0")}
+                className="group flex min-h-64 flex-col rounded-2xl border-t-[3px] border-[#14213d] bg-white p-6 text-[#14213d] transition-transform hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8ed3cc]"
               >
-                View study publications
-                <ArrowRight aria-hidden="true" className="size-4" />
+                <BookOpenText aria-hidden="true" className="size-6 text-[#14213d]" />
+                <h3 className="mt-10 text-3xl tracking-[-0.025em]">Study Publications</h3>
+                <p className="mt-3 leading-7 text-[#52606d]">Review paper details, abstracts, publication links, and citations.</p>
+                <span className="mt-auto flex items-center justify-between pt-8 text-sm font-bold">
+                  View publications
+                  <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" />
+                </span>
               </Link>
-            </div>
 
-            <div className="rounded-[2rem] bg-[#b94f35] px-7 py-12 text-white sm:px-12 md:flex md:items-end md:justify-between md:gap-10">
-              <div>
-                <LibraryBig aria-hidden="true" className="size-7" />
-                <h2 className="mt-8 max-w-2xl text-5xl leading-none tracking-[-0.035em]">
-                  Explore the study datasets
-                </h2>
-                <p className="mt-5 max-w-2xl leading-7 text-white/80">
-                  Browse SOMAR datasets linked to each paper, including summaries, source records, and citations.
-                </p>
-              </div>
               <Link
                 href="/datasets"
-                className={cn(buttonVariants(), "mt-8 shrink-0 bg-white text-[#14213d] hover:bg-[#f7f4ed] md:mt-0")}
+                className="group flex min-h-64 flex-col rounded-2xl border-t-[3px] border-[#b94f35] bg-white p-6 text-[#14213d] transition-transform hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f18b6f]"
               >
-                View study datasets
-                <ArrowRight aria-hidden="true" className="size-4" />
+                <LibraryBig aria-hidden="true" className="size-6 text-[#b94f35]" />
+                <h3 className="mt-10 text-3xl tracking-[-0.025em]">Study Datasets</h3>
+                <p className="mt-3 leading-7 text-[#52606d]">Browse linked SOMAR records, summaries, source links, and citations.</p>
+                <span className="mt-auto flex items-center justify-between pt-8 text-sm font-bold">
+                  View datasets
+                  <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" />
+                </span>
               </Link>
-            </div>
 
-            <div className="rounded-[2rem] bg-[#147d79] px-7 py-12 text-white sm:px-12 md:flex md:items-end md:justify-between md:gap-10">
-              <div>
-                <SearchCheck aria-hidden="true" className="size-7" />
-                <h2 className="mt-8 max-w-2xl text-5xl leading-none tracking-[-0.035em]">
-                  See how every variable was operationalized
-                </h2>
-                <p className="mt-5 max-w-2xl leading-7 text-white/75">
-                  Search 24 tables, filter by research theme, and compare papers without losing the methodological detail.
-                </p>
-              </div>
               <Link
                 href="/variable-operationalization"
-                className={cn(buttonVariants(), "mt-8 shrink-0 bg-white text-[#14213d] hover:bg-[#f7f4ed] md:mt-0")}
+                className="group flex min-h-64 flex-col rounded-2xl border-t-[3px] border-[#147d79] bg-white p-6 text-[#14213d] transition-transform hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8ed3cc]"
               >
-                Open the library
-                <ArrowRight aria-hidden="true" className="size-4" />
+                <SearchCheck aria-hidden="true" className="size-6 text-[#147d79]" />
+                <h3 className="mt-10 text-3xl tracking-[-0.025em]">Variable Operationalization</h3>
+                <p className="mt-3 leading-7 text-[#52606d]">Search measures by theme, paper, or outcome while preserving methodological detail.</p>
+                <span className="mt-auto flex items-center justify-between pt-8 text-sm font-bold">
+                  Open the library
+                  <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1" />
+                </span>
               </Link>
             </div>
           </div>

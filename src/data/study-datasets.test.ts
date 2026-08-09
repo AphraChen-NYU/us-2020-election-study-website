@@ -44,11 +44,18 @@ describe("study datasets", () => {
       "Emotion",
       "Vote Choice",
     ]);
+    expect(studyDatasetGroups.slice(0, 10).map((group) => group.filterLabel)).toEqual(
+      peerReviewedPapers.map(
+        (paper) =>
+          `${paper.studyLabel} (${paper.citation.authors.split(",")[0]} et al., ${paper.citation.yearLabel})`,
+      ),
+    );
     expect(studyDatasetGroups.at(-1)).toEqual(
       expect.objectContaining({
         id: "vote-choice",
         paperId: null,
         studyLabel: "Vote Choice",
+        filterLabel: "Vote Choice (Forthcoming)",
         title: "Vote Choice",
         status: "forthcoming",
       }),

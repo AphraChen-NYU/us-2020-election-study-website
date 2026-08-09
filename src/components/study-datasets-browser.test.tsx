@@ -83,6 +83,7 @@ describe("StudyDatasetsBrowser", () => {
 
   it("filters papers with the multi-select Paper menu and clears all selections", () => {
     const { container } = render(<StudyDatasetsBrowser />);
+    const segregation = studyDatasetGroups.find((group) => group.id === "segregation")!;
     const resultCount = container.querySelector('p[aria-live="polite"]')!;
     const filterGroup = screen.getByRole("group", { name: "Search by" });
     const paperSummary = container.querySelector("summary")!;
@@ -98,9 +99,11 @@ describe("StudyDatasetsBrowser", () => {
     fireEvent.click(paperSummary);
     expect(paperMenu.open).toBe(true);
     expect(container.querySelectorAll("[data-dataset-paper-options] input[type='checkbox']")).toHaveLength(11);
+    expect(screen.getByLabelText("Ad Experimental (Allcott et al., 2026)")).not.toBeNull();
+    expect(screen.getByLabelText("Emotion (Allcott et al., Forthcoming)")).not.toBeNull();
 
-    fireEvent.click(screen.getByLabelText("Segregation"));
-    fireEvent.click(screen.getByLabelText("Vote Choice"));
+    fireEvent.click(screen.getByLabelText(segregation.filterLabel));
+    fireEvent.click(screen.getByLabelText("Vote Choice (Forthcoming)"));
     expect(container.querySelectorAll("[data-dataset-group]")).toHaveLength(2);
     expect(container.querySelector('[data-dataset-group="segregation"]')).not.toBeNull();
     expect(container.querySelector('[data-dataset-group="vote-choice"]')).not.toBeNull();
@@ -117,8 +120,8 @@ describe("StudyDatasetsBrowser", () => {
     const activeFilters = screen.getByLabelText("Active paper filters");
     const filterButtons = within(activeFilters).getAllByRole("button");
     expect(filterButtons.map((button) => button.textContent)).toEqual([
-      "SegregationRemove filter",
-      "Vote ChoiceRemove filter",
+      `${segregation.filterLabel}Remove filter`,
+      "Vote Choice (Forthcoming)Remove filter",
     ]);
     fireEvent.click(filterButtons[0]);
     expect(container.querySelector('[data-dataset-group="segregation"]')).toBeNull();

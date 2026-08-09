@@ -15,9 +15,10 @@ vi.mock("next/navigation", () => ({
 afterEach(cleanup);
 
 describe("publication links", () => {
-  it("uses the renamed home resources and internal related-papers route", () => {
+  it("uses the SOMAR resource and external project overview cards", () => {
     const { container } = render(<Home />);
     const icpsrLink = screen.getByRole("link", { name: "ICPSR-SOMAR replication data" });
+    const projectOverview = screen.getByRole("link", { name: "Project overview" });
     const relatedCards = container.querySelectorAll('#about a[href="/related-papers"]');
 
     expect(icpsrLink.getAttribute("href")).toBe(
@@ -25,7 +26,10 @@ describe("publication links", () => {
     );
     expect(icpsrLink.getAttribute("target")).toBe("_blank");
     expect(icpsrLink.getAttribute("rel")).toBe("noreferrer");
-    expect(relatedCards).toHaveLength(1);
+    expect(projectOverview.getAttribute("href")).toBe("https://medium.com/");
+    expect(projectOverview.getAttribute("target")).toBe("_blank");
+    expect(projectOverview.getAttribute("rel")).toBe("noreferrer");
+    expect(relatedCards).toHaveLength(0);
   });
 
   it("places Study Datasets between Study Publications and Variable Operationalization in both menus", () => {
@@ -127,45 +131,121 @@ describe("publication links", () => {
     ).not.toBeNull();
   });
 
-  it("places About before Research themes and updates the hero actions", () => {
+  it("orders the homepage resource sections and exposes all hero actions", () => {
     const { container } = render(<Home />);
     const sections = Array.from(container.querySelectorAll<HTMLElement>("main > section"));
     const aboutIndex = sections.findIndex((section) => section.id === "about");
-    const themesIndex = sections.findIndex((section) => section.textContent?.includes("Research themes"));
     const hero = sections[0];
+    const orderedResources = Array.from(
+      container.querySelectorAll<HTMLElement>("[data-home-resource-section]"),
+    ).map((section) => section.dataset.homeResourceSection);
 
     expect(aboutIndex).toBe(1);
-    expect(themesIndex).toBe(2);
-    expect(aboutIndex).toBeLessThan(themesIndex);
-    expect(within(hero).getByRole("link", { name: "About the study" }).getAttribute("href")).toBe("#about");
-    expect(within(hero).getByRole("link", { name: "Explore variable operationalization" }).getAttribute("href")).toBe(
-      "/variable-operationalization",
-    );
-    expect(within(sections[aboutIndex]).getByRole("link", { name: "Study Publications" }).getAttribute("href")).toBe(
+    expect(orderedResources).toEqual([
+      "study-publications",
+      "study-datasets",
+      "variable-operationalization",
+      "explore-resources",
+    ]);
+    const heroActions = within(hero).getAllByRole("link");
+    expect(heroActions.map((link) => link.textContent?.trim())).toEqual([
+      "About the study",
+      "Browse study publications",
+      "Explore study datasets",
+      "Explore variable operationalization",
+    ]);
+    expect(heroActions.map((link) => link.getAttribute("href"))).toEqual([
+      "#about",
       "/related-papers",
-    );
+      "/datasets",
+      "/variable-operationalization",
+    ]);
+    expect(hero.querySelector("[data-hero-actions]")).not.toBeNull();
+    expect(within(sections[aboutIndex]).queryByRole("link", { name: "Study Publications" })).toBeNull();
     expect(screen.queryByText("Related Papers", { exact: true })).toBeNull();
   });
 
-  it("adds the three homepage resource panels in the requested order", () => {
-    render(<Home />);
+  it("uses simplified editorial headers with refined instructions", () => {
+    const { container } = render(<Home />);
+    const publicationSection = container.querySelector<HTMLElement>('[data-home-resource-section="study-publications"]')!;
+    const datasetSection = container.querySelector<HTMLElement>('[data-home-resource-section="study-datasets"]')!;
+    const variableSection = container.querySelector<HTMLElement>('[data-home-resource-section="variable-operationalization"]')!;
+
+    expect(within(publicationSection).getByRole("heading", { level: 2, name: "Study Publications" })).not.toBeNull();
+    expect(publicationSection.hasAttribute("data-compact-resource-section")).toBe(true);
+    expect(publicationSection.querySelector("[data-resource-index]")).toBeNull();
+    expect(publicationSection.querySelectorAll("[data-editorial-resource-header]")).toHaveLength(1);
+    expect(
+      within(publicationSection).getByText(
+        "Browse all peer-reviewed and forthcoming papers from the U.S. 2020 Facebook and Instagram Election Study. View complete author lists, abstracts, publication links, and formatted citations for each paper.",
+      ),
+    ).not.toBeNull();
+    expect(within(publicationSection).queryAllByRole("article")).toHaveLength(0);
+    expect(publicationSection.querySelector("[data-editorial-preview-grid]")).toBeNull();
+    expect(
+      within(publicationSection).getByRole("link", { name: "Browse study publications" }).getAttribute("href"),
+    ).toBe("/related-papers");
+
+    expect(within(datasetSection).getByRole("heading", { level: 2, name: "Study Datasets" })).not.toBeNull();
+    expect(datasetSection.hasAttribute("data-compact-resource-section")).toBe(true);
+    expect(datasetSection.querySelector("[data-resource-index]")).toBeNull();
+    expect(datasetSection.className).toContain("bg-[#fffdf8]");
+    expect(
+      within(datasetSection).getByText(
+        "Explore SOMAR replication datasets linked to each study publication. Review concise dataset summaries, open source records, and access complete citation information.",
+      ),
+    ).not.toBeNull();
+    expect(within(datasetSection).queryAllByRole("article")).toHaveLength(0);
+    expect(datasetSection.querySelector("[data-editorial-preview-grid]")).toBeNull();
+    expect(
+      within(datasetSection).getByRole("link", { name: "Explore study datasets" }).getAttribute("href"),
+    ).toBe("/datasets");
+
+    expect(variableSection.hasAttribute("data-compact-resource-section")).toBe(true);
+    expect(variableSection.querySelector("[data-resource-index]")).toBeNull();
+    expect(within(variableSection).getByText("Variable Library", { exact: true })).not.toBeNull();
+    expect(within(variableSection).getAllByRole("link")).toHaveLength(4);
+    const themeGrid = variableSection.querySelector<HTMLElement>("[data-variable-theme-grid]")!;
+    expect(themeGrid).not.toBeNull();
+    expect(themeGrid.dataset.variableThemeLayout).toBe("responsive-row");
+    expect(themeGrid.className).toContain("md:grid-cols-2");
+    expect(themeGrid.className).toContain("xl:grid-cols-4");
+    expect(within(themeGrid).getAllByText(/^0[1-4]$/).map((number) => number.textContent)).toEqual([
+      "01",
+      "02",
+      "03",
+      "04",
+    ]);
+    expect(within(themeGrid).getAllByRole("link").map((link) => link.getAttribute("href"))).toEqual([
+      "/variable-operationalization/polarization",
+      "/variable-operationalization/participation",
+      "/variable-operationalization/trust",
+      "/variable-operationalization/knowledge",
+    ]);
+    expect(within(themeGrid).getAllByRole("link")[0].className).toContain(
+      "xl:[&:not(:last-child)]:border-r",
+    );
+    expect(container.querySelectorAll("[data-hero-actions] svg").length).toBeGreaterThan(0);
+  });
+
+  it("uses one combined panel with three destination tiles", () => {
+    const { container } = render(<Home />);
 
     const resources = screen.getByRole("region", { name: "Explore study resources" });
-    const headings = within(resources).getAllByRole("heading", { level: 2 });
-    expect(headings.map((heading) => heading.textContent)).toEqual([
-      "Explore the study publications",
-      "Explore the study datasets",
-      "See how every variable was operationalized",
+    const tiles = container.querySelector("[data-resource-destination-tiles]")!;
+    expect(within(resources).getAllByRole("heading", { level: 2 }).map((heading) => heading.textContent)).toEqual([
+      "Explore the study",
     ]);
-    expect(
-      within(resources).getByRole("link", { name: "View study publications" }).getAttribute("href"),
-    ).toBe("/related-papers");
-    expect(
-      within(resources).getByRole("link", { name: "View study datasets" }).getAttribute("href"),
-    ).toBe("/datasets");
-    expect(within(resources).getByRole("link", { name: "Open the library" }).getAttribute("href")).toBe(
+    expect(within(tiles as HTMLElement).getAllByRole("link").map((link) => link.getAttribute("href"))).toEqual([
+      "/related-papers",
+      "/datasets",
       "/variable-operationalization",
-    );
+    ]);
+    expect(within(tiles as HTMLElement).getAllByRole("heading", { level: 3 }).map((heading) => heading.textContent)).toEqual([
+      "Study Publications",
+      "Study Datasets",
+      "Variable Operationalization",
+    ]);
     expect(
       screen.getByRole("heading", {
         level: 2,

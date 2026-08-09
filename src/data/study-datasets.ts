@@ -13,6 +13,7 @@ export interface StudyDatasetGroup {
   id: string;
   paperId: string | null;
   studyLabel: string;
+  filterLabel: string;
   title: string;
   status: PublicationStatus;
   datasets: StudyDataset[];
@@ -470,6 +471,7 @@ const publicationGroups: StudyDatasetGroup[] = peerReviewedPapers.map((paper) =>
   id: paper.id,
   paperId: paper.id,
   studyLabel: paper.studyLabel,
+  filterLabel: `${paper.studyLabel} (${paper.citation.authors.split(",")[0]} et al., ${paper.citation.yearLabel})`,
   title: paper.title,
   status: paper.status,
   datasets: (datasetIdsByPaperId[paper.id] ?? []).map((datasetId) => studyDatasets[datasetId]),
@@ -481,6 +483,7 @@ export const studyDatasetGroups: StudyDatasetGroup[] = [
     id: "vote-choice",
     paperId: null,
     studyLabel: "Vote Choice",
+    filterLabel: "Vote Choice (Forthcoming)",
     title: "Vote Choice",
     status: "forthcoming",
     datasets: ["300449", "300452"].map((datasetId) => studyDatasets[datasetId]),

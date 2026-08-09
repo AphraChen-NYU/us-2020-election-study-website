@@ -96,7 +96,7 @@ export function StudyDatasetsBrowser() {
                         onChange={() => togglePaper(group.id)}
                         className="mt-0.5 size-4 accent-[#147d79]"
                       />
-                      <span>{group.studyLabel}</span>
+                      <span>{group.filterLabel}</span>
                     </label>
                   ))}
                 </div>
@@ -135,7 +135,7 @@ export function StudyDatasetsBrowser() {
                   onClick={() => togglePaper(paperId)}
                   className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-[#147d79]/25 bg-[#eaf5f3] px-3 py-1.5 text-xs font-semibold text-[#125f5c] hover:border-[#147d79]/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
                 >
-                  <span className="truncate">{group?.studyLabel}</span>
+                  <span className="truncate">{group?.filterLabel}</span>
                   <X aria-hidden="true" className="size-3" />
                   <span className="sr-only">Remove filter</span>
                 </button>
