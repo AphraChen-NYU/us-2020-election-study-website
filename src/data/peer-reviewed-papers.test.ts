@@ -10,11 +10,11 @@ describe("peer-reviewed papers dataset", () => {
       "Likeminded",
       "Reshares",
       "Deactivation",
-      "Misinformation",
-      "Ad Experimental",
-      "Deceptive",
+      "Diffusion",
+      "Ads Experimental",
+      "CIB",
       "Untrustworthy",
-      "Emotion",
+      "Emotional State",
     ]);
     expect(peerReviewedPapers.map((paper) => paper.publicationDate)).toEqual([
       "2023-07-27",
@@ -36,6 +36,35 @@ describe("peer-reviewed papers dataset", () => {
 
     expect(dates.every((date) => /^\d{4}-\d{2}-\d{2}$/.test(date ?? ""))).toBe(true);
     expect(dates).toEqual([...dates].sort());
+  });
+
+  it("uses the requested short names without changing paper identifiers or full titles", () => {
+    expect(
+      peerReviewedPapers
+        .filter((paper) => ["misinformation", "ad-experimental", "deceptive", "emotion"].includes(paper.id))
+        .map(({ id, studyLabel, title }) => ({ id, studyLabel, title })),
+    ).toEqual([
+      {
+        id: "misinformation",
+        studyLabel: "Diffusion",
+        title: "The Diffusion and Reach of (Mis)Information on Facebook During the U.S. 2020 Election",
+      },
+      {
+        id: "ad-experimental",
+        studyLabel: "Ads Experimental",
+        title: "The effects of political advertising on Facebook and Instagram before the 2020 US election",
+      },
+      {
+        id: "deceptive",
+        studyLabel: "CIB",
+        title: "How deceptive online networks reached millions in the US 2020 elections",
+      },
+      {
+        id: "emotion",
+        studyLabel: "Emotional State",
+        title: "The Effect of Deactivating Facebook and Instagram on Users’ Emotional State",
+      },
+    ]);
   });
 
   it("alphabetizes the four papers first published on July 27, 2023 by full title", () => {

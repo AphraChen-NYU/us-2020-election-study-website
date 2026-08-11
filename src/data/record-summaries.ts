@@ -32,7 +32,7 @@ export interface CuratedRecordSummary {
 }
 
 const CF = "Chronological Feed (Guess et al., 2023)";
-const AD = "Ad Experimental (Allcott et al., 2026)";
+const AD = "Ads Experimental (Allcott et al., 2026)";
 const DE = "Deactivation (Allcott et al., 2024)";
 const LM = "Likeminded (Nyhan et al., 2023)";
 const RS = "Reshares (Guess et al., 2023)";

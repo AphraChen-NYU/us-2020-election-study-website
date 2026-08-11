@@ -119,7 +119,7 @@ export const studyDatasets: Readonly<Record<string, StudyDataset>> = {
   "300466": {
     id: "300466",
     name: "US 2020 FIES NORC Data Files",
-    summary: "Researchers at New York University, the University of Texas at Austin, and other academic institutions, as well as Meta, partnered with NORC at the University of Chicago to understand more about how the information people see on Facebook and Instagram affects their opinions and behaviors. This dataset contains survey data associated with the U.S. 2020 Facebook and Instagram Election Study.",
+    summary: "This dataset contains survey data associated with the U.S. 2020 Facebook and Instagram Election Study.",
     url: "https://www.icpsr.umich.edu/sites/somar/view/studies/300466/study-details",
     citation: "Stroud, Natalie J., Tucker, Joshua A., NORC at the University of Chicago, and Meta Platforms, Inc. “US 2020 FIES NORC Data Files.” Ann Arbor, MI: Inter-university Consortium for Political and Social Research (ICPSR) [distributor], December 18, 2025. doi:https://doi.org/10.3886/0d26-d856.",
     doi: "https://doi.org/10.3886/0d26-d856",

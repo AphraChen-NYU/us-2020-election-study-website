@@ -37,11 +37,11 @@ describe("study datasets", () => {
       "Likeminded",
       "Reshares",
       "Deactivation",
-      "Misinformation",
-      "Ad Experimental",
-      "Deceptive",
+      "Diffusion",
+      "Ads Experimental",
+      "CIB",
       "Untrustworthy",
-      "Emotion",
+      "Emotional State",
       "Vote Choice",
     ]);
     expect(studyDatasetGroups.slice(0, 10).map((group) => group.filterLabel)).toEqual(
@@ -82,8 +82,13 @@ describe("study datasets", () => {
       "Passive-Tracking Participants' Daily Views of Facebook Posts with Civic News Domains",
     );
     expect(studyDatasets["300466"].summary).toBe(
-      "Researchers at New York University, the University of Texas at Austin, and other academic institutions, as well as Meta, partnered with NORC at the University of Chicago to understand more about how the information people see on Facebook and Instagram affects their opinions and behaviors. This dataset contains survey data associated with the U.S. 2020 Facebook and Instagram Election Study.",
+      "This dataset contains survey data associated with the U.S. 2020 Facebook and Instagram Election Study.",
     );
+    expect(
+      studyDatasetGroups
+        .filter((group) => group.datasets.some((dataset) => dataset.id === "300466"))
+        .map((group) => group.id),
+    ).toEqual(["segregation", "chronological-feed", "likeminded", "reshares"]);
   });
 
   it("keeps Untrustworthy as the only empty current-publication group", () => {

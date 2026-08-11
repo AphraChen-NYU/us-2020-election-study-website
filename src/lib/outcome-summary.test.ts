@@ -94,7 +94,7 @@ describe("curated record summaries", () => {
     const deactivationAffective = affective.rows.find((row) => row.paper.startsWith("Deactivation"))!;
     const untrustworthyAffective = affective.rows.find((row) => row.paper.startsWith("Untrustworthy"))!;
     const chronologicalIssue = issue.rows.find((row) => row.paper.startsWith("Chronological Feed"))!;
-    const adIssue = issue.rows.find((row) => row.paper.startsWith("Ad Experimental"))!;
+    const adIssue = issue.rows.find((row) => row.paper.startsWith("Ads Experimental"))!;
     const deactivationIssue = issue.rows.find((row) => row.paper.startsWith("Deactivation"))!;
     const likemindedIssue = issue.rows.find((row) => row.paper.startsWith("Likeminded"))!;
     const resharesIssue = issue.rows.find((row) => row.paper.startsWith("Reshares"))!;
@@ -127,15 +127,15 @@ describe("curated record summaries", () => {
     expect(row("a2-1", "Untrustworthy").method).toContain("Mac and Android systems");
 
     expect(row("a2-2", "Chronological Feed").questionsUsed).toContain("they know\n\n(POLPART 1 W4");
-    expect(row("a2-2", "Ad Experimental").questionsUsed).toContain("(POLPART_2)\n\n3. Signed");
-    expect(row("a2-2", "Ad Experimental").method).toContain("binary questions\n\n2. Standardized");
+    expect(row("a2-2", "Ads Experimental").questionsUsed).toContain("(POLPART_2)\n\n3. Signed");
+    expect(row("a2-2", "Ads Experimental").method).toContain("binary questions\n\n2. Standardized");
     expect(row("a2-2", "Likeminded").waves).toBe("Wave 4");
     expect(row("a2-2", "Untrustworthy").questionsUsed).toContain("you know\n\n(survey item POLPART)");
     expect(table("a2-2").rows.every((candidate) => deriveRowSummary(table("a2-2"), candidate).methods.every((method) => method.label !== "Binary coding"))).toBe(true);
 
-    expect(row("a2-3", "Ad Experimental").questionsUsed).toContain("(CONTRIBUT)\n\nValidated measures:");
-    expect(row("a2-3", "Ad Experimental").method).toContain("coded as $1500\n\nValidated contribution:");
-    expect(deriveRowSummary(table("a2-3"), row("a2-3", "Ad Experimental")).methods.every((method) => !method.label.toLocaleLowerCase().includes("binned contributions"))).toBe(true);
+    expect(row("a2-3", "Ads Experimental").questionsUsed).toContain("(CONTRIBUT)\n\nValidated measures:");
+    expect(row("a2-3", "Ads Experimental").method).toContain("coded as $1500\n\nValidated contribution:");
+    expect(deriveRowSummary(table("a2-3"), row("a2-3", "Ads Experimental")).methods.every((method) => !method.label.toLocaleLowerCase().includes("binned contributions"))).toBe(true);
     expect(row("a2-3", "Deactivation").questionsUsed).toContain("(CONTRIBUT)\n\nValidated measures:\n\n1.");
     expect(row("a2-3", "Deactivation").method).toContain("More than $1000)\n\nValidated contribution:");
     expect(deriveRowSummary(table("a2-3"), row("a2-3", "Deactivation")).methods.map((method) => method.label)).toEqual([
@@ -154,8 +154,8 @@ describe("curated record summaries", () => {
       "Varimax rotation",
       "Index of on-platform political engagement",
     ]);
-    expect(row("a2-4", "Ad Experimental").questionsUsed.startsWith("1. Engagement with civic content")).toBe(true);
-    expect(row("a2-4", "Ad Experimental").questionsUsed).toContain("comments/reshares\n\n2. Engagement with Voter Hub");
+    expect(row("a2-4", "Ads Experimental").questionsUsed.startsWith("1. Engagement with civic content")).toBe(true);
+    expect(row("a2-4", "Ads Experimental").questionsUsed).toContain("comments/reshares\n\n2. Engagement with Voter Hub");
     expect(row("a2-4", "Likeminded").method).toContain("views of civic content");
     expect(deriveRowSummary(table("a2-4"), row("a2-4", "Likeminded")).methods.map((method) => method.label)).toEqual([
       "Exploratory factor analysis",
@@ -166,7 +166,7 @@ describe("curated record summaries", () => {
     expect(deriveRowSummary(table("a2-5"), row("a2-5", "Chronological Feed")).components.map((component) => component.label)).toEqual([
       "Self-reported voting in the 2020 presidential election",
     ]);
-    expect(row("a2-5", "Ad Experimental").waves).toBe("Wave 4");
+    expect(row("a2-5", "Ads Experimental").waves).toBe("Wave 4");
     expect(row("a2-5", "Deactivation").waves).toBe("Wave 4");
     expect(row("a2-5", "Likeminded").waves).toBe("-");
     expect(row("a2-5", "Untrustworthy").waves).toBe("Wave 4 and Wave 5 (pooled for self-reported)");
@@ -177,8 +177,8 @@ describe("curated record summaries", () => {
       "binary coding for presidential voting",
       "sum of votes for downballot voting",
     ]);
-    expect(row("a2-6", "Ad Experimental").questionsUsed).toContain("more than one office out of Senate");
-    expect(row("a2-6", "Ad Experimental").method).toContain("otherwise (including did not vote)");
+    expect(row("a2-6", "Ads Experimental").questionsUsed).toContain("more than one office out of Senate");
+    expect(row("a2-6", "Ads Experimental").method).toContain("otherwise (including did not vote)");
     expect(row("a2-6", "Likeminded").waves).toContain("Waves 4 and 5)\n\nFeeling thermometer ratings");
     expect(deriveRowSummary(table("a2-6"), row("a2-6", "Reshares")).methods.map((method) => method.label)).toEqual([
       "Binary coding for party-line presidential voting",
@@ -317,13 +317,13 @@ describe("curated record summaries", () => {
 
     expect(row("a1-1", "Reshares").questionsUsed).toContain("FT PEOPD W5]\n\n2. Difference");
     expect(row("a1-1", "Untrustworthy").questionsUsed).toContain("FT-PEOPC, FT-PEOPD]");
-    expect(row("a1-2", "Ad Experimental").method).toContain("\n\n3. Respondents");
+    expect(row("a1-2", "Ads Experimental").method).toContain("\n\n3. Respondents");
     expect(row("a2-6", "Reshares").questionsUsed).toMatch(/VOTEGOV_W5\)$/);
-    expect(row("a3-5", "Ad Experimental").questionsUsed).toContain("USDEMOCD)\n\n5. Elections");
-    expect(row("a3-5", "Ad Experimental").questionsUsed).toContain("USDEMOCF)");
-    expect(row("a4-1", "Ad Experimental").questionsUsed).toContain("$15 per hour\n\n3. SPECKNOWPOC");
-    expect(row("a4-2", "Ad Experimental").questionsUsed).toContain("COVID-related restrictions\n\n2. SPECKNOWEVB");
-    for (const paper of ["Ad Experimental", "Deactivation"]) {
+    expect(row("a3-5", "Ads Experimental").questionsUsed).toContain("USDEMOCD)\n\n5. Elections");
+    expect(row("a3-5", "Ads Experimental").questionsUsed).toContain("USDEMOCF)");
+    expect(row("a4-1", "Ads Experimental").questionsUsed).toContain("$15 per hour\n\n3. SPECKNOWPOC");
+    expect(row("a4-2", "Ads Experimental").questionsUsed).toContain("COVID-related restrictions\n\n2. SPECKNOWEVB");
+    for (const paper of ["Ads Experimental", "Deactivation"]) {
       expect(row("a4-3", paper).questionsUsed).toContain("COVID-19\n\n6. MISINFOF");
       expect(row("a4-3", paper).questionsUsed).toContain("Hunter Biden’s laptop");
     }
@@ -346,7 +346,7 @@ describe("curated record summaries", () => {
     expect(row("a4-2", "Untrustworthy").questionsUsed).toContain("currently in the news\n\n(SPECKNOWPO)");
 
     const a43Methods = [{ label: "Standardized average score", tone: "aggregation" }];
-    for (const paper of ["Ad Experimental", "Deactivation"]) {
+    for (const paper of ["Ads Experimental", "Deactivation"]) {
       expect(methods("a4-3", paper)).toEqual(a43Methods);
       const outline = parseDetailOutline(row("a4-4", paper).questionsUsed);
       expect(outline.items.map((item) => item.children.length)).toEqual([6, 7, 11]);
@@ -378,7 +378,7 @@ describe("curated record summaries", () => {
   it("uses the requested Trump-favorability summary for both experimental papers", () => {
     const votePreference = outcomeTables.find((table) => table.id === "a2-6")!;
     const expected = "Trump favorability: (a) average of standardized values; (b) self-reported approval coded 1–5; (c) absolute difference between thermometer ratings";
-    for (const paper of ["Ad Experimental", "Deactivation"]) {
+    for (const paper of ["Ads Experimental", "Deactivation"]) {
       const candidate = votePreference.rows.find((row) => row.paper.startsWith(paper))!;
       expect(deriveRowSummary(votePreference, candidate).methods.map((method) => method.label)).toContain(expected);
     }

@@ -64,7 +64,7 @@ const feedExperimentAuthors = [
 const suppliedPapers: PeerReviewedPaper[] = [
   {
     id: "ad-experimental",
-    studyLabel: "Ad Experimental",
+    studyLabel: "Ads Experimental",
     title: "The effects of political advertising on Facebook and Instagram before the 2020 US election",
     authors: [
       "Hunt Allcott",
@@ -349,7 +349,7 @@ const suppliedPapers: PeerReviewedPaper[] = [
   },
   {
     id: "deceptive",
-    studyLabel: "Deceptive",
+    studyLabel: "CIB",
     title: "How deceptive online networks reached millions in the US 2020 elections",
     authors: [
       "Ruth E. Appel",
@@ -462,7 +462,7 @@ const suppliedPapers: PeerReviewedPaper[] = [
   },
   {
     id: "misinformation",
-    studyLabel: "Misinformation",
+    studyLabel: "Diffusion",
     title: "The Diffusion and Reach of (Mis)Information on Facebook During the U.S. 2020 Election",
     authors: [
       "Sandra González-Bailón",
@@ -517,7 +517,7 @@ const suppliedPapers: PeerReviewedPaper[] = [
   },
   {
     id: "emotion",
-    studyLabel: "Emotion",
+    studyLabel: "Emotional State",
     title: "The Effect of Deactivating Facebook and Instagram on Users’ Emotional State",
     authors: [
       "Hunt Allcott",

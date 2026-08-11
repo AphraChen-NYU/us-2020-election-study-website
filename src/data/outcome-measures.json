@@ -13,7 +13,7 @@
         "pages": "S-9 (variable description) S-17, S-19, (complier treatment effects with FB) S-53, S-54, S-55, S-56 (pooled treatment effects, across specifications, Facebook) S-57, S-58, S-59, S-60 (pooled treatment effects, across specifications, Instagram) S-77, S-78, S-79, S-80, S-81 (wave-by-wave treatment results)"
       },
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "1. Political supporters polarization: Difference in feeling thermometer scores between people who support the party the respondent prefers (0-100) and people who support the other party (0-100) [FT_PEOPD, FT_PEOPC]\n\n2. Political candidates polarization: Difference in feeling thermometer scores between people running for office as the party the respondent prefers (0-100) and people running for office from the other party (0-100) [FT_PEOPF, FT_PEOPE]\n\n3. Party smartness polarization: Difference in perceptions of how smart people are who support the party the respondent prefers and people who support the other party (1-5, where 5 indicates “extremely smart” for both) [DEMSMART, REPSMART]",
         "waves": "Wave 4",
         "method": "1. Each variable was created as the difference between one’s own party and the other party\n\n2. Calculated as the average of standardized values\n\n3. Respondents who lean toward neither party are excluded",
@@ -63,7 +63,7 @@
         "pages": "S-10 (variable description) S-17, S-19, (complier treatment effects, Facebook) S-53, S-54, S-55, S-56 (treatment effects across specifications, Facebook) S-57, S-58, S-59, S-60 (treatment effects across specifications, Instagram)"
       },
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "1. IMMIG: Decrease the number of civilian refugees allowed in the US from countries where people are trying to escape violence and war\n\n2. HEALTH: Repeal the Affordable Care Act (Obamacare)\n\n3. UNEMPLOY: Bring back the extra $600-per-week unemployment benefit to address economic problems resulting from the COVID-19 outbreak\n\n4. COVID: Require all Americans to wear face masks in public when they’re around other people\n\n5. FOREIGN: Ban apps that are owned by Chinese companies from operating in the US\n\n6. POLICE: Reduce funding for police departments and spend that money on social services instead.\n\n7. BLACKWHITE[A-D]: In general in our country these days, would you say that Black people are treated less fairly than white people, white people are treated less fairly than black people, or both are treated about equally in each of the following: - BLACKWHITEA: In dealing with the police - BLACKWHITEB: When voting in elections - BLACKWHITEC: When seeking medical treatment - BLACKWHITED: In hiring, pay and promotions\n\n8. SEXISM1_2[A,B]: Do you agree or disagree with the following statements? - SEXISM1_2A: Most women interpret innocent remarks or acts as being sexist - SEXISM1_2B: Recent allegations of sexual harassment and assault reflect widespread problems in society",
         "waves": "Wave 4",
         "method": "1. Average of standardized responses for the issue opinion questions\n\n2. Responses were re-signed so that on each question higher values are closer to the own-party mean and lower values are closer to the other party mean\n\n3. Respondents who lean toward neither party are excluded",
@@ -113,7 +113,7 @@
         "pages": "S-11 (variable description) S-21, S-22 (complier average treatment effect, Facebook) S-69, S-70, S-71, S-72 (treatment effects across specifications, Facebook) S-73, S-74, S-75, S-76 (treatment effects across specifications, Instagram)"
       },
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "1. Difference in perceived ideology between people who support one’s own party and people who support the other party [IDEO_GRD, IDEO_GRE]\n\n2. Difference in perceived ideology between people running for office from one’s own party and people running for office from the other party [IDEO_GRB, IDEO_GRC]",
         "waves": "Wave 4",
         "method": "1. Average of these standardized measures\n\n2. Each variable was created as the difference between own party and the other party\n\n3. Respondents who lean toward neither party are excluded",
@@ -156,7 +156,7 @@
         "pages": "S-120 (variable description) Main Fig. 1 (main treatment effects) S-29 (treatment effects on time spent on-platform) S-29, S-30, S-31 (treatment effects on time spent off-platform on other websites) S-97 (time usage comparisons between full respondents, passive tracking respondents, and MAP, across platforms)"
       },
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "",
         "waves": "Participants who completed Waves 1–2 and Wave 4",
         "method": "1. Daily minutes spent on the platform, normalized by dividing by the average time spent by all participants in the baseline period (Wave 2)",
@@ -199,7 +199,7 @@
         "pages": "S-10 (variable description) S-161 (variable clarification) Main Fig. 3 (main treatment effects across platforms) S-17, S-19 (complier average treatment effects) S-53, S-54, S-55, S-56 (treatment effects across specifications, Facebook) S-57, S-58, S-59, S-60 (treatment effects across specifications, Instagram)"
       },
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "1. Attended a protest or rally (POLPART_1)\n\n2. Contributed money to a political candidate or organization (POLPART_2)\n\n3. Signed an online petition (POLPART_3)\n\n4. Tried to convince someone how to vote (online or in-person) (POLPART_4)\n\n5. Wrote and posted political messages online (POLPART_5)\n\n6. Talked about politics with someone you know (POLPART_6)",
         "waves": "Wave 4",
         "method": "1. Sum of self-reported binary questions\n\n2. Standardized values of outcomes so that outcomes are in standard deviation units",
@@ -235,7 +235,7 @@
     "category": "participation",
     "rows": [
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "Self-reported measure:\n\n1. Contribution amount: self-reported amount of money contributed to political candidates or organizations in the month before the election (CONTRIBUT)\n\nValidated measures:\n\n1. The total campaign contributions for the entire 2020 election period\n\n2. Campaign contribution during the period that was limited to 30 days prior to the election",
         "waves": "Wave 4",
         "method": "Self-reported contribution:\n\n1. Coded as $0, $25, $50, $100, $150, $200, $350, $500, or $1000; more than $1000 was coded as $1500\n\nValidated contribution:\n\n1. Match survey participants to campaign donation data (DIME and FEC datasets) using identifiable information from NORC\n\n2. Binned contributions into 10 bins: [0], (0, 25], (25, 50], (50, 100], (100, 150], (150, 200], (200, 350], (350, 500], (500, 1000], (1000, Inf]",
@@ -264,7 +264,7 @@
         "pages": "S-10 (variable description) S-120 (variable description clarification) Main Fig. 3 (treatment effects across platforms) S-17, S-19 (complier average treatment effects, Facebook) S-53, S-54, S-55, S-56 (treatment effects across specifications, Facebook) S-57, S-58, S-59, S-60 (treatment effects across specifications, Instagram) S-100, S-101 (engagement rate with political content)"
       },
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "1. Engagement with civic content (as labeled by the Civic classifier) - clicks/likes/reactions/comments/reshares\n\n2. Engagement with Voter Hub - views/clicks\n\n3. Engagement with political figures - likes/reactions/comments/reshares\n\n4. Civic events: indication of interest in going (FB only)\n\n5. Petition clicks (FB only)\n\n6. Donated to civic causes (FB only). Civic donations are donations made to a page where a majority of its posts are classified as civic.\n\n7. Has constituent badge (FB only)",
         "waves": "Participants who completed Waves 1–2 and Wave 4",
         "method": "1. Sum of the measures\n\n2. Standardize the values of the outcomes so that outcomes are in standard deviation units",
@@ -293,7 +293,7 @@
         "pages": "S-10 (variable description) Main Fig.3 (treatment effects) S-17, S-19 (complier average treatment effects, Facebook) S-53, S-54, S-55, S-56 (treatment effects across specifications, Facebook) S-57, S-58, S-59, S-60 (treatment effects across specifications, Instagram)"
       },
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "1. Self-reported turnout: whether participants voted in the 2020 election (TURNOUT_POSTELEC)\n\n2. Validated turnout: using matched voter profile data for whether the participant had voted in the 2020 election",
         "waves": "Wave 4",
         "method": "1. Self-reported turnout: binary question. 1 for those responding “I am sure I voted”; 0 for those stating that they did not vote (“I did not vote in the election this November”; “I thought about voting this time, but didn’t”; “I usually vote, but didn’t this time”)\n\n2. Validated turnout: matching survey participants to voter file data by NORC using identifiable information",
@@ -336,7 +336,7 @@
         "pages": "S-104 (variable description for Trump favorability) S-12 (variable descriptions for party-line presidential voting and party-line downballot voting) Main Fig.3 (treatment effects on party-line presidential and downballot voting across platforms) S-21, S-22 (complier average treatment effects on party-line presidential and downballot voting, Facebook) S-69, S-70, S-71, S-72 (treatment effects on party-line presidential and downballot voting across specifications, Facebook) S-73, S-74, S-75, S-76 (treatment effects on party-line presidential and downballot voting across specifications, Instagram) S-105, S-106 (treatment effects on Trump favorability across platforms)"
       },
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "1. Trump vote: whether the respondent self-reported to vote for Trump (VOTE_POST)\n\n2. Trump favorability: (a) self-reported approval for Trump (APPROVAL); (b) difference between Trump and Biden thermometer ratings\n\n3. Republican vote state: whether the participant voted for Republican across state offices (Senator, Governor, and the House) (VOTESENATE, VOTESENATE2, VOTEGOV, VOTEHOUSE)\n\n4. Incumbent vote state: whether the participant voted for the incumbent across state offices (Senator, Governor, the House) (VOTESENATE, VOTESENATE2, VOTEGOV, VOTEHOUSE)\n\n5. Straight-ticket voting: if voted for more than one office out of Senate, Governor, House, and President, whether the participant voted for all candidates of the same party",
         "waves": "Wave 4",
         "method": "1. Trump vote: coded as 1 if voted for Trump, -1 if voted for Biden, and 0 otherwise (including did not vote)\n\n2. Trump favorability: (a) average of standardized values of the two measures; (b) for self-reported approval for Trump, coded as 1-5, where 5 indicates “Strongly approve”; (c) absolute difference between thermometer ratings\n\n3. Republican vote state: (a) sum across the measures divided by the number of races; (b) 1 if voted for Republican, -1 if voted for Democrat, and 0 otherwise (including did not vote)\n\n4. Incumbent vote state: (a) sum across the measures divided by the number of races; (b) 1 if voted for incumbent, -1 if voted for challenger, and 0 otherwise\n\n5. Straight-ticket voting: (a) 1 if voted for all candidates of the same party, and 0 otherwise; (b) Defined as missing if did not vote for more than one office",
@@ -467,7 +467,7 @@
     "category": "trust",
     "rows": [
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "Referred to as “Perceived legitimacy”\n\n1. Government does not interfere with journalists or news organizations (USDEMOCA)\n\n2. Government protects individuals’ rights to engage in unpopular speech or expression (USDEMOCB)\n\n3. Elections are free from foreign influence (USDEMOCC)\n\n4. All adult citizens have equal opportunity to vote (USDEMOCD)\n\n5. Elections are conducted without fraud (USDEMOCE)\n\n6. Voters are knowledgeable about candidates and issues (USDEMOCF)",
         "waves": "Wave 4",
         "method": "1. Average of standardized responses\n\n2. For each item, responses are 1-4, where 4 indicates “U.S. fully meets this standard”",
@@ -532,7 +532,7 @@
         "pages": "S-11 (variable description) S-112, S-113 (factor loadings) Main Fig. 3 (treatment effects across platforms) S-21, S-22 (complier treatment effects, Facebook) S-69, S-70, S-71, S-72 (treatment effects across specifications, Facebook) S-73, S-74, S-75, S-76 (treatment effects across specifications, Instagram) S-77, S-78, S-79, S-80, S-81 (wave-specific treatment effects across specifications and platforms)"
       },
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "Trust in information received from various sources:\n\n1. Trust in political information from local news (INFOTRUSTA)\n\n2. Trust in political information from national newspapers (INFOTRUSTB)\n\n3. Trust in political information from national network TV news (INFOTRUSTF)\n\n4. Trust in political information from MSNBC (INFOTRUSTG)\n\n5. Trust in political information from CNN (INFOTRUSTH)\n\n6. Trust in political information from Fox News (INFOTRUSTI)",
         "waves": "Wave 4",
         "method": "1. Each response corresponds to a scale from 1-5 (5 is “A great deal”), which the authors recoded as a scale from 0-1 (0 is “Not at all” and 1 is “A great deal”)\n\n2. Separate scales on each informational source",
@@ -575,7 +575,7 @@
         "pages": "S-11 (variable description) S-113, S-114 (factor loadings) Main Fig. 3 (treatment effects across platforms) S-21, S-22 (complier treatment effects, Facebook) S-69, S-70, S-71, S-72 (treatment effects across specifications, Facebook) S-73, S-74, S-75, S-76 (treatment effects across specifications, Instagram) S-77, S-78, S-79, S-80, S-81 (wave-specific treatment effects across specifications and platforms)"
       },
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "Trust in information received from various sources:\n\n1. Trust in political information from Facebook (INFOTRUSTC)\n\n2. Trust in political information from Instagram (INFOTRUSTD)",
         "waves": "Wave 4",
         "method": "1. Each response corresponds to a scale from 1-5 (5 is “A great deal”), which the authors recoded as a scale from 0-1 (0 is “Not at all” and 1 is “A great deal”)\n\n2. Separate scales on each informational source",
@@ -611,7 +611,7 @@
         "pages": "S-10 (variable description) Main Fig. 3 (treatment effects across platforms) S-17, S-19 (complier average treatment effects, Facebook) S-53, S-54, S-55, S-56 (treatment effects across specifications, Facebook) S-57, S-58, S-59, S-60 (treatment effects across specifications, Instagram)"
       },
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "Share of the following policy proposals correctly identified as being publicly endorsed by Joe Biden, Donald Trump, or neither:\n\n1. SPECKNOWPOA: Allow undocumented immigrants to get insurance through Medicaid\n\n2. SPECKNOWPOB: Raise the federal minimum wage to $15 per hour\n\n3. SPECKNOWPOC: Withdraw the United States from the World Health Organization (WHO)\n\n4. SPECKNOWPOD: Allow fossil fuel extraction in the Arctic National Wildlife Refuge\n\n5. SPECKNOWPOE: Replace the electoral college with a national popular vote\n\n6. SPECKNOWPOF: Eliminate taxes on corporations based in the U.S.",
         "waves": "Wave 4",
         "method": "1. Standardized value\n\n2. Missing values are coded as incorrect",
@@ -661,7 +661,7 @@
         "pages": "S-10 (variable description) Main Fig. 3 (treatment effects across platforms) S-17, S-19 (complier average treatment effects, Facebook) S-53, S-54, S-55, S-56 (treatment effects across specifications, Facebook) S-57, S-58, S-59, S-60 (treatment effects across specifications, Instagram)"
       },
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "Items measuring accuracy of beliefs about recent international and domestic news events\n\n1. SPECKNOWEVA: France lifted all COVID-related restrictions\n\n2. SPECKNOWEVB: Donald Trump announced that he would stop holding public rallies out of concern for COVID-related risks\n\n3. SPECKNOWEVC: A militia’s plot to kidnap Michigan governor Gretchen Whitmer was foiled by undercover agents\n\n4. SPECKNOWEVD: Derek Chauvin, the Minneapolis police officer who killed George Floyd, was promoted\n\n5. SPECKNOWEVE: Pope Francis voiced support for same-sex civil unions\n\n6. SPECKNOWEVF: During the final presidential debate, each candidate was given time to speak while the other candidate’s microphone was muted\n\n7. SPECKNOWEVG: Amy Coney Barrett, Donald Trump’s nominee, became the newest Supreme Court justice",
         "waves": "Wave 4",
         "method": "1. Standardized average score\n\n2. Respondents could answer for each item if the event it described “Definitely didn’t happen”, “Probably didn’t happen”, “Probably did happen”, or “Definitely did happen.” For events that happened, these values were coded as {1,2,3,4}, and as {4,3,2,1} for events that did not happen\n\n3. Missing values are coded as 2.5",
@@ -704,7 +704,7 @@
     "category": "knowledge",
     "rows": [
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "A score on items of true and false statements that included misinformation that had been recently circulated at the time of study:\n\n1. MISINFOA: Evidence found on Hunter Biden’s laptop proves Joe Biden took bribes from foreign powers\n\n2. MISINFOB: The current FBI director, Christopher Wray, has said that the greatest domestic terrorist threat is white supremacists\n\n3. MISINFOC: Amy Coney Barrett said that a woman needs a man’s permission to own property\n\n4. MISINFOD: The U.S. government has a plan to force a COVID-19 vaccine on everyone\n\n5. MISINFOE: Masks and face coverings are not effective in preventing the spread of COVID-19\n\n6. MISINFOF: Millions of fraudulent ballots were cast in the 2020 presidential election\n\n7. MISINFOG: Donald Trump held a Bible upside-down in front of a church\n\n8. MISINFOH: In October, most rural counties were in the COVID-19 “red zone” based on their high rates of new cases\n\n9. MISINFOI: At the beginning of the COVID-19 pandemic, Anthony Fauci did not recommend wearing masks in public\n\n10. MISINFOJ: Prior to the 2016 presidential election, Donald Trump arranged a payment to an adult film star\n\n11. MISINFOK: Joe Biden is a pedophile",
         "waves": "Wave 4",
         "method": "1. Standardized average score of the items\n\n2. Respondents could answer if each statement was “Not at all accurate”, “Not very accurate”, “Somewhat accurate”, or “Very accurate”. For accurate statements, these values were coded as {1,2,3,4}, and as {4,3,2,1} for inaccurate statements\n\n3. Missing values are coded as 2.5",
@@ -726,7 +726,7 @@
     "category": "knowledge",
     "rows": [
       {
-        "paper": "Ad Experimental (Allcott et al., 2026)",
+        "paper": "Ads Experimental (Allcott et al., 2026)",
         "questionsUsed": "1. Election knowledge: Share of the following policy proposals correctly identified as publicly endorsed by Joe Biden, Donald Trump, or neither\n\n- SPECKNOWPOA: Allow undocumented immigrants to get insurance through Medicaid\n\n- SPECKNOWPOB: Raise the federal minimum wage to $15 per hour\n\n- SPECKNOWPOC: Withdraw the United States from the World Health Organization (WHO)\n\n- SPECKNOWPOD: Allow fossil fuel extraction in the Arctic National Wildlife Refuge\n\n- SPECKNOWPOE: Replace the electoral college with a national popular vote\n\n- SPECKNOWPOF: Eliminate taxes on corporations based in the U.S.\n\n2. News knowledge: Average score on items measuring accuracy of beliefs about current international or domestic news events\n\n- SPECKNOWEVA: France lifted all COVID-related restrictions\n\n- SPECKNOWEVB: Donald Trump announced that he would stop holding public rallies out of concern for COVID-related risks\n\n- SPECKNOWEVC: A militia’s plot to kidnap Michigan governor Gretchen Whitmer was foiled by undercover agents\n\n- SPECKNOWEVD: Derek Chauvin, the Minneapolis police officer who killed George Floyd, was promoted\n\n- SPECKNOWEVE: Pope Francis voiced support for same-sex civil unions\n\n- SPECKNOWEVF: During the final presidential debate, each candidate was given time to speak while the other candidate’s microphone was muted\n\n- SPECKNOWEVG: Amy Coney Barrett, Donald Trump’s nominee, became the newest Supreme Court justice\n\n3. Fact knowledge: Average score on items of true and false statements that include misinformation that had been recently circulated at the time of the study.\n\n- MISINFOA: Evidence found on Hunter Biden’s laptop proves Joe Biden took bribes from foreign powers\n\n- MISINFOB: The current FBI director, Christopher Wray, has said that the greatest domestic terrorist threat is white supremacists\n\n- MISINFOC: Amy Coney Barrett said that a woman needs a man’s permission to own property\n\n- MISINFOD: The U.S. government has a plan to force a COVID-19 vaccine on everyone\n\n- MISINFOE: Masks and face coverings are not effective in preventing the spread of COVID-19\n\n- MISINFOF: Millions of fraudulent ballots were cast in the 2020 presidential election\n\n- MISINFOG: Donald Trump held a Bible upside-down in front of a church\n\n- MISINFOH: In October, most rural counties were in the COVID-19 “red zone” based on their high rates of new cases\n\n- MISINFOI: At the beginning of the COVID-19 pandemic, Anthony Fauci did not recommend wearing masks in public\n\n- MISINFOJ: Prior to the 2016 presidential election, Donald Trump arranged a payment to an adult film star\n\n- MISINFOK: Joe Biden is a pedophile",
         "waves": "Wave 4",
         "method": "1. Average of standardized values of election, news, and fact knowledge\n\n2. For details on how each individual component is operationalized, please refer to the corresponding table",

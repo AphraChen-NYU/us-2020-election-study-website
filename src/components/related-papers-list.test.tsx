@@ -32,6 +32,9 @@ describe("RelatedPapersList", () => {
     expect(container.querySelectorAll('[data-publication-status="forthcoming"]')).toHaveLength(1);
     expect(screen.getAllByText("Journal Article", { exact: true })).toHaveLength(9);
     expect(screen.getAllByText("Forthcoming", { exact: true })).toHaveLength(1);
+    for (const studyLabel of ["Diffusion", "Ads Experimental", "CIB", "Emotional State"]) {
+      expect(screen.getByText(studyLabel, { exact: true })).not.toBeNull();
+    }
     expect(screen.getByText("American Economic Journal: Economic Policy · Forthcoming", { exact: true })).not.toBeNull();
     expect(screen.queryByText("View full author list", { exact: true })).toBeNull();
     expect(container.querySelector('[data-publication-status="published"]')?.className).not.toBe(
