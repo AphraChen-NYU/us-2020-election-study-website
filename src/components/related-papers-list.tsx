@@ -61,6 +61,8 @@ export function RelatedPapersList() {
           const abstractPreview = getAbstractPreview(paper.abstract);
           const authorListOpen = expandedAuthorIds.has(paper.id);
           const abstractOpen = expandedAbstractIds.has(paper.id);
+          const hasAuthors = paper.authors.length > 0;
+          const hasAbstract = paper.abstract.trim().length > 0;
           const abstractIsTruncated = abstractPreview.length < paper.abstract.length;
           const displayedAuthors = authorListOpen ? paper.authors : authorPreview;
           const abstractRemainder = paper.abstract.slice(abstractPreview.length);
@@ -93,21 +95,25 @@ export function RelatedPapersList() {
                       <div className="grid gap-2 md:grid-cols-[120px_minmax(0,1fr)] md:gap-5">
                         <dt className="text-[0.6875rem] font-bold tracking-[0.12em] text-[#52606d] uppercase">Authors</dt>
                         <dd className="text-[0.9375rem] leading-6 text-[#35435b]">
-                          <p>
-                            <span id={`authors-${paper.id}`} data-author-display={paper.id}>
-                              {displayedAuthors.join(", ")}
-                            </span>
-                            <button
-                              type="button"
-                              aria-expanded={authorListOpen}
-                              aria-controls={`authors-${paper.id}`}
-                              aria-label={`${authorListOpen ? "Hide" : "Show"} full author list for ${paper.title}`}
-                              onClick={() => toggleAuthorList(paper.id)}
-                              className="ml-2 inline-grid size-7 shrink-0 place-items-center rounded-full border border-[#14213d]/20 bg-white align-middle text-lg leading-none font-semibold text-[#14213d] transition-colors hover:border-[#147d79]/55 hover:text-[#147d79] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
-                            >
-                              {authorListOpen ? "−" : "+"}
-                            </button>
-                          </p>
+                          {hasAuthors ? (
+                            <p>
+                              <span id={`authors-${paper.id}`} data-author-display={paper.id}>
+                                {displayedAuthors.join(", ")}
+                              </span>
+                              <button
+                                type="button"
+                                aria-expanded={authorListOpen}
+                                aria-controls={`authors-${paper.id}`}
+                                aria-label={`${authorListOpen ? "Hide" : "Show"} full author list for ${paper.title}`}
+                                onClick={() => toggleAuthorList(paper.id)}
+                                className="ml-2 inline-grid size-7 shrink-0 place-items-center rounded-full border border-[#14213d]/20 bg-white align-middle text-lg leading-none font-semibold text-[#14213d] transition-colors hover:border-[#147d79]/55 hover:text-[#147d79] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
+                              >
+                                {authorListOpen ? "−" : "+"}
+                              </button>
+                            </p>
+                          ) : (
+                            <p data-author-placeholder={paper.id}>Author information forthcoming.</p>
+                          )}
                         </dd>
                       </div>
                       <div className="grid gap-2 md:grid-cols-[120px_minmax(0,1fr)] md:gap-5">
@@ -126,31 +132,37 @@ export function RelatedPapersList() {
 
                     <div className="border-b border-[#14213d]/12 py-4">
                       <h3 className="text-base font-bold text-[#14213d]">Abstract</h3>
-                      <p data-abstract-display={paper.id} className="mt-2.5 max-w-5xl text-[0.9375rem] leading-7 text-[#35435b]">
-                        <span id={`abstract-${paper.id}`}>
-                          <span data-abstract-preview={paper.id}>{abstractPreview}</span>
+                      {hasAbstract ? (
+                        <p data-abstract-display={paper.id} className="mt-2.5 max-w-5xl text-[0.9375rem] leading-7 text-[#35435b]">
+                          <span id={`abstract-${paper.id}`}>
+                            <span data-abstract-preview={paper.id}>{abstractPreview}</span>
+                            {abstractOpen ? (
+                              <span data-abstract-remainder={paper.id}>{abstractRemainder}</span>
+                            ) : abstractIsTruncated ? (
+                              <span data-abstract-ellipsis={paper.id} aria-hidden="true">
+                                …
+                              </span>
+                            ) : null}
+                          </span>
                           {abstractOpen ? (
-                            <span data-abstract-remainder={paper.id}>{abstractRemainder}</span>
-                          ) : abstractIsTruncated ? (
-                            <span data-abstract-ellipsis={paper.id} aria-hidden="true">
-                              …
-                            </span>
+                            <button
+                              type="button"
+                              aria-expanded="true"
+                              aria-controls={`abstract-${paper.id}`}
+                              aria-label={`Collapse full abstract for ${paper.title}`}
+                              onClick={() => toggleAbstract(paper.id)}
+                              className="ml-2 inline-grid size-7 shrink-0 place-items-center rounded-full border border-[#14213d]/20 bg-white align-middle text-lg leading-none font-semibold text-[#14213d] transition-colors hover:border-[#147d79]/55 hover:text-[#147d79] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
+                            >
+                              −
+                            </button>
                           ) : null}
-                        </span>
-                        {abstractOpen ? (
-                          <button
-                            type="button"
-                            aria-expanded="true"
-                            aria-controls={`abstract-${paper.id}`}
-                            aria-label={`Collapse full abstract for ${paper.title}`}
-                            onClick={() => toggleAbstract(paper.id)}
-                            className="ml-2 inline-grid size-7 shrink-0 place-items-center rounded-full border border-[#14213d]/20 bg-white align-middle text-lg leading-none font-semibold text-[#14213d] transition-colors hover:border-[#147d79]/55 hover:text-[#147d79] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
-                          >
-                            −
-                          </button>
-                        ) : null}
-                      </p>
-                      {!abstractOpen && abstractIsTruncated ? (
+                        </p>
+                      ) : (
+                        <p data-abstract-placeholder={paper.id} className="mt-2.5 text-[0.9375rem] leading-7 text-[#35435b]">
+                          Abstract information forthcoming.
+                        </p>
+                      )}
+                      {hasAbstract && !abstractOpen && abstractIsTruncated ? (
                         <button
                           type="button"
                           aria-expanded="false"
@@ -188,17 +200,25 @@ export function RelatedPapersList() {
                           <ChevronDown aria-hidden="true" className="size-4 shrink-0" />
                         </button>
                       ) : (
-                        <p className="text-sm font-semibold text-[#52606d]">A publication link is not yet available.</p>
+                        <p data-publication-placeholder={paper.id} className="text-sm font-semibold text-[#52606d]">
+                          Publication link forthcoming.
+                        </p>
                       )}
-                      <button
-                        type="button"
-                        onClick={() => setCitationPaper(paper)}
-                        className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#14213d]/22 bg-white px-5 py-2.5 text-sm font-bold text-[#14213d] transition-colors hover:border-[#147d79]/55 hover:text-[#147d79]"
-                      >
-                        Cite this paper
-                        <span className="sr-only">: {paper.title}</span>
-                        <BookOpenText aria-hidden="true" className="size-4" />
-                      </button>
+                      {paper.citation ? (
+                        <button
+                          type="button"
+                          onClick={() => setCitationPaper(paper)}
+                          className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#14213d]/22 bg-white px-5 py-2.5 text-sm font-bold text-[#14213d] transition-colors hover:border-[#147d79]/55 hover:text-[#147d79]"
+                        >
+                          Cite this paper
+                          <span className="sr-only">: {paper.title}</span>
+                          <BookOpenText aria-hidden="true" className="size-4" />
+                        </button>
+                      ) : (
+                        <p data-citation-placeholder={paper.id} className="text-sm font-semibold text-[#52606d]">
+                          Citation information forthcoming.
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>

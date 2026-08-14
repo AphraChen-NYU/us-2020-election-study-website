@@ -26,6 +26,21 @@ export default function StudyDatasetsPage() {
               <p className="mt-5 max-w-3xl text-base leading-7 text-white/72">
                 Browse The Social Media Archive (SOMAR) datasets linked to publications from the U.S. 2020 Facebook and Instagram Election Study.
               </p>
+              <aside
+                aria-label="Dataset access guidance"
+                className="mt-6 max-w-4xl border-l-4 border-[#8ed3cc] pl-5 text-sm leading-7 text-white/72 sm:pl-6"
+              >
+                Datasets for the project are housed at the Social Media Archive (SOMAR) at the University of Michigan’s Inter-university Consortium for Political and Social Research (ICPSR). To obtain access, researchers must complete a form and pay a fee. Please see{" "}
+                <a
+                  href="https://www.icpsr.umich.edu/sites/somar/home"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-sm font-semibold text-white underline decoration-white/35 underline-offset-4 transition-colors hover:text-[#8ed3cc] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8ed3cc]"
+                >
+                  the SOMAR website
+                </a>{" "}
+                for more details.
+              </aside>
             </div>
           </div>
         </section>

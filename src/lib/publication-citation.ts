@@ -5,11 +5,12 @@ export function getCitationTitle(title: string) {
 }
 
 export function getPaperCitationTitle(paper: PeerReviewedPaper) {
-  return getCitationTitle(paper.citation.title ?? paper.title);
+  return getCitationTitle(paper.citation?.title ?? paper.title);
 }
 
 export function getCitationText(paper: PeerReviewedPaper) {
   const { citation } = paper;
+  if (!citation) return null;
   const publication = paper.journal
     ? ` ${paper.journal}${citation.volume ? `, ${citation.volume}` : ""}${
         citation.issue ? `(${citation.issue})` : ""

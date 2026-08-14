@@ -465,30 +465,22 @@ const datasetIdsByPaperId: Readonly<Record<string, readonly string[]>> = {
   "deceptive": ["300484", "300483", "300462", "300482", "300443", "300444", "300439", "300363", "300435", "307363", "307361", "307362", "300441", "300436", "300485", "307359", "300433", "300458", "300460", "300447", "300448", "307360"],
   "untrustworthy": [],
   "emotion": ["300472", "300469", "300471"],
+  "vote-choice": ["300449", "300452"],
 };
 
 const publicationGroups: StudyDatasetGroup[] = peerReviewedPapers.map((paper) => ({
   id: paper.id,
   paperId: paper.id,
   studyLabel: paper.studyLabel,
-  filterLabel: `${paper.studyLabel} (${paper.citation.authors.split(",")[0]} et al., ${paper.citation.yearLabel})`,
+  filterLabel: paper.citation
+    ? `${paper.studyLabel} (${paper.citation.authors.split(",")[0]} et al., ${paper.citation.yearLabel})`
+    : `${paper.studyLabel} (Forthcoming)`,
   title: paper.title,
   status: paper.status,
   datasets: (datasetIdsByPaperId[paper.id] ?? []).map((datasetId) => studyDatasets[datasetId]),
 }));
 
-export const studyDatasetGroups: StudyDatasetGroup[] = [
-  ...publicationGroups,
-  {
-    id: "vote-choice",
-    paperId: null,
-    studyLabel: "Vote Choice",
-    filterLabel: "Vote Choice (Forthcoming)",
-    title: "Vote Choice",
-    status: "forthcoming",
-    datasets: ["300449", "300452"].map((datasetId) => studyDatasets[datasetId]),
-  },
-];
+export const studyDatasetGroups: StudyDatasetGroup[] = publicationGroups;
 
 export const studyDatasetAssociationCount = studyDatasetGroups.reduce(
   (total, group) => total + group.datasets.length,

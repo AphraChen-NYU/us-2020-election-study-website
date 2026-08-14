@@ -26,10 +26,31 @@ describe("publication links", () => {
     );
     expect(icpsrLink.getAttribute("target")).toBe("_blank");
     expect(icpsrLink.getAttribute("rel")).toBe("noreferrer");
-    expect(projectOverview.getAttribute("href")).toBe("https://medium.com/");
+    expect(projectOverview.getAttribute("href")).toBe("https://medium.com/@2020_election_research_project");
     expect(projectOverview.getAttribute("target")).toBe("_blank");
     expect(projectOverview.getAttribute("rel")).toBe("noreferrer");
     expect(relatedCards).toHaveLength(0);
+  });
+
+  it("uses the revised homepage About heading and external-academic wording", () => {
+    const { container } = render(<Home />);
+    const hero = container.querySelector<HTMLElement>("main > section")!;
+
+    expect(
+      within(hero).getByRole("heading", {
+        level: 1,
+        name: "Explore the U.S. 2020 Facebook and Instagram Election Study",
+      }),
+    ).not.toBeNull();
+    expect(
+      within(hero).queryByText("U.S. 2020 Facebook and Instagram Election Study", { exact: true }),
+    ).toBeNull();
+    expect(
+      screen.getByRole("heading", { level: 2, name: "An index of variables, datasets, and papers" }),
+    ).not.toBeNull();
+    expect(screen.getAllByText(/external academics/)).toHaveLength(2);
+    expect(screen.queryByText(/independent academics/)).toBeNull();
+    expect(screen.queryByText(/independent external academics/)).toBeNull();
   });
 
   it("places Study Datasets between Study Publications and Variable Operationalization in both menus", () => {
@@ -114,7 +135,7 @@ describe("publication links", () => {
   });
 
   it("uses the Study Datasets title and introduction", () => {
-    render(<StudyDatasetsPage />);
+    const { container } = render(<StudyDatasetsPage />);
 
     expect(screen.getByRole("heading", { level: 1, name: "Study datasets" })).not.toBeNull();
     expect(screen.getByRole("heading", { level: 2, name: "Datasets by paper" })).not.toBeNull();
@@ -129,6 +150,23 @@ describe("publication links", () => {
         "Expand a paper to review its linked datasets, table summaries, source records, and citations.",
       ),
     ).not.toBeNull();
+    const accessGuidance = screen.getByRole("complementary", { name: "Dataset access guidance" });
+    expect(accessGuidance.textContent).toBe(
+      "Datasets for the project are housed at the Social Media Archive (SOMAR) at the University of Michigan’s Inter-university Consortium for Political and Social Research (ICPSR). To obtain access, researchers must complete a form and pay a fee. Please see the SOMAR website for more details.",
+    );
+    expect(accessGuidance.className).toContain("border-l-4");
+    expect(accessGuidance.className).toContain("text-white/72");
+    const somarLink = within(accessGuidance).getByRole("link", { name: "the SOMAR website" });
+    expect(somarLink.getAttribute("href")).toBe("https://www.icpsr.umich.edu/sites/somar/home");
+    expect(somarLink.getAttribute("target")).toBe("_blank");
+    expect(somarLink.getAttribute("rel")).toBe("noreferrer");
+    const datasetIntroduction = screen.getByText(
+      "Browse The Social Media Archive (SOMAR) datasets linked to publications from the U.S. 2020 Facebook and Instagram Election Study.",
+    );
+    expect(datasetIntroduction.nextElementSibling).toBe(accessGuidance);
+    const datasetLibrary = screen.getByRole("heading", { level: 2, name: "Datasets by paper" });
+    expect(accessGuidance.compareDocumentPosition(datasetLibrary)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(container.querySelectorAll('a[href="https://www.icpsr.umich.edu/sites/somar/home"]')).toHaveLength(1);
   });
 
   it("orders the homepage resource sections and exposes all hero actions", () => {

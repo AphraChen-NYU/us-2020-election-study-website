@@ -9,7 +9,7 @@ export function SiteFooter() {
           <p className="mt-3 max-w-xl text-sm leading-6 text-white/65">
             A research hub bringing together study publications, research themes, and detailed documentation of how key variables were operationalized. For more details about the project, see the{" "}
             <a
-              href="https://medium.com/"
+              href="https://medium.com/@2020_election_research_project"
               target="_blank"
               rel="noreferrer"
               className="rounded-sm font-semibold text-white underline decoration-white/35 underline-offset-4 transition-colors hover:text-[#8ed3cc] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8ed3cc]"

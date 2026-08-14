@@ -27,8 +27,8 @@ describe("study datasets", () => {
     }
   });
 
-  it("follows publication order and appends Vote Choice as an additional forthcoming group", () => {
-    expect(studyDatasetGroups.slice(0, 10).map((group) => group.paperId)).toEqual(
+  it("follows publication order and derives Vote Choice from its forthcoming publication record", () => {
+    expect(studyDatasetGroups.map((group) => group.paperId)).toEqual(
       peerReviewedPapers.map((paper) => paper.id),
     );
     expect(studyDatasetGroups.map((group) => group.studyLabel)).toEqual([
@@ -39,21 +39,23 @@ describe("study datasets", () => {
       "Deactivation",
       "Diffusion",
       "Ads Experimental",
-      "CIB",
+      "Deceptive online networks",
       "Untrustworthy",
       "Emotional State",
       "Vote Choice",
     ]);
-    expect(studyDatasetGroups.slice(0, 10).map((group) => group.filterLabel)).toEqual(
+    expect(studyDatasetGroups.map((group) => group.filterLabel)).toEqual(
       peerReviewedPapers.map(
         (paper) =>
-          `${paper.studyLabel} (${paper.citation.authors.split(",")[0]} et al., ${paper.citation.yearLabel})`,
+          paper.citation
+            ? `${paper.studyLabel} (${paper.citation.authors.split(",")[0]} et al., ${paper.citation.yearLabel})`
+            : `${paper.studyLabel} (Forthcoming)`,
       ),
     );
     expect(studyDatasetGroups.at(-1)).toEqual(
       expect.objectContaining({
         id: "vote-choice",
-        paperId: null,
+        paperId: "vote-choice",
         studyLabel: "Vote Choice",
         filterLabel: "Vote Choice (Forthcoming)",
         title: "Vote Choice",

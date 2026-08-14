@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { OutcomeBrowser } from "@/components/outcome-browser";
 import { SiteFooter } from "@/components/site-footer";
@@ -39,7 +40,15 @@ export default async function VariableThemePage({ params }: ThemePageProps) {
       <main>
         <section className="matrix-pattern overflow-hidden bg-[#14213d] text-white">
           <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 md:py-24 lg:px-12">
-            <Badge className="border-white/20 bg-white/8 text-white">Variable operationalization / {meta.label}</Badge>
+            <Link
+              href="/"
+              aria-label={`Return to the home page from ${meta.label} variable operationalization`}
+              className="inline-flex rounded-full transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            >
+              <Badge className="border-white/20 bg-white/8 text-white">
+                Variable operationalization / {meta.label}
+              </Badge>
+            </Link>
             <div className="mt-7 grid items-end gap-8 lg:grid-cols-[1fr_0.75fr]">
               <h1 className="max-w-4xl text-[clamp(3.4rem,7vw,6.8rem)] leading-[0.9] font-medium tracking-[-0.05em]">
                 {meta.label} variable operationalization

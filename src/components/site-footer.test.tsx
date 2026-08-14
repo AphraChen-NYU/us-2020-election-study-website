@@ -15,7 +15,7 @@ describe("SiteFooter", () => {
     expect(description?.textContent).toBe(
       "A research hub bringing together study publications, research themes, and detailed documentation of how key variables were operationalized. For more details about the project, see the project page.",
     );
-    expect(projectPage.getAttribute("href")).toBe("https://medium.com/");
+    expect(projectPage.getAttribute("href")).toBe("https://medium.com/@2020_election_research_project");
     expect(projectPage.getAttribute("target")).toBe("_blank");
     expect(projectPage.getAttribute("rel")).toBe("noreferrer");
     expect(screen.queryByText("A local research interface", { exact: false })).toBeNull();

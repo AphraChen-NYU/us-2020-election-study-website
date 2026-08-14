@@ -17,7 +17,7 @@ export function CitationDialog({ paper, onClose }: CitationDialogProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (!paper) return;
+    if (!paper?.citation) return;
 
     const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
@@ -63,7 +63,8 @@ export function CitationDialog({ paper, onClose }: CitationDialogProps) {
     };
   }, [paper, onClose]);
 
-  if (!paper) return null;
+  if (!paper?.citation) return null;
+  const citation = paper.citation;
 
   return createPortal(
     <div
@@ -97,28 +98,28 @@ export function CitationDialog({ paper, onClose }: CitationDialogProps) {
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-7 sm:px-8 sm:py-9">
           <div className="rounded-2xl border border-[#14213d]/12 bg-white px-5 py-5 sm:px-6">
             <p className="break-words text-base leading-8 text-[#35435b]">
-              {paper.citation.authors} ({paper.citation.yearLabel}). {getPaperCitationTitle(paper)}
+              {citation.authors} ({citation.yearLabel}). {getPaperCitationTitle(paper)}
               {paper.journal ? (
                 <>
                   {" "}
                   <cite className="italic">
                     {paper.journal}
-                    {paper.citation.volume ? `, ${paper.citation.volume}` : ""}
+                    {citation.volume ? `, ${citation.volume}` : ""}
                   </cite>
-                  {paper.citation.issue ? `(${paper.citation.issue})` : ""}
-                  {paper.citation.locator ? `, ${paper.citation.locator}` : ""}.
+                  {citation.issue ? `(${citation.issue})` : ""}
+                  {citation.locator ? `, ${citation.locator}` : ""}.
                 </>
               ) : null}
-              {paper.citation.doi ? (
+              {citation.doi ? (
                 <>
                   {" "}
                   <a
-                    href={paper.citation.doi}
+                    href={citation.doi}
                     target="_blank"
                     rel="noreferrer"
                     className="text-[#147d79] underline decoration-[#147d79]/35 underline-offset-4 transition-colors hover:text-[#0f625f] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
                   >
-                    {paper.citation.doi}
+                    {citation.doi}
                   </a>
                 </>
               ) : null}

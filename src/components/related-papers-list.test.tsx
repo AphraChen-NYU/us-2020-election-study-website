@@ -16,24 +16,29 @@ describe("RelatedPapersList", () => {
   it("renders simplified metadata and the expected publication actions", () => {
     const { container } = render(<RelatedPapersList />);
 
-    expect(container.querySelectorAll("article")).toHaveLength(10);
+    expect(container.querySelectorAll("article")).toHaveLength(11);
     expect(screen.getAllByRole("link", { name: "View publication" })).toHaveLength(9);
     expect(screen.getByRole("button", { name: /^View publication options for/ })).not.toBeNull();
     expect(screen.getAllByRole("button", { name: /^Cite this paper:/ })).toHaveLength(10);
-    expect(screen.queryByText("A publication link is not yet available.")).toBeNull();
+    expect(screen.getByText("Publication link forthcoming.", { exact: true })).not.toBeNull();
     expect(container.querySelector('[data-author-display="ad-experimental"]')?.textContent).toContain("Ro’ee Levy");
     expect(container.querySelector('[data-author-display="untrustworthy"]')?.textContent).toContain(
       "Olivier Bergeron-Boutin",
     );
     expect(Array.from(container.querySelectorAll("dt")).map((term) => term.textContent)).toEqual(
-      Array.from({ length: 10 }, () => ["Authors", "Publication"]).flat(),
+      Array.from({ length: 11 }, () => ["Authors", "Publication"]).flat(),
     );
     expect(container.querySelectorAll('[data-publication-status="published"]')).toHaveLength(9);
-    expect(container.querySelectorAll('[data-publication-status="forthcoming"]')).toHaveLength(1);
+    expect(container.querySelectorAll('[data-publication-status="forthcoming"]')).toHaveLength(2);
     expect(screen.getAllByText("Journal Article", { exact: true })).toHaveLength(9);
-    expect(screen.getAllByText("Forthcoming", { exact: true })).toHaveLength(1);
-    for (const studyLabel of ["Diffusion", "Ads Experimental", "CIB", "Emotional State"]) {
-      expect(screen.getByText(studyLabel, { exact: true })).not.toBeNull();
+    for (const studyLabel of [
+      "Diffusion",
+      "Ads Experimental",
+      "Deceptive online networks",
+      "Emotional State",
+      "Vote Choice",
+    ]) {
+      expect(screen.getAllByText(studyLabel, { exact: true }).length).toBeGreaterThan(0);
     }
     expect(screen.getByText("American Economic Journal: Economic Policy · Forthcoming", { exact: true })).not.toBeNull();
     expect(screen.queryByText("View full author list", { exact: true })).toBeNull();
@@ -47,13 +52,28 @@ describe("RelatedPapersList", () => {
         String(peerReviewedPapers.indexOf(paper) + 1).padStart(2, "0"),
       );
     });
-    expect(screen.queryByText(getCitationText(peerReviewedPapers[0]))).toBeNull();
+    expect(screen.queryByText(getCitationText(peerReviewedPapers[0])!)).toBeNull();
+  });
+
+  it("renders Vote Choice last with forthcoming placeholders and no unavailable controls", () => {
+    const { container } = render(<RelatedPapersList />);
+    const articles = container.querySelectorAll("article");
+    const voteChoiceArticle = articles.item(articles.length - 1);
+
+    expect(within(voteChoiceArticle).getAllByText("Vote Choice", { exact: true })).toHaveLength(2);
+    expect(within(voteChoiceArticle).getAllByText("Forthcoming", { exact: true })).toHaveLength(2);
+    expect(within(voteChoiceArticle).getByText("Author information forthcoming.", { exact: true })).not.toBeNull();
+    expect(within(voteChoiceArticle).getByText("Abstract information forthcoming.", { exact: true })).not.toBeNull();
+    expect(within(voteChoiceArticle).getByText("Publication link forthcoming.", { exact: true })).not.toBeNull();
+    expect(within(voteChoiceArticle).getByText("Citation information forthcoming.", { exact: true })).not.toBeNull();
+    expect(within(voteChoiceArticle).queryByRole("button")).toBeNull();
+    expect(within(voteChoiceArticle).queryByRole("link")).toBeNull();
   });
 
   it("derives verbatim author and abstract previews from the full source content", () => {
     const { container } = render(<RelatedPapersList />);
 
-    peerReviewedPapers.forEach((paper) => {
+    peerReviewedPapers.filter((paper) => paper.authors.length > 0 && paper.abstract).forEach((paper) => {
       const authorDisplay = container.querySelector(`[data-author-display="${paper.id}"]`);
       const abstractPreview = container.querySelector(`[data-abstract-preview="${paper.id}"]`);
       const expectedAbstractPreview = getAbstractPreview(paper.abstract);
@@ -65,14 +85,20 @@ describe("RelatedPapersList", () => {
       expect(container.querySelector(`[data-abstract-ellipsis="${paper.id}"]`)).not.toBeNull();
       expect(container.querySelector(`[data-abstract-remainder="${paper.id}"]`)).toBeNull();
     });
+    expect(container.querySelector('[data-author-placeholder="vote-choice"]')?.textContent).toBe(
+      "Author information forthcoming.",
+    );
+    expect(container.querySelector('[data-abstract-placeholder="vote-choice"]')?.textContent).toBe(
+      "Abstract information forthcoming.",
+    );
   });
 
   it("expands author lists independently with accessible plus and minus controls", () => {
     const { container } = render(<RelatedPapersList />);
     const showAuthorButtons = screen.getAllByRole("button", { name: /^Show full author list for/ });
-    const authorDisplays = peerReviewedPapers.map((paper) =>
-      container.querySelector<HTMLElement>(`[data-author-display="${paper.id}"]`)!,
-    );
+    const authorDisplays = peerReviewedPapers
+      .filter((paper) => paper.authors.length > 0)
+      .map((paper) => container.querySelector<HTMLElement>(`[data-author-display="${paper.id}"]`)!);
 
     expect(showAuthorButtons).toHaveLength(10);
     expect(showAuthorButtons.every((button) => button.textContent === "+" && button.getAttribute("aria-expanded") === "false")).toBe(
@@ -213,8 +239,8 @@ describe("RelatedPapersList", () => {
     const dialog = screen.getByRole("dialog", { name: "Cite this paper" });
     expect(dialog.querySelector("p")?.textContent).toBe(getCitationText(chronologicalPaper));
     expect(within(dialog).getByText("Science, 381", { exact: true }).tagName).toBe("CITE");
-    expect(within(dialog).getByRole("link", { name: chronologicalPaper.citation.doi! }).getAttribute("href")).toBe(
-      chronologicalPaper.citation.doi,
+    expect(within(dialog).getByRole("link", { name: chronologicalPaper.citation!.doi! }).getAttribute("href")).toBe(
+      chronologicalPaper.citation!.doi,
     );
     expect(within(dialog).queryByText(chronologicalPaper.title, { exact: true })).toBeNull();
     expect(within(dialog).queryByText(chronologicalPaper.studyLabel, { exact: true })).toBeNull();
@@ -232,9 +258,10 @@ describe("RelatedPapersList", () => {
     render(<RelatedPapersList />);
     const citationButtons = screen.getAllByRole("button", { name: /^Cite this paper:/ });
 
+    const emotionPaper = peerReviewedPapers.find((paper) => paper.id === "emotion")!;
     fireEvent.click(citationButtons.at(-1)!);
     const dialog = screen.getByRole("dialog", { name: "Cite this paper" });
-    expect(dialog.querySelector("p")?.textContent).toBe(getCitationText(peerReviewedPapers.at(-1)!));
+    expect(dialog.querySelector("p")?.textContent).toBe(getCitationText(emotionPaper));
 
     fireEvent.mouseDown(dialog.parentElement!);
     expect(screen.queryByRole("dialog")).toBeNull();

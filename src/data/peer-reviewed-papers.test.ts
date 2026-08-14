@@ -12,9 +12,10 @@ describe("peer-reviewed papers dataset", () => {
       "Deactivation",
       "Diffusion",
       "Ads Experimental",
-      "CIB",
+      "Deceptive online networks",
       "Untrustworthy",
       "Emotional State",
+      "Vote Choice",
     ]);
     expect(peerReviewedPapers.map((paper) => paper.publicationDate)).toEqual([
       "2023-07-27",
@@ -26,6 +27,7 @@ describe("peer-reviewed papers dataset", () => {
       "2026-03-02",
       "2026-04-06",
       "2026-07-29",
+      null,
       null,
     ]);
   });
@@ -56,7 +58,7 @@ describe("peer-reviewed papers dataset", () => {
       },
       {
         id: "deceptive",
-        studyLabel: "CIB",
+        studyLabel: "Deceptive online networks",
         title: "How deceptive online networks reached millions in the US 2020 elections",
       },
       {
@@ -80,17 +82,17 @@ describe("peer-reviewed papers dataset", () => {
     ]);
   });
 
-  it("contains complete publication information for every paper", () => {
-    for (const paper of peerReviewedPapers) {
+  it("contains complete publication information for every verified paper", () => {
+    for (const paper of peerReviewedPapers.filter((candidate) => candidate.citation)) {
       expect(paper.title.trim()).not.toBe("");
       expect(paper.authors.length).toBeGreaterThan(0);
       expect(paper.authors.every((author) => author.trim() !== "")).toBe(true);
       expect(paper.abstract.trim()).not.toBe("");
-      expect(getCitationText(paper).trim()).not.toBe("");
+      expect(getCitationText(paper)?.trim()).not.toBe("");
     }
   });
 
-  it("has nine published papers and one forthcoming paper with verified available links", () => {
+  it("has nine published papers and two forthcoming papers, including the Vote Choice placeholder", () => {
     const published = peerReviewedPapers.filter((paper) => paper.status === "published");
     const forthcoming = peerReviewedPapers.filter((paper) => paper.status === "forthcoming");
 
@@ -103,7 +105,7 @@ describe("peer-reviewed papers dataset", () => {
       ),
     ).toBe(true);
     expect(published.every((paper) => paper.journal && paper.year)).toBe(true);
-    expect(forthcoming.map((paper) => paper.id)).toEqual(["emotion"]);
+    expect(forthcoming.map((paper) => paper.id)).toEqual(["emotion", "vote-choice"]);
     expect(forthcoming.find((paper) => paper.id === "emotion")).toEqual(
       expect.objectContaining({
         publicationLinks: [
@@ -120,6 +122,19 @@ describe("peer-reviewed papers dataset", () => {
         year: null,
       }),
     );
+    expect(forthcoming.find((paper) => paper.id === "vote-choice")).toEqual({
+      id: "vote-choice",
+      studyLabel: "Vote Choice",
+      title: "Vote Choice",
+      authors: [],
+      abstract: "",
+      citation: null,
+      publicationLinks: [],
+      journal: null,
+      year: null,
+      publicationDate: null,
+      status: "forthcoming",
+    });
   });
 
   it("stores the verified published Untrustworthy record without changing its author order", () => {
@@ -206,12 +221,12 @@ describe("peer-reviewed papers dataset", () => {
 
   it("stores verified volume, issue, locator, and DOI metadata", () => {
     expect(
-      peerReviewedPapers.map(({ id, citation }) => ({
+      peerReviewedPapers.filter((paper) => paper.citation).map(({ id, citation }) => ({
         id,
-        volume: citation.volume,
-        issue: citation.issue,
-        locator: citation.locator,
-        doi: citation.doi,
+        volume: citation!.volume,
+        issue: citation!.issue,
+        locator: citation!.locator,
+        doi: citation!.doi,
       })),
     ).toEqual([
       {

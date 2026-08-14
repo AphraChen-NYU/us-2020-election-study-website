@@ -21,7 +21,7 @@ export interface PeerReviewedPaper {
   title: string;
   authors: string[];
   abstract: string;
-  citation: PaperCitation;
+  citation: PaperCitation | null;
   publicationLinks: PublicationLink[];
   journal: string | null;
   year: number | null;
@@ -349,7 +349,7 @@ const suppliedPapers: PeerReviewedPaper[] = [
   },
   {
     id: "deceptive",
-    studyLabel: "CIB",
+    studyLabel: "Deceptive online networks",
     title: "How deceptive online networks reached millions in the US 2020 elections",
     authors: [
       "Ruth E. Appel",
@@ -571,6 +571,19 @@ const suppliedPapers: PeerReviewedPaper[] = [
       },
     ],
     journal: "American Economic Journal: Economic Policy",
+    year: null,
+    publicationDate: null,
+    status: "forthcoming",
+  },
+  {
+    id: "vote-choice",
+    studyLabel: "Vote Choice",
+    title: "Vote Choice",
+    authors: [],
+    abstract: "",
+    citation: null,
+    publicationLinks: [],
+    journal: null,
     year: null,
     publicationDate: null,
     status: "forthcoming",

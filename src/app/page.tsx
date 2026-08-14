@@ -95,12 +95,11 @@ export default function Home() {
           <div aria-hidden="true" className="absolute -right-28 -top-24 size-[440px] rounded-full bg-[#147d79]/35 blur-3xl" />
           <div className="relative mx-auto flex min-h-[680px] max-w-[1440px] items-end px-5 py-16 sm:px-8 md:py-24 lg:px-12">
             <div className="max-w-5xl">
-              <Badge className="border-white/20 bg-white/8 text-white">U.S. 2020 Facebook and Instagram Election Study</Badge>
-              <h1 className="mt-8 max-w-4xl text-[clamp(3.4rem,8vw,7.5rem)] leading-[0.88] font-medium tracking-[-0.055em] text-balance">
-                Exploring social media and the 2020 U.S. election
+              <h1 className="max-w-5xl text-[clamp(3.4rem,8vw,7.5rem)] leading-[0.88] font-medium tracking-[-0.055em] text-balance">
+                Explore the U.S. 2020 Facebook and Instagram Election Study
               </h1>
               <p className="mt-8 max-w-3xl text-lg leading-8 text-white/72 sm:text-xl">
-                This research hub brings together materials from a collaboration between independent academics and Meta researchers. Explore the study’s publications, linked datasets, and structured documentation of how key variables were operationalized across its papers.
+                This research hub brings together materials from a collaboration between external academics and Meta researchers. Explore the study’s publications, linked datasets, and structured documentation of how key variables were operationalized across its papers.
               </p>
               <div className="mt-9 flex flex-wrap gap-3" data-hero-actions>
                 <a href="#about" className={buttonVariants({ variant: "accent" })}>
@@ -139,11 +138,11 @@ export default function Home() {
           <div className="mx-auto grid max-w-[1440px] gap-14 px-5 py-20 sm:px-8 md:py-28 lg:grid-cols-[0.8fr_1.2fr] lg:px-12">
             <div>
               <Badge>About the study</Badge>
-              <h2 className="mt-5 text-5xl leading-none tracking-[-0.035em] sm:text-6xl">A clearer route into complex research</h2>
+              <h2 className="mt-5 text-5xl leading-none tracking-[-0.035em] sm:text-6xl">An index of variables, datasets, and papers</h2>
             </div>
             <div className="max-w-3xl">
               <p className="text-xl leading-9 text-[#263550]">
-                The U.S. 2020 Facebook and Instagram Election Study brought together independent external academics and Meta researchers to examine questions about social media, political attitudes, behavior, and information during the election.
+                The U.S. 2020 Facebook and Instagram Election Study brought together external academics and Meta researchers to examine questions about social media, political attitudes, behavior, and information during the election.
               </p>
               <p className="mt-6 leading-8 text-[#52606d]">
                 This research hub provides libraries of study publications and linked datasets alongside a searchable variable operationalization guide, making it easier to trace research questions, measures, methods, and supporting materials without drawing conclusions beyond the underlying research.
@@ -161,7 +160,7 @@ export default function Home() {
                   </span>
                 </a>
                 <a
-                  href="https://medium.com/"
+                  href="https://medium.com/@2020_election_research_project"
                   target="_blank"
                   rel="noreferrer"
                   className="group rounded-2xl border border-[#14213d]/14 bg-white p-5 transition-colors hover:border-[#147d79]/45"

@@ -111,7 +111,7 @@ describe("StudyDatasetsBrowser", () => {
     expect(container.querySelectorAll("[data-dataset-paper-options] input[type='checkbox']")).toHaveLength(11);
     expect(screen.getByLabelText("Diffusion (González-Bailón et al., 2024)")).not.toBeNull();
     expect(screen.getByLabelText("Ads Experimental (Allcott et al., 2026)")).not.toBeNull();
-    expect(screen.getByLabelText("CIB (Appel et al., 2026)")).not.toBeNull();
+    expect(screen.getByLabelText("Deceptive online networks (Appel et al., 2026)")).not.toBeNull();
     expect(screen.getByLabelText("Emotional State (Allcott et al., Forthcoming)")).not.toBeNull();
 
     fireEvent.click(screen.getByLabelText(segregation.filterLabel));
