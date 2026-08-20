@@ -19,8 +19,9 @@ describe("RelatedPapersList", () => {
     expect(container.querySelectorAll("article")).toHaveLength(11);
     expect(screen.getAllByRole("link", { name: "View publication" })).toHaveLength(9);
     expect(screen.getByRole("button", { name: /^View publication options for/ })).not.toBeNull();
-    expect(screen.getAllByRole("button", { name: /^Cite this paper:/ })).toHaveLength(10);
-    expect(screen.getByText("Publication link forthcoming.", { exact: true })).not.toBeNull();
+    expect(screen.getAllByRole("button", { name: /^Cite this paper:/ })).toHaveLength(11);
+    expect(screen.queryByText("Publication link forthcoming", { exact: true })).toBeNull();
+    expect(screen.queryByText("Citation information Forthcoming", { exact: true })).toBeNull();
     expect(container.querySelector('[data-author-display="ad-experimental"]')?.textContent).toContain("Ro’ee Levy");
     expect(container.querySelector('[data-author-display="untrustworthy"]')?.textContent).toContain(
       "Olivier Bergeron-Boutin",
@@ -55,19 +56,37 @@ describe("RelatedPapersList", () => {
     expect(screen.queryByText(getCitationText(peerReviewedPapers[0])!)).toBeNull();
   });
 
-  it("renders Vote Choice last with forthcoming placeholders and no unavailable controls", () => {
+  it("renders Vote Choice last with its verified title, author preview, and forthcoming actions", () => {
     const { container } = render(<RelatedPapersList />);
     const articles = container.querySelectorAll("article");
     const voteChoiceArticle = articles.item(articles.length - 1);
+    const voteChoicePaper = peerReviewedPapers.find((paper) => paper.id === "vote-choice")!;
 
-    expect(within(voteChoiceArticle).getAllByText("Vote Choice", { exact: true })).toHaveLength(2);
+    expect(within(voteChoiceArticle).getByText("Vote Choice", { exact: true })).not.toBeNull();
+    expect(within(voteChoiceArticle).getByText(voteChoicePaper.title, { exact: true })).not.toBeNull();
     expect(within(voteChoiceArticle).getAllByText("Forthcoming", { exact: true })).toHaveLength(2);
-    expect(within(voteChoiceArticle).getByText("Author information forthcoming.", { exact: true })).not.toBeNull();
+    expect(container.querySelector('[data-author-display="vote-choice"]')?.textContent).toBe(
+      "Matthew Tyler, Shanto Iyengar, Arjun Wilkins",
+    );
     expect(within(voteChoiceArticle).getByText("Abstract information forthcoming.", { exact: true })).not.toBeNull();
-    expect(within(voteChoiceArticle).getByText("Publication link forthcoming.", { exact: true })).not.toBeNull();
-    expect(within(voteChoiceArticle).getByText("Citation information forthcoming.", { exact: true })).not.toBeNull();
-    expect(within(voteChoiceArticle).queryByRole("button")).toBeNull();
+    const authorButton = within(voteChoiceArticle).getByRole("button", {
+      name: `Show full author list for ${voteChoicePaper.title}`,
+    });
+    expect(authorButton).not.toBeNull();
+    expect(
+      within(voteChoiceArticle).getByRole("button", { name: `View publication: ${voteChoicePaper.title}` }),
+    ).not.toBeNull();
+    expect(
+      within(voteChoiceArticle).getByRole("button", { name: `Cite this paper: ${voteChoicePaper.title}` }),
+    ).not.toBeNull();
+    expect(within(voteChoiceArticle).queryByText("Publication link forthcoming", { exact: true })).toBeNull();
+    expect(within(voteChoiceArticle).queryByText("Citation information Forthcoming", { exact: true })).toBeNull();
     expect(within(voteChoiceArticle).queryByRole("link")).toBeNull();
+
+    fireEvent.click(authorButton);
+    expect(container.querySelector('[data-author-display="vote-choice"]')?.textContent).toBe(
+      voteChoicePaper.authors.join(", "),
+    );
   });
 
   it("derives verbatim author and abstract previews from the full source content", () => {
@@ -85,8 +104,9 @@ describe("RelatedPapersList", () => {
       expect(container.querySelector(`[data-abstract-ellipsis="${paper.id}"]`)).not.toBeNull();
       expect(container.querySelector(`[data-abstract-remainder="${paper.id}"]`)).toBeNull();
     });
-    expect(container.querySelector('[data-author-placeholder="vote-choice"]')?.textContent).toBe(
-      "Author information forthcoming.",
+    expect(container.querySelector('[data-author-placeholder="vote-choice"]')).toBeNull();
+    expect(container.querySelector('[data-author-display="vote-choice"]')?.textContent).toBe(
+      "Matthew Tyler, Shanto Iyengar, Arjun Wilkins",
     );
     expect(container.querySelector('[data-abstract-placeholder="vote-choice"]')?.textContent).toBe(
       "Abstract information forthcoming.",
@@ -100,7 +120,7 @@ describe("RelatedPapersList", () => {
       .filter((paper) => paper.authors.length > 0)
       .map((paper) => container.querySelector<HTMLElement>(`[data-author-display="${paper.id}"]`)!);
 
-    expect(showAuthorButtons).toHaveLength(10);
+    expect(showAuthorButtons).toHaveLength(11);
     expect(showAuthorButtons.every((button) => button.textContent === "+" && button.getAttribute("aria-expanded") === "false")).toBe(
       true,
     );
@@ -227,6 +247,34 @@ describe("RelatedPapersList", () => {
     expect(document.activeElement).toBe(trigger);
   });
 
+  it("opens Vote Choice publication details in an accessible forthcoming-state dialog", () => {
+    render(<RelatedPapersList />);
+    const voteChoicePaper = peerReviewedPapers.find((paper) => paper.id === "vote-choice")!;
+    const trigger = screen.getByRole("button", { name: `View publication: ${voteChoicePaper.title}` });
+
+    trigger.focus();
+    fireEvent.click(trigger);
+
+    const dialog = screen.getByRole("dialog", { name: "View publication" });
+    const closeButton = within(dialog).getByRole("button", { name: "Close publication links" });
+    expect(within(dialog).getByText("Publication link forthcoming", { exact: true })).not.toBeNull();
+    expect(within(dialog).queryByRole("link")).toBeNull();
+    expect(document.activeElement).toBe(closeButton);
+    expect(document.body.style.overflow).toBe("hidden");
+
+    fireEvent.keyDown(document, { key: "Tab" });
+    expect(document.activeElement).toBe(closeButton);
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.queryByRole("dialog", { name: "View publication" })).toBeNull();
+    expect(document.activeElement).toBe(trigger);
+
+    fireEvent.click(trigger);
+    const reopenedDialog = screen.getByRole("dialog", { name: "View publication" });
+    fireEvent.mouseDown(reopenedDialog.parentElement!);
+    expect(screen.queryByRole("dialog", { name: "View publication" })).toBeNull();
+    expect(document.activeElement).toBe(trigger);
+  });
+
   it("opens the selected citation in a modal and restores focus after Escape", () => {
     render(<RelatedPapersList />);
     const citationButtons = screen.getAllByRole("button", { name: /^Cite this paper:/ });
@@ -254,12 +302,39 @@ describe("RelatedPapersList", () => {
     expect(document.body.style.overflow).toBe("");
   });
 
+  it("opens Vote Choice citation details in an accessible forthcoming-state dialog", () => {
+    render(<RelatedPapersList />);
+    const voteChoicePaper = peerReviewedPapers.find((paper) => paper.id === "vote-choice")!;
+    const trigger = screen.getByRole("button", { name: `Cite this paper: ${voteChoicePaper.title}` });
+
+    trigger.focus();
+    fireEvent.click(trigger);
+
+    const dialog = screen.getByRole("dialog", { name: "Cite this paper" });
+    const closeButton = within(dialog).getByRole("button", { name: "Close citation" });
+    expect(within(dialog).getByText("Citation information Forthcoming", { exact: true })).not.toBeNull();
+    expect(within(dialog).queryByRole("link")).toBeNull();
+    expect(dialog.querySelector("cite")).toBeNull();
+    expect(document.activeElement).toBe(closeButton);
+    expect(document.body.style.overflow).toBe("hidden");
+
+    fireEvent.keyDown(document, { key: "Tab" });
+    expect(document.activeElement).toBe(closeButton);
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(screen.queryByRole("dialog", { name: "Cite this paper" })).toBeNull();
+    expect(document.activeElement).toBe(trigger);
+
+    fireEvent.click(trigger);
+    const reopenedDialog = screen.getByRole("dialog", { name: "Cite this paper" });
+    fireEvent.mouseDown(reopenedDialog.parentElement!);
+    expect(screen.queryByRole("dialog", { name: "Cite this paper" })).toBeNull();
+    expect(document.activeElement).toBe(trigger);
+  });
+
   it("closes the citation from the overlay and handles the forthcoming paper", () => {
     render(<RelatedPapersList />);
-    const citationButtons = screen.getAllByRole("button", { name: /^Cite this paper:/ });
-
     const emotionPaper = peerReviewedPapers.find((paper) => paper.id === "emotion")!;
-    fireEvent.click(citationButtons.at(-1)!);
+    fireEvent.click(screen.getByRole("button", { name: `Cite this paper: ${emotionPaper.title}` }));
     const dialog = screen.getByRole("dialog", { name: "Cite this paper" });
     expect(dialog.querySelector("p")?.textContent).toBe(getCitationText(emotionPaper));
 

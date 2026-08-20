@@ -113,9 +113,10 @@ describe("StudyDatasetsBrowser", () => {
     expect(screen.getByLabelText("Ads Experimental (Allcott et al., 2026)")).not.toBeNull();
     expect(screen.getByLabelText("Deceptive online networks (Appel et al., 2026)")).not.toBeNull();
     expect(screen.getByLabelText("Emotional State (Allcott et al., Forthcoming)")).not.toBeNull();
+    expect(screen.getByLabelText("Vote Choice (Tyler et al., Forthcoming)")).not.toBeNull();
 
     fireEvent.click(screen.getByLabelText(segregation.filterLabel));
-    fireEvent.click(screen.getByLabelText("Vote Choice (Forthcoming)"));
+    fireEvent.click(screen.getByLabelText("Vote Choice (Tyler et al., Forthcoming)"));
     expect(container.querySelectorAll("[data-dataset-group]")).toHaveLength(2);
     expect(container.querySelector('[data-dataset-group="segregation"]')).not.toBeNull();
     expect(container.querySelector('[data-dataset-group="vote-choice"]')).not.toBeNull();
@@ -126,14 +127,20 @@ describe("StudyDatasetsBrowser", () => {
         "Vote Choice",
         { exact: true },
       ),
-    ).toHaveLength(2);
+    ).toHaveLength(1);
+    expect(
+      within(container.querySelector('[data-dataset-group="vote-choice"]') as HTMLElement).getByText(
+        "Campaigns Reinforce Partisanship and Short-Term Forces: Evidence from a Large-Scale Panel Study of the 2020 US Presidential Campaign",
+        { exact: true },
+      ),
+    ).not.toBeNull();
     expect(clearButton.disabled).toBe(false);
 
     const activeFilters = screen.getByLabelText("Active paper filters");
     const filterButtons = within(activeFilters).getAllByRole("button");
     expect(filterButtons.map((button) => button.textContent)).toEqual([
       `${segregation.filterLabel}Remove filter`,
-      "Vote Choice (Forthcoming)Remove filter",
+      "Vote Choice (Tyler et al., Forthcoming)Remove filter",
     ]);
     fireEvent.click(filterButtons[0]);
     expect(container.querySelector('[data-dataset-group="segregation"]')).toBeNull();

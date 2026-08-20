@@ -14,6 +14,7 @@ export function PublicationLinksDialog({ paper, onClose }: PublicationLinksDialo
   const titleId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!paper) return;
@@ -21,7 +22,11 @@ export function PublicationLinksDialog({ paper, onClose }: PublicationLinksDialo
     const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    firstLinkRef.current?.focus();
+    if (paper.publicationLinks.length > 0) {
+      firstLinkRef.current?.focus();
+    } else {
+      closeRef.current?.focus();
+    }
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -80,9 +85,10 @@ export function PublicationLinksDialog({ paper, onClose }: PublicationLinksDialo
       >
         <header className="flex items-center justify-between gap-6 border-b border-[#14213d]/12 px-5 py-5 sm:px-8 sm:py-6">
           <h2 id={titleId} className="text-3xl leading-tight tracking-[-0.03em] sm:text-4xl">
-            Choose a publication link
+            {paper.publicationLinks.length > 0 ? "Choose a publication link" : "View publication"}
           </h2>
           <button
+            ref={closeRef}
             type="button"
             onClick={onClose}
             aria-label="Close publication links"
@@ -93,23 +99,32 @@ export function PublicationLinksDialog({ paper, onClose }: PublicationLinksDialo
         </header>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-7 sm:px-8 sm:py-9">
-          <ul className="grid gap-3">
-            {paper.publicationLinks.map((link, index) => (
-              <li key={link.url}>
-                <a
-                  ref={index === 0 ? firstLinkRef : undefined}
-                  href={link.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={onClose}
-                  className="flex min-h-14 items-center justify-between gap-4 rounded-2xl border border-[#14213d]/14 bg-white px-5 py-4 text-base font-bold text-[#14213d] transition-colors hover:border-[#147d79]/50 hover:text-[#147d79] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
-                >
-                  <span>{link.label}</span>
-                  <ExternalLink aria-hidden="true" className="size-5 shrink-0" />
-                </a>
-              </li>
-            ))}
-          </ul>
+          {paper.publicationLinks.length > 0 ? (
+            <ul className="grid gap-3">
+              {paper.publicationLinks.map((link, index) => (
+                <li key={link.url}>
+                  <a
+                    ref={index === 0 ? firstLinkRef : undefined}
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={onClose}
+                    className="flex min-h-14 items-center justify-between gap-4 rounded-2xl border border-[#14213d]/14 bg-white px-5 py-4 text-base font-bold text-[#14213d] transition-colors hover:border-[#147d79]/50 hover:text-[#147d79] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
+                  >
+                    <span>{link.label}</span>
+                    <ExternalLink aria-hidden="true" className="size-5 shrink-0" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p
+              data-publication-unavailable={paper.id}
+              className="rounded-2xl border border-[#14213d]/12 bg-white px-5 py-5 text-base leading-8 text-[#35435b] sm:px-6"
+            >
+              Publication link forthcoming
+            </p>
+          )}
         </div>
       </div>
     </div>,

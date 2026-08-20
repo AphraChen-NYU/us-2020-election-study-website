@@ -49,7 +49,9 @@ describe("study datasets", () => {
         (paper) =>
           paper.citation
             ? `${paper.studyLabel} (${paper.citation.authors.split(",")[0]} et al., ${paper.citation.yearLabel})`
-            : `${paper.studyLabel} (Forthcoming)`,
+            : paper.authors[0]
+              ? `${paper.studyLabel} (${paper.authors[0].trim().split(/\s+/).at(-1)} et al., Forthcoming)`
+              : `${paper.studyLabel} (Forthcoming)`,
       ),
     );
     expect(studyDatasetGroups.at(-1)).toEqual(
@@ -57,8 +59,9 @@ describe("study datasets", () => {
         id: "vote-choice",
         paperId: "vote-choice",
         studyLabel: "Vote Choice",
-        filterLabel: "Vote Choice (Forthcoming)",
-        title: "Vote Choice",
+        filterLabel: "Vote Choice (Tyler et al., Forthcoming)",
+        title:
+          "Campaigns Reinforce Partisanship and Short-Term Forces: Evidence from a Large-Scale Panel Study of the 2020 US Presidential Campaign",
         status: "forthcoming",
       }),
     );

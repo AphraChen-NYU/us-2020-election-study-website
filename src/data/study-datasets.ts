@@ -474,7 +474,9 @@ const publicationGroups: StudyDatasetGroup[] = peerReviewedPapers.map((paper) =>
   studyLabel: paper.studyLabel,
   filterLabel: paper.citation
     ? `${paper.studyLabel} (${paper.citation.authors.split(",")[0]} et al., ${paper.citation.yearLabel})`
-    : `${paper.studyLabel} (Forthcoming)`,
+    : paper.authors[0]
+      ? `${paper.studyLabel} (${paper.authors[0].trim().split(/\s+/).at(-1)} et al., Forthcoming)`
+      : `${paper.studyLabel} (Forthcoming)`,
   title: paper.title,
   status: paper.status,
   datasets: (datasetIdsByPaperId[paper.id] ?? []).map((datasetId) => studyDatasets[datasetId]),

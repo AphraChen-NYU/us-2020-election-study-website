@@ -92,7 +92,7 @@ describe("peer-reviewed papers dataset", () => {
     }
   });
 
-  it("has nine published papers and two forthcoming papers, including the Vote Choice placeholder", () => {
+  it("has nine published papers and two forthcoming papers, including verified Vote Choice authors", () => {
     const published = peerReviewedPapers.filter((paper) => paper.status === "published");
     const forthcoming = peerReviewedPapers.filter((paper) => paper.status === "forthcoming");
 
@@ -125,8 +125,37 @@ describe("peer-reviewed papers dataset", () => {
     expect(forthcoming.find((paper) => paper.id === "vote-choice")).toEqual({
       id: "vote-choice",
       studyLabel: "Vote Choice",
-      title: "Vote Choice",
-      authors: [],
+      title:
+        "Campaigns Reinforce Partisanship and Short-Term Forces: Evidence from a Large-Scale Panel Study of the 2020 US Presidential Campaign",
+      authors: [
+        "Matthew Tyler",
+        "Shanto Iyengar",
+        "Arjun Wilkins",
+        "Hunt Allcott",
+        "Pablo Barberá",
+        "Taylor Brown",
+        "Adriana Crespo-Tenorio",
+        "Deen Freelon",
+        "Sandra González-Bailón",
+        "Andrew M. Guess",
+        "Young Mie Kim",
+        "David Lazer",
+        "Neil Malhotra",
+        "Devra Moehler",
+        "Brendan Nyhan",
+        "Jennifer Pan",
+        "Jaime Settle",
+        "Emily Thorson",
+        "Rebekah Tromble",
+        "Carlos Velasco Rivera",
+        "Magdalena Wojcieszak",
+        "Beixian Xiong",
+        "Annie Franco",
+        "Chad Kiewiet de Jonge",
+        "Winter Mason",
+        "Natalie Jomini Stroud",
+        "Joshua A. Tucker",
+      ],
       abstract: "",
       citation: null,
       publicationLinks: [],

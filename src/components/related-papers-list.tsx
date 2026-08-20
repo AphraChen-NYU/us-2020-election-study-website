@@ -200,25 +200,25 @@ export function RelatedPapersList() {
                           <ChevronDown aria-hidden="true" className="size-4 shrink-0" />
                         </button>
                       ) : (
-                        <p data-publication-placeholder={paper.id} className="text-sm font-semibold text-[#52606d]">
-                          Publication link forthcoming.
-                        </p>
-                      )}
-                      {paper.citation ? (
                         <button
                           type="button"
-                          onClick={() => setCitationPaper(paper)}
-                          className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#14213d]/22 bg-white px-5 py-2.5 text-sm font-bold text-[#14213d] transition-colors hover:border-[#147d79]/55 hover:text-[#147d79]"
+                          onClick={() => setPublicationLinksPaper(paper)}
+                          className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#14213d] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#147d79] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
                         >
-                          Cite this paper
+                          View publication
                           <span className="sr-only">: {paper.title}</span>
-                          <BookOpenText aria-hidden="true" className="size-4" />
+                          <ExternalLink aria-hidden="true" className="size-4" />
                         </button>
-                      ) : (
-                        <p data-citation-placeholder={paper.id} className="text-sm font-semibold text-[#52606d]">
-                          Citation information forthcoming.
-                        </p>
                       )}
+                      <button
+                        type="button"
+                        onClick={() => setCitationPaper(paper)}
+                        className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#14213d]/22 bg-white px-5 py-2.5 text-sm font-bold text-[#14213d] transition-colors hover:border-[#147d79]/55 hover:text-[#147d79]"
+                      >
+                        Cite this paper
+                        <span className="sr-only">: {paper.title}</span>
+                        <BookOpenText aria-hidden="true" className="size-4" />
+                      </button>
                     </div>
                   </div>
                 </div>

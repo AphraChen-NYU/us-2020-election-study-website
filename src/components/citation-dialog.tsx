@@ -17,7 +17,7 @@ export function CitationDialog({ paper, onClose }: CitationDialogProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (!paper?.citation) return;
+    if (!paper) return;
 
     const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const previousOverflow = document.body.style.overflow;
@@ -63,7 +63,7 @@ export function CitationDialog({ paper, onClose }: CitationDialogProps) {
     };
   }, [paper, onClose]);
 
-  if (!paper?.citation) return null;
+  if (!paper) return null;
   const citation = paper.citation;
 
   return createPortal(
@@ -96,35 +96,44 @@ export function CitationDialog({ paper, onClose }: CitationDialogProps) {
         </header>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-7 sm:px-8 sm:py-9">
-          <div className="rounded-2xl border border-[#14213d]/12 bg-white px-5 py-5 sm:px-6">
-            <p className="break-words text-base leading-8 text-[#35435b]">
-              {citation.authors} ({citation.yearLabel}). {getPaperCitationTitle(paper)}
-              {paper.journal ? (
-                <>
-                  {" "}
-                  <cite className="italic">
-                    {paper.journal}
-                    {citation.volume ? `, ${citation.volume}` : ""}
-                  </cite>
-                  {citation.issue ? `(${citation.issue})` : ""}
-                  {citation.locator ? `, ${citation.locator}` : ""}.
-                </>
-              ) : null}
-              {citation.doi ? (
-                <>
-                  {" "}
-                  <a
-                    href={citation.doi}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-[#147d79] underline decoration-[#147d79]/35 underline-offset-4 transition-colors hover:text-[#0f625f] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
-                  >
-                    {citation.doi}
-                  </a>
-                </>
-              ) : null}
+          {citation ? (
+            <div className="rounded-2xl border border-[#14213d]/12 bg-white px-5 py-5 sm:px-6">
+              <p className="break-words text-base leading-8 text-[#35435b]">
+                {citation.authors} ({citation.yearLabel}). {getPaperCitationTitle(paper)}
+                {paper.journal ? (
+                  <>
+                    {" "}
+                    <cite className="italic">
+                      {paper.journal}
+                      {citation.volume ? `, ${citation.volume}` : ""}
+                    </cite>
+                    {citation.issue ? `(${citation.issue})` : ""}
+                    {citation.locator ? `, ${citation.locator}` : ""}.
+                  </>
+                ) : null}
+                {citation.doi ? (
+                  <>
+                    {" "}
+                    <a
+                      href={citation.doi}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-[#147d79] underline decoration-[#147d79]/35 underline-offset-4 transition-colors hover:text-[#0f625f] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#147d79]"
+                    >
+                      {citation.doi}
+                    </a>
+                  </>
+                ) : null}
+              </p>
+            </div>
+          ) : (
+            <p
+              data-citation-unavailable={paper.id}
+              className="rounded-2xl border border-[#14213d]/12 bg-white px-5 py-5 text-base leading-8 text-[#35435b] sm:px-6"
+            >
+              Citation information Forthcoming
             </p>
-          </div>
+          )}
         </div>
       </div>
     </div>,

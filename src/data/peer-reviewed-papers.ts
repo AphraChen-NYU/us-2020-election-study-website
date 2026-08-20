@@ -578,8 +578,37 @@ const suppliedPapers: PeerReviewedPaper[] = [
   {
     id: "vote-choice",
     studyLabel: "Vote Choice",
-    title: "Vote Choice",
-    authors: [],
+    title:
+      "Campaigns Reinforce Partisanship and Short-Term Forces: Evidence from a Large-Scale Panel Study of the 2020 US Presidential Campaign",
+    authors: [
+      "Matthew Tyler",
+      "Shanto Iyengar",
+      "Arjun Wilkins",
+      "Hunt Allcott",
+      "Pablo Barberá",
+      "Taylor Brown",
+      "Adriana Crespo-Tenorio",
+      "Deen Freelon",
+      "Sandra González-Bailón",
+      "Andrew M. Guess",
+      "Young Mie Kim",
+      "David Lazer",
+      "Neil Malhotra",
+      "Devra Moehler",
+      "Brendan Nyhan",
+      "Jennifer Pan",
+      "Jaime Settle",
+      "Emily Thorson",
+      "Rebekah Tromble",
+      "Carlos Velasco Rivera",
+      "Magdalena Wojcieszak",
+      "Beixian Xiong",
+      "Annie Franco",
+      "Chad Kiewiet de Jonge",
+      "Winter Mason",
+      "Natalie Jomini Stroud",
+      "Joshua A. Tucker",
+    ],
     abstract: "",
     citation: null,
     publicationLinks: [],
@@ -600,6 +629,8 @@ export const peerReviewedPapers = [...suppliedPapers].sort((left, right) => {
   }
 
   if (left.status === "forthcoming") {
+    if (left.id === "vote-choice") return 1;
+    if (right.id === "vote-choice") return -1;
     return comparePaperTitles(left, right);
   }
 
